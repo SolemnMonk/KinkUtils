@@ -41,6 +41,7 @@ it out to a text file. The following is gathered and compiled:
 * User rating
 * Studio/site
 * Cover image
+
 It does this by looking at the first 1-5 characters of the filename and using that as a shoot ID. 
 By default, Kink.com shoot filenames are, by default, always prepended by a numeric string which is 
 their ID. Without this ID, kink_util.py can do nothing. The cover image is saved in the directory 
