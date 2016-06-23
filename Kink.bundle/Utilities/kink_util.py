@@ -43,48 +43,29 @@ def PerformKinkSearch(shoot_id):
 	stage = None
 	try:
 		stage = "title"
-		data["title"] = PerformTitleSearch(response)
+		data[stage] = PerformTitleSearch(response)
 		stage = "date"
-		data["date"] = PerformDateSearch(response)
+		data[stage] = PerformDateSearch(response)
 		stage = "summary"
-		data["summary"] = PerformSummarySearch(response_long)
+		data[stage]= PerformSummarySearch(response_long)
 		stage = "actors"
-		data["actors"] = PerformActorSearch(response, shoot_id)
+		data[stage] = PerformActorSearch(response, shoot_id)
 		stage = "tags"
-		data["tags"] = PerformTagSearch(response)
+		data[stage] = PerformTagSearch(response)
 		stage = "rating"
-		data["rating"] = PerformRatingSearch(shoot_id)
+		data[stage] = PerformRatingSearch(shoot_id)
 		stage = "studio"
-		data["studio"] = PerformStudioSearch(response)
+		data[stage] = PerformStudioSearch(response)
 		stage = "cover"
-		data["cover"] = PerformCoverArtSearch(response)
+		data[stage] = PerformCoverArtSearch(response)
 	except re.error as e:
-		raise IOError("Regular expression error raised in " + stage + " stage.\nError: " + str(e) + 
+		raise IOError("Regular expression error raised in stage " + stage + ".\nError: " + str(e) + 
 		"\n\nHTML:" + response)
 	except urllib2.HTTPError as e:
-		raise IOError("HTTPError raised during stage" + stage + ".\nError: " + str(e))
+		raise IOError("HTTPError raised during stage " + stage + ".\nError: " + str(e))
 	except urllib2.URLError as e:
-		raise IOError("URLError raised during stage" + stage + ".\nError: " + str(e))
+		raise IOError("URLError raised during stage " + stage + ".\nError: " + str(e))
 		
-	data["id"] = data["id"].zfill(5)
-	
-	return data
-	
-def PerformKinkUpdate(shoot_id):
-	data = {"id" : shoot_id}
-	
-	shoot_url = KINK_BASE_SHOOT_URL % shoot_id
-	data["url"] = shoot_url
-	
-	request = urllib2.Request(shoot_url, headers=KINK_HEADERS)
-	response = urllib2.urlopen(request)
-	response_long = response.read()
-	response = response_long.replace('\n', "")
-	response = response.replace('\r', "")
-	
-	data["rating"] = PerformRatingSearch(shoot_id)
-	data["cover"] = PerformCoverArtSearch(response)
-	
 	data["id"] = data["id"].zfill(5)
 	
 	return data
@@ -290,7 +271,6 @@ def StudioLookUp(studio):
 		if studio == studio_map[1]:
 			return studio_map[0]
 	
-####################################################################################################
 def ConvertMonth(month_name):
 	if month_name == "January":
 		return "01"
@@ -316,6 +296,8 @@ def ConvertMonth(month_name):
 		return "11"
 	elif month_name == "December":
 		return "12"
+
+####################################################################################################
 
 def GetSiteDirs():
 	global SITE_DIRS
@@ -355,18 +337,17 @@ def GetActors():
 def Main():
 	start = datetime.now()
 	print "Run start: " + str(start)
+	
+	if len(sys.argv) is not 2:
+		print "Invalid arguments!"
+		sys.exit(0)
+			
 	path = sys.argv[1]
+	
 	if not os.path.isdir(path):
 		print "Not a valid directory!"
 		sys.exit(0)
-	else:
-		if len(sys.argv) is 3:
-			mode = sys.argv[2]
-		else:
-			mode = "full"
-		if mode != "update" and mode != "full":
-			mode = "full"
-			
+	else:	
 		GetSiteDirs()
 		GetActors()
 			
@@ -400,22 +381,20 @@ def Main():
 						try:
 							if not got_data:
 								print "Getting data for " + os.path.basename(f) + " (" + str(counter) + "/" + str(len(mp4set)) + ")"
-								if mode == "full":
-									shoot_data = PerformKinkSearch(id)
-								elif mode == "update":
-									shoot_data = PerformKinkUpdate(id)
+								shoot_data = PerformKinkSearch(id)
 								got_data = True
 							if not got_cover:
 								print "Getting cover for " + os.path.basename(f) + " (" + str(counter) + "/" + str(len(mp4set)) + ")"
 								DownloadCover(id, s, shoot_data["cover"])
 								got_cover = True
-						except socket.error:
+						except IOError as e:
+							print "Encountered IOError. Error: " + str(e)
 							continue
-					AddLine(shoot_data, s, f, lines, mode)
+					AddLine(shoot_data, s, f, lines)
 					if DEBUG:
 						for d in sorted(shoot_data):
 							print "\t" + d + ": " + str(shoot_data[d])
-			WriteToFile(lines, s, mode)
+			WriteToFile(lines, s)
 		
 		if len(missing_actors) != 0:
 			print ""
@@ -434,41 +413,36 @@ def DownloadCover(id, path, url):
 	id = id.zfill(5)
 	urllib.urlretrieve(url, os.path.join(path, id + url[-4:]))
 		
-def AddLine(shoot_data, path, file_path, lines, mode):
+def AddLine(shoot_data, path, file_path, lines):
 	line = []
 	
 	line.append(os.path.join(path, file_path))
 	line.append("Shoot ID: " + shoot_data["id"])
-	if mode == "full":
-		line.append(shoot_data["studio"])
-		line.append(shoot_data["title"])
-		line.append(shoot_data["date"]["day"] + shoot_data["date"]["month"])
-		line.append(shoot_data["date"]["year"])
-		
-		women = [shoot_data["actors"][x] for x in shoot_data["actors"] if shoot_data["actors"][x]["gender"] == "Female"]
-		men = [shoot_data["actors"][x] for x in shoot_data["actors"] if shoot_data["actors"][x]["gender"] == "Male"]
-		other = [shoot_data["actors"][x] for x in shoot_data["actors"] if shoot_data["actors"][x]["gender"] != "Male" and shoot_data["actors"][x]["gender"] != "Female"]
-		women.sort(key=lambda a:a["weight"])
-		men.sort(key=lambda a:a["name"])
-		other.sort(key=lambda a:a["name"])
-		women = women[::-1]
-		line.append('/'.join([x["name"] for x in (women + other + men)]))
-		#line.append('/'.join([shoot_data["actors"][x]["name"] for x in shoot_data["actors"]]))
-		
-		line.append(PrepareComment(shoot_data))
-		line.append(str(int(float(shoot_data["rating"]) / 5 * 255)))
-		line.append("Kink.com")
-		line.append("Kink.com")
-	elif mode == "update":
-		line.append(str(int(float(shoot_data["rating"]) / 5 * 255)))
+
+	line.append(shoot_data["studio"])
+	line.append(shoot_data["title"])
+	line.append(shoot_data["date"]["day"] + shoot_data["date"]["month"])
+	line.append(shoot_data["date"]["year"])
+	
+	women = [shoot_data["actors"][x] for x in shoot_data["actors"] if shoot_data["actors"][x]["gender"] == "Female"]
+	men = [shoot_data["actors"][x] for x in shoot_data["actors"] if shoot_data["actors"][x]["gender"] == "Male"]
+	other = [shoot_data["actors"][x] for x in shoot_data["actors"] if shoot_data["actors"][x]["gender"] != "Male" and shoot_data["actors"][x]["gender"] != "Female"]
+	women.sort(key=lambda a:a["weight"])
+	men.sort(key=lambda a:a["name"])
+	other.sort(key=lambda a:a["name"])
+	women = women[::-1]
+	line.append('/'.join([x["name"] for x in (women + other + men)]))
+	#line.append('/'.join([shoot_data["actors"][x]["name"] for x in shoot_data["actors"]]))
+	
+	line.append(PrepareComment(shoot_data))
+	line.append(str(int(float(shoot_data["rating"]) / 5 * 255)))
+	line.append("Kink.com")
+	line.append("Kink.com")
 		
 	lines.append('|'.join(line) + "\n")
 
-def WriteToFile(lines, path, mode):
-	if mode == "full":
-		f = open(os.path.join(path, "tags.txt"), "w")
-	elif mode == "update":
-		f = open(os.path.join(path, "updates.txt"), "w")
+def WriteToFile(lines, path):
+	f = open(os.path.join(path, "tags.txt"), "w")
 	f.writelines(lines)
 	f.close()
 
