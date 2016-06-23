@@ -32,7 +32,7 @@ I've got 3 tools included as of the initial commit:
 ### kink_util.py ###
 
 kink_util.py is a self-contained utility to download metadata related to Kink.com shoots and save 
-it out to a text file. The following is gathered and compiled:
+it out to a text file specifically for MP3Tag to read. The following is gathered and compiled:
 * Title
 * Release date
 * Synopsis
@@ -46,7 +46,7 @@ It does this by looking at the first 1-5 characters of the filename and using th
 By default, Kink.com shoot filenames are, by default, always prepended by a numeric string which is 
 their ID. Without this ID, kink_util.py can do nothing. The cover image is saved in the directory 
 containing the shoot, and the filename is just the shoot ID padded with 0s to make the name 5 
-characters.
+characters. Each line in the text file is an entry for 1 file containing everything but the image data.
 
 ### kink_checker.py ###
 
@@ -70,6 +70,24 @@ are used in Kink.com's pages
 obtained on the date in the filename
 * Info.plist to list and register the metadata agent with a Plex server
 * Another copy of the aforementioned text files
+
+## MP3Tag Info ##
+
+MP3Tag is capable of applying metadata to MP4 files. It can handle other file types, too, but I'm 
+only concerned with MP4 files. Here are the format strings I've written and where they're used.
+
+`%_path%|%comment%|%album%|%title%|%TDAT%|%year%|%artist%|%TIT2%|%POPM%|%composer%|%albumartist%`
+This is used when importing tag data from a text file into MP4 files.
+
+`Kink.com\%album%\$cutLeft(%comment%,10) (%year%.$right(%TDAT%,2).$left(%TDAT%,2)) - %title%`
+This is my preferred format string for renaming a file according to its tag. The format is 
+something like `Kink.com\<site>\<ID> (<year>.<month>.<day>) - <title>.mp4` You can use absolute 
+paths with this, too, for more precision.
+
+`$cutLeft(%comment%,10).jpg`
+This is for creating a custom MP3Tag action to import the covert image. "Import cover from file" 
+and "Import cover as" should be "Front Cover." I recommend checking the box to delete any existing 
+cover art.
 
 ## What's Next? ##
 
