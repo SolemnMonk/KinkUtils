@@ -8,7 +8,7 @@ KINK_ID_REGEX = "^[0-9]+"
 KINK_BASE_SHOOT_URL = "http://www.kink.com/shoot/%s"
 KINK_BASE_MODEL_URL = "http://www.kink.com/model/%s"
 KINK_BASE_RATING_URL = "http://www.kink.com/api/ratings/%s"
-KINK_HEADERS = {"User-Agent" : "Plex Agent"}
+KINK_HEADERS = {"User-Agent" : "Kink Util"}
 
 SITE_DIRS = []
 ACTORS = []
@@ -22,8 +22,15 @@ def PerformKinkSearch(shoot_id):
 	shoot_url = KINK_BASE_SHOOT_URL % shoot_id
 	data["url"] = shoot_url
 	
-	request = urllib2.Request(shoot_url, headers=KINK_HEADERS)
-	response = urllib2.urlopen(request)
+	request = None
+	response = None
+	try:
+		request = urllib2.Request(shoot_url, headers=KINK_HEADERS)
+		response = urllib2.urlopen(request)
+	except urllib2.HTTPError as e:
+		raise IOError("HTTPError while opening shoot page.\nError: " + str(e))
+	except urllib2.URLError as e:
+		raise IOError("URLError while opening shoot page.\nError: " + str(e))
 	response_long = response.read()
 	response = response_long.replace('\n', "")
 	response = response.replace('\r', "")
@@ -33,15 +40,32 @@ def PerformKinkSearch(shoot_id):
 	#f.write(response_long)
 	#f.close()
 	
-	data["title"] = PerformTitleSearch(response)
-	data["date"] = PerformDateSearch(response)
-	data["summary"] = PerformSummarySearch(response_long)
-	data["actors"] = PerformActorSearch(response, shoot_id)
-	data["tags"] = PerformTagSearch(response)
-	data["rating"] = PerformRatingSearch(shoot_id)
-	data["studio"] = PerformStudioSearch(response)
-	data["cover"] = PerformCoverArtSearch(response)
-	
+	stage = None
+	try:
+		stage = "title"
+		data["title"] = PerformTitleSearch(response)
+		stage = "date"
+		data["date"] = PerformDateSearch(response)
+		stage = "summary"
+		data["summary"] = PerformSummarySearch(response_long)
+		stage = "actors"
+		data["actors"] = PerformActorSearch(response, shoot_id)
+		stage = "tags"
+		data["tags"] = PerformTagSearch(response)
+		stage = "rating"
+		data["rating"] = PerformRatingSearch(shoot_id)
+		stage = "studio"
+		data["studio"] = PerformStudioSearch(response)
+		stage = "cover"
+		data["cover"] = PerformCoverArtSearch(response)
+	except re.error as e:
+		raise IOError("Regular expression error raised in " + stage + " stage.\nError: " + str(e) + 
+		"\n\nHTML:" + response)
+	except urllib2.HTTPError as e:
+		raise IOError("HTTPError raised during stage" + stage + ".\nError: " + str(e))
+	except urllib2.URLError as e:
+		raise IOError("URLError raised during stage" + stage + ".\nError: " + str(e))
+		
 	data["id"] = data["id"].zfill(5)
 	
 	return data
