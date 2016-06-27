@@ -3,7 +3,7 @@ from datetime import datetime
 
 # Kink.com
 DEBUG = False
-KINK_ID_REGEX = "^[0-9]+" #Shared
+KINK_ID_REGEX = re.compile("^[0-9]+") #Shared
 KINK_BASE_SHOOT_URL = "http://www.kink.com/shoot/%s" #Shared
 KINK_BASE_MODEL_URL = "http://www.kink.com/model/%s" #Shared
 KINK_BASE_RATING_URL = "http://www.kink.com/api/ratings/%s" #Shared
@@ -335,6 +335,34 @@ def GetActors(): #Shared
 	women.sort(key=lambda a:a["weight"])
 	women = women[::-1]
 
+def FindIdInFileName(filename): #Shared
+	id_match = KINK_ID_REGEX.match(f)
+	if id_match is not None:
+		return str(int(id_match.group(0)))
+	else:
+		return None
+	
+def GetShootData(id, folder, file):
+	try:
+		shoot_data = PerformKinkSearch(id)
+	except IOError as e:
+		print "IOError encountered while getting shoot data. Attempting to save error to file."
+		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file)))
+		
+	except Exception as e:
+		print "Exception encountered while getting shoot data. Attempting to save error to file."
+		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file))
+		
+def GetCoverImage(id, folder, file, cover_link):
+	try:
+		DownloadCover(id, folder, cover_link)
+	except IOError as e:
+		print "IOError encountered while downloading cover image. Attempting to save error to file."
+		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file))
+	except Exception as e:
+		print "Exception encountered while downloading cover image. Attempting to save error to file."
+		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file))
+			
 def Main():
 	start = datetime.now()
 	print "Run start: " + str(start)
@@ -367,44 +395,40 @@ def Main():
 			print "Now scanning " + os.path.split(s)[1]
 			print ""
 			files = os.listdir(s)
-			id_regex = re.compile(KINK_ID_REGEX)
 			lines = []
+			retries = []
 			counter = 0
 			mp4set = [x for x in files if x.endswith(".mp4")]
 			for f in mp4set:
 				counter += 1
-				match = id_regex.match(f)
-				if match is not None:
-					id = str(int(match.group(0)))
+				id = FineIdInFileName(f)
+				if id is not None:
 					tries = 0
-					while tries <= 5:
+					success = False
+					while not success and tries <= 5:
 						tries += 1
 						print "Getting data for " + os.path.basename(f) + " (File " + str(counter) + " of " + str(len(mp4set)) + "; Try " + tries + " of 5)"
-						try:
-							shoot_data = PerformKinkSearch(id)
-						except IOError as e:
-							print "IOError encountered while getting shoot data. Attempting to save error to file."
-							WriteErrorToFile(e, os.path.abspath(os.path.join(s, f)))
-							continue
-						except Exception as e:
-							print "Exception encountered while getting shoot data. Attempting to save error to file."
-							WriteErrorToFile(e, os.path.abspath(os.path.join(s, f))
-							continue
-						try:
-							DownloadCover(id, s, shoot_data["cover"])
-						except IOError as e:
-							print "IOError encountered while downloading cover image. Attempting to save error to file."
-							WriteErrorToFile(e, os.path.abspath(os.path.join(s, f))
-							continue
-						except Exception as e:
-							print "Exception encountered while downloading cover image. Attempting to save error to file."
-							WriteErrorToFile(e, os.path.abspath(os.path.join(s, f))
-							continue
-						break
+						GetShootData(id, s, f)
+						GetCoverImage(id, s, f, shoot_data["cover"])
+						success = True
+					if not success:
+						print "Data retrieval for " + os.path.basename(f) + " failed. Adding to retry queue."
+						retries.append(f)
+						continue
 					AddLine(shoot_data, s, f, lines)
 					if DEBUG:
 						for d in sorted(shoot_data):
 							print "\t" + d + ": " + str(shoot_data[d])
+			tries = 0
+			success = False
+			if len(retries) > 0:
+				for f in retries:
+					while not success and tries <= 10
+					tries += 1
+					print "Getting data for " + os.path.basename(f) + " (File " + str(counter) + " of " + str(len(mp4set)) + "; Try " + tries + " of 10)"
+					GetShootData(id, s, f)
+					GetCoverImage(id, s, f, shoot_data["cover"])
+					success = True
 			saved = False
 			tries = 1
 			while not saved and tries <= 5:
