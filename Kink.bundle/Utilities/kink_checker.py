@@ -71,22 +71,12 @@ def WriteResult(result):
 	time = datetime.now().strftime("%Y.%m.%d@%H:%M:%S:%f")
 	message.append(time + '\n')
 	message.append(("=" * len(time)) + '\n')
+	
+	lines = []
 	if result == ALL_SHOOTS_LOCAL_MESSAGE:
 		message.append(result + '\n')
 		message.append(('-' * len(ALL_SHOOTS_LOCAL_MESSAGE)) + '\n')
-		message = "".join(message)
-		message = markdown.markdown(message)
-		file = open(RESULT_FILE_PATH, "r")
-		message += file.read()
-		file.close()
-		file = open(RESULT_FILE_PATH, "w")
-		file.write(message + '\n')
-		file.write(old_contents)
-		file.close()
-		return
-		
-	lines = []
-	if len(result) is 1:
+	elif len(result) is 1:
 		message.append(NEW_SHOOT_FOUND_MESSAGE + '\n')
 		message.append(("-" * len(NEW_SHOOT_FOUND_MESSAGE)) + '\n')
 		result = result[0].split('|')
@@ -105,9 +95,10 @@ def WriteResult(result):
 	
 	message = "".join(message)
 	message = markdown.markdown(message)
-	file = open(RESULT_FILE_PATH, "r")
-	message += file.read()
-	file.close()
+	if os.path.exists(RESULT_FILE_PATH):
+		file = open(RESULT_FILE_PATH, "r")
+		message += file.read()
+		file.close()
 	file = open(RESULT_FILE_PATH, "w")
 	file.write(message + '\n')
 	file.close()
