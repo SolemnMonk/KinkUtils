@@ -376,7 +376,7 @@ def Main():
 	if not os.path.isdir(path):
 		print "Not a valid directory!"
 		sys.exit(0)
-	else:	
+	else:
 		GetSiteDirs()
 		GetActors()
 			
@@ -451,6 +451,7 @@ def Main():
 				print ""
 
 	end = datetime.now()
+	print "Run start: " + str(start)
 	print "Run end: " + str(end)
 	print "Duration: " + str(end - start)
 	
