@@ -9,7 +9,7 @@ KINK_HEADERS = {"User-Agent" : "Plex Agent"}
 
 SITE_DIRS = []
 
-RESULT_FILE_PATH = os.path.join(os.path.join(os.path.expanduser("~"), "Desktop"), "kink_checker_results.md")
+RESULT_FILE_PATH = os.path.join(os.path.join(os.path.expanduser("~"), "Desktop"), "kink_checker_results.htm")
 
 ALL_SHOOTS_LOCAL_MESSAGE = "All shoots found for existing site directories!"
 NEW_SHOOT_FOUND_MESSAGE = "New Shoot Found"
