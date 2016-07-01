@@ -16,10 +16,10 @@ NEW_SHOOT_FOUND_MESSAGE = "New Shoot Found"
 NEW_SHOOTS_FOUND_MESSAGE = "New Shoots Found"
 
 def GetShootsPage(channel_name, page_num):
-	if page_num <= 1:
+	if page_num > 0:
+		site_url = KINK_BASE_URL % (channel_name, page_num)
+	else:
 		site_url = (KINK_BASE_URL % (channel_name, ""))[:-6]
-	else:	
-		site_url = KINK_BASE_URL % (channel_name, page_num - 1)
 		
 	request = urllib2.Request(site_url, headers=KINK_HEADERS)
 	response = urllib2.urlopen(request)
@@ -158,7 +158,7 @@ def Main():
 			shoot_ids = []
 			
 			while len(shoot_ids) % 20 is 0 and found_remote:
-				page_num = (len(shoot_ids) / 20) + 1
+				page_num = (len(shoot_ids) / 20)
 				latest_shoots_page = GetShootsPage(site_dir[1], page_num)
 				latest_shoot_ids = GetShootIds(latest_shoots_page)
 
