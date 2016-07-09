@@ -90,7 +90,9 @@ def WriteResult(result):
 			if line[0] != current_site:
 				current_site = line[0]
 				lines.append('\n' + current_site + "\n\n")
-			lines.append('* ' + line[1] + '\n')
+			link = line[1].split(' ')[1]
+			link = '[' + link + "](http://www.kink.com/shoot/" + link + ')'
+			lines.append('* ID: ' + link + '\n')
 		message += lines
 	
 	message = "".join(message)
