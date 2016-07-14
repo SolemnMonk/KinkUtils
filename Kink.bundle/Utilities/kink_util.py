@@ -66,7 +66,7 @@ def PerformKinkSearch(shoot_id): #Shared
 		raise IOError("HTTPError raised during stage " + stage + ".\nError: " + str(e))
 	except urllib2.URLError as e:
 		raise IOError("URLError raised during stage " + stage + ".\nError: " + str(e))
-	except Exception e:
+	except Exception as e:
 		raise Exception("Exception raised during stage " + stage + ".\nError: " + str(e))
 		
 	data["id"] = data["id"].zfill(5)
@@ -336,32 +336,33 @@ def GetActors(): #Shared
 	women = women[::-1]
 
 def FindIdInFileName(filename): #Shared
-	id_match = KINK_ID_REGEX.match(f)
+	id_match = KINK_ID_REGEX.match(filename)
 	if id_match is not None:
 		return str(int(id_match.group(0)))
 	else:
 		return None
 	
 def GetShootData(id, folder, file):
+	shoot_data = None
 	try:
 		shoot_data = PerformKinkSearch(id)
 	except IOError as e:
 		print "IOError encountered while getting shoot data. Attempting to save error to file."
-		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file)))
-		
+		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file)))		
 	except Exception as e:
 		print "Exception encountered while getting shoot data. Attempting to save error to file."
-		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file))
-		
+		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file)))
+	return shoot_data
+	
 def GetCoverImage(id, folder, file, cover_link):
 	try:
 		DownloadCover(id, folder, cover_link)
 	except IOError as e:
 		print "IOError encountered while downloading cover image. Attempting to save error to file."
-		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file))
+		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file)))
 	except Exception as e:
 		print "Exception encountered while downloading cover image. Attempting to save error to file."
-		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file))
+		WriteErrorToFile(e, os.path.abspath(os.path.join(folder, file)))
 			
 def Main():
 	start = datetime.now()
@@ -398,17 +399,18 @@ def Main():
 			lines = []
 			retries = []
 			counter = 0
+			shoot_data = None
 			mp4set = [x for x in files if x.endswith(".mp4")]
 			for f in mp4set:
 				counter += 1
-				id = FineIdInFileName(f)
+				id = FindIdInFileName(f)
 				if id is not None:
 					tries = 0
 					success = False
 					while not success and tries <= 5:
 						tries += 1
-						print "Getting data for " + os.path.basename(f) + " (File " + str(counter) + " of " + str(len(mp4set)) + "; Try " + tries + " of 5)"
-						GetShootData(id, s, f)
+						print "Getting data for " + os.path.basename(f) + " (File " + str(counter) + " of " + str(len(mp4set)) + "; Try " + str(tries) + " of 5)"
+						shoot_data = GetShootData(id, s, f)
 						GetCoverImage(id, s, f, shoot_data["cover"])
 						success = True
 					if not success:
@@ -423,17 +425,17 @@ def Main():
 			success = False
 			if len(retries) > 0:
 				for f in retries:
-					while not success and tries <= 10
-					tries += 1
-					print "Getting data for " + os.path.basename(f) + " (File " + str(counter) + " of " + str(len(mp4set)) + "; Try " + tries + " of 10)"
-					GetShootData(id, s, f)
-					GetCoverImage(id, s, f, shoot_data["cover"])
-					success = True
+					while not success and tries <= 10:
+						tries += 1
+						print "Getting data for " + os.path.basename(f) + " (File " + str(counter) + " of " + str(len(mp4set)) + "; Try " + str(tries) + " of 10)"
+						shoot_data = GetShootData(id, s, f)
+						GetCoverImage(id, s, f, shoot_data["cover"])
+						success = True
 			saved = False
 			tries = 1
 			while not saved and tries <= 5:
 				try:
-					print "Attempt " + tries + "/5"
+					print "Attempt " + str(tries) + "/5 to export the tags."
 					WriteToFile(lines, s)
 				except Exception as e:
 					print str(e)
@@ -470,7 +472,7 @@ def AddLine(shoot_data, path, file_path, lines):
 	line = []
 	
 	line.append(os.path.join(path, file_path))
-	line.append("Shoot ID: " + shoot_data["id"])
+	line.append("Shoot ID: " + str(shoot_data["id"]))
 
 	line.append(shoot_data["studio"])
 	line.append(shoot_data["title"])
@@ -515,7 +517,7 @@ def WriteErrorToFile(error, file):
 		
 def PrepareComment(shoot_data):
 	comment = "";
-	comment += "Site: " + shoot_data["studio"] + "<br/><br/>"
+	comment += "Site: " + str(shoot_data["studio"]) + "<br/><br/>"
 	comment += "Shoot ID: " + shoot_data["id"] + "<br/><br/>"
 	comment += "Title: " + shoot_data["title"] + "<br/><br/>"
 	comment += "Performers: " + ', '.join([shoot_data["actors"][x]["name"] for x in shoot_data["actors"]]) + "<br/><br/>"
