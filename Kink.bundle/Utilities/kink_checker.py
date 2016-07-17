@@ -80,7 +80,8 @@ def WriteResult(result):
 		message.append(NEW_SHOOT_FOUND_MESSAGE + '\n')
 		message.append(("-" * len(NEW_SHOOT_FOUND_MESSAGE)) + '\n')
 		result = result[0].split('|')
-		message.append(result[0] + "\n\n* " + result[1] + '\n')
+		link = '[' + result[1].split(' ')[1] + "](http://www.kink.com/shoot/" + result[1].split(' ')[1] + ')'
+		message.append(result[0] + "\n\n* ID: " + link + '\n')
 	else:
 		message.append(NEW_SHOOTS_FOUND_MESSAGE + '\n')
 		message.append(("-" * len(NEW_SHOOTS_FOUND_MESSAGE)) + '\n')
