@@ -293,7 +293,7 @@ def StudioLookUp(studio):
 	for studio_map in SITE_DIRS:
 		if studio == studio_map[1]:
 			return studio_map[0]
-		return "Foot Worship"
+
 ####################################################################################################
 class KinkAgent(Agent.Movies):
 	name = AGENT_NAME
