@@ -84,7 +84,7 @@ This is my preferred format string for renaming a file according to its tag. The
 something like `Kink.com\<site>\<ID> (<year>.<month>.<day>) - <title>.mp4` You can use absolute 
 paths with this, too, for more precision.
 
-`$cutLeft(%comment%,10).jpg`
+`$cutLeft(%comment%,10)_cover.jpg`
 This is for creating a custom MP3Tag action to import the covert image. "Import cover from file" 
 and "Import cover as" should be "Front Cover." I recommend checking the box to delete any existing 
 cover art.
