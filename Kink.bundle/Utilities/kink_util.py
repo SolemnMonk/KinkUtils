@@ -461,7 +461,7 @@ def Main():
 def DownloadCover(id, path, url):
 	id = id.zfill(5)
 	try:
-		urllib.urlretrieve(url, os.path.join(path, id + url[-4:]))
+		urllib.urlretrieve(url, os.path.join(path, id + "_cover" + url[-4:]))
 	except urllib2.HTTPError as e:
 		raise IOError("HTTPError raised while downloading cover image.\nError: " + str(e))
 	except urllib2.URLError as e:
