@@ -3,8 +3,8 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-menusToShow=26
-shootsToDownload=26
+menusToShow=40
+shootsToDownload=40
 
 OpenShoots() {
 	Send, {Down}{Down}{Down}
@@ -66,12 +66,12 @@ NextTab() {
 	return
 
 ; Open the download menu on the current page
-^2::
+^!2::
 	ShowMenus()
 	return
 
 ; Open the download menu for the active tabs
-^!2::
+^2::
 	Sleep, 1000
 	Loop, %menusToShow% {
 		ShowMenus()
@@ -81,12 +81,12 @@ NextTab() {
 	return
 
 ; Right click the download link and active DTA 1Click
-^3::
+^!3::
 	ClickDownload()
 	return
 
 ; Right click the download link and active DTA 1Click for the active tabs
-^!3::
+^3::
 	Sleep, 1000
 	Loop, %shootsToDownload% {
 		ClickDownload()
