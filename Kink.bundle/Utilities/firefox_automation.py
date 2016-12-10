@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.firefox.webdriver import FirefoxProfile
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 
 SITE_DIRS = []
 CREDENTIAL_STORE = []
@@ -148,7 +148,8 @@ def Main():
 	GetCredentials()
 	
 	try:
-		profile = FirefoxProfile("absolute/path/to/firefox/profile")
+		profile = FirefoxProfile("C:/Users/MrNakaan/AppData/Roaming/Mozilla/Firefox/Profiles/75txmt6e.Selenium/")
+		sys.exit(0)
 		browser = webdriver.Firefox(profile)
 		browser.implicitly_wait(5)
 	except:
@@ -171,7 +172,10 @@ def Main():
 	else:
 		print "Please specify either the 'url=<url>' or the 'channel=<channel>' option"
 		sys.exit(0)
-	
+	print url
+	print channel_name
+	print site_name
+	sys.exit(0)
 	download_location = os.path.dirname(os.path.realpath(__file__))
 	if sys.argv[2].startswith("download="):
 		download_location = sys.argv[2][9:]

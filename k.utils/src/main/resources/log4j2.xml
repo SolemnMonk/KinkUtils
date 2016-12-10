@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	configDebug="true">
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<File name="kUtils" fileName="kUtils.log" append="true">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+		<File name="actorUtils" fileName="actorUtils.log" append="true">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+		<File name="shootUtils" fileName="shootUtils.log" append="true">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+	</Appenders>
+	<Loggers>
+		<Root level="ERROR">
+			<AppenderRef ref="console" />
+		</Root>
+		<logger name="org.apache.wicket" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</logger>
+		<logger name="monk.solemn.k.utils" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</logger>
+		<logger name="monk.solemn.k.utils.actor.ActorUtils" level="TRACE" additivity="false">
+			<AppenderRef ref="actorUtils" />
+		</logger>
+		<logger name="monk.solemn.k.utils.shoot.ShootUtils" level="TRACE" additivity="false">
+			<AppenderRef ref="shootUtils" />
+		</logger>
+	</Loggers>
+</log4j:configuration>

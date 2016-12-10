@@ -1,0 +1,31 @@
+aria2 1.29.0
+============
+
+Release Note
+------------
+
+This release fixes several bugs.  See Changes below for detailed bug
+fixes.  This release adds 1xx non-final response support.  Wslay
+library is updated to the latest revision.
+
+Changes
+-------
+
+* WinTLS: Fix busy loop on write error
+
+  GH-767
+
+* Support 1xx non-final response
+
+  GH-763
+
+* Update wslay
+
+  GH-764
+
+* Don't download piece which is filtered out (e.g., --select-file)
+
+  This commit fixes the bug that piece which is not requested by
+  --select-file is downloaded in multi-file Web-Seeding.
+
+  GH-769
