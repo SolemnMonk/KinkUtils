@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Plugin-Dependencies: 
+Plugin-Id: plugin-kink
+Built-By: MrNakaan
+Plugin-Provider: Solemn Monk
+Plugin-Version: 0.0.1
+Plugin-Class: monk.solemn.kutils.kink_plugin.KinkPlugin
+Build-Jdk: 1.8.0_91
+Created-By: Maven Integration for Eclipse
+

@@ -3,19 +3,20 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>monk.solemn.kutils</groupId>
-	<artifactId>plugin-template</artifactId>
+	<artifactId>plugin-kink</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>plugin-template</name>
+	<name>plugin-kink</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<plugin.id>plugin-id</plugin.id>
-		<plugin.class>monk.solemn.kutils.plugin-package.PluginBase</plugin.class>
+		<plugin.id>plugin-kink</plugin.id>
+		<plugin.class>monk.solemn.kutils.kink_plugin.KinkPlugin</plugin.class>
 		<plugin.version>0.0.1</plugin.version>
-		<plugin.provider>Joe Shmoe</plugin.provider>
+		<plugin.provider>Solemn Monk</plugin.provider>
+		<plugins.dir>../../kUtils/plugins</plugins.dir>
 		<plugin.dependencies />
 	</properties>
 
@@ -54,20 +55,52 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.3</version>
+				<artifactId>maven-source-plugin</artifactId>
 				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/assembly.xml</descriptor>
-					</descriptors>
-					<appendAssemblyId>false</appendAssemblyId>
+					<outputDirectory>${plugins.dir}</outputDirectory>
+					<finalName>${plugin.id}</finalName>
 				</configuration>
 				<executions>
 					<execution>
-						<id>make-assembly</id>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${plugins.dir}</outputDirectory>
+					<finalName>${plugin.id}</finalName>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptor>src/assembly/bin.xml</descriptor>
+					<finalName>${plugin.id}</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<outputDirectory>${plugins.dir}</outputDirectory>
+				</configuration>
+				<executions>
+					<execution>
 						<phase>package</phase>
 						<goals>
-							<goal>attached</goal>
+							<goal>single</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -118,6 +151,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>monk.solemn.kutils</groupId>
 			<artifactId>objects</artifactId>
 			<version>0.0.1</version>
@@ -133,6 +171,18 @@
 			<groupId>monk.solemn.kutils</groupId>
 			<artifactId>data-access</artifactId>
 			<version>0.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>monk.solemn.kutils</groupId>
+			<artifactId>utilities-high</artifactId>
+			<version>0.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.3.6.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
