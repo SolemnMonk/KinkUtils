@@ -1,0 +1,18 @@
+-buildpath: \
+	osgi.annotation;version=6.0.1,\
+	osgi.core,\
+	kUtils.objects;version=latest,\
+	kUtils.utils.low;version=latest,\
+	org.apache.wicket.core
+
+-baseline: *
+javac.source: 1.8
+javac.target: 1.8
+
+Bundle-Version: 1.0.0.${tstamp}
+Export-Package: \
+	monk.solemn.kutils.api,\
+	monk.solemn.kutils.api.action,\
+	monk.solemn.kutils.api.authentication,\
+	monk.solemn.kutils.api.base
+

@@ -2,9 +2,7 @@ package monk.solemn.kutils.api.authentication;
 
 import org.openqa.selenium.WebDriver;
 
-import ro.fortsoft.pf4j.ExtensionPoint;
-
-public interface SeleniumAuthentication extends ExtensionPoint {
+public interface SeleniumAuthentication {
 	boolean login(WebDriver driver);
 	
 	void logout(WebDriver driver);

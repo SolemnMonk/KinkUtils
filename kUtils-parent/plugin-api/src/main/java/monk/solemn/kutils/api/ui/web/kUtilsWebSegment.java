@@ -2,9 +2,7 @@ package monk.solemn.kutils.api.ui.web;
 
 import org.apache.wicket.markup.html.WebPage;
 
-import ro.fortsoft.pf4j.ExtensionPoint;
-
-public interface kUtilsWebSegment extends ExtensionPoint {
+public interface kUtilsWebSegment {
 	/**
 	 * Gets the URL to mount this section to such as /pluginInterface
 	 */

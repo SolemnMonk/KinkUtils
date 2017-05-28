@@ -1,1 +1,4 @@
 /target/
+/plugins/
+/.apt_generated/
+/generated/

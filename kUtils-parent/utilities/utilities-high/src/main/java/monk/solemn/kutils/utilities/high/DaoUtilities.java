@@ -1,13 +1,15 @@
 package monk.solemn.kutils.utilities.high;
 
-import monk.solemn.kutils.dao.ActorDao;
-import monk.solemn.kutils.dao.ConfigDao;
-import monk.solemn.kutils.dao.CredentialDao;
-import monk.solemn.kutils.dao.ShootDao;
-import monk.solemn.kutils.spring.component.ActorDaoService;
-import monk.solemn.kutils.spring.component.ConfigDaoService;
-import monk.solemn.kutils.spring.component.CredentialDaoService;
-import monk.solemn.kutils.spring.component.ShootDaoService;
+import monk.solemn.kutils.data.dao.ActorDao;
+import monk.solemn.kutils.data.dao.ConfigDao;
+import monk.solemn.kutils.data.dao.CredentialDao;
+import monk.solemn.kutils.data.dao.FileStorageDao;
+import monk.solemn.kutils.data.dao.ShootDao;
+import monk.solemn.kutils.data.spring.component.ActorDaoService;
+import monk.solemn.kutils.data.spring.component.ConfigDaoService;
+import monk.solemn.kutils.data.spring.component.CredentialDaoService;
+import monk.solemn.kutils.data.spring.component.FileStorageDaoService;
+import monk.solemn.kutils.data.spring.component.ShootDaoService;
 
 public class DaoUtilities {
 	public static ActorDao getActorDao() {
@@ -24,5 +26,9 @@ public class DaoUtilities {
 	
 	public static ShootDao getShootDao() {
 		return SpringUtilities.getSpringContext().getBean(ShootDaoService.class).getShootDao();
+	}
+	
+	public static FileStorageDao getFileStorageDao() {
+		return SpringUtilities.getSpringContext().getBean(FileStorageDaoService.class).getFileStorageDao();
 	}
 }

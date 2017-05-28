@@ -1,5 +1,6 @@
 package monk.solemn.kutils.kink_plugin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -9,12 +10,6 @@ import monk.solemn.kutils.objects.QueuedTask;
 
 public class Ripper {
 	public static void performRip(WebDriver driver, QueuedTask task) {
-		/*
-		 * navigate to shoot page
-		 * count shoots
-		 * rip each shoot
-		 * if 20 shoots, go to next page
-		 */
 		boolean siteHasMoreShoots = true;
 		int shootsOnPage = 0;
 		List<WebElement> shootLinks;
@@ -23,7 +18,7 @@ public class Ripper {
 			KinkUtilities.navigateToShootPage(driver, task, page);
 			shootLinks = KinkUtilities.getShootLinks(driver);
 			shootsOnPage = KinkUtilities.countShoots(shootLinks);
-			
+
 			if (shootsOnPage == 0) {
 				siteHasMoreShoots = false;
 				continue;
@@ -32,13 +27,19 @@ public class Ripper {
 			} else {
 				siteHasMoreShoots = false;
 			}
-			
+
+			List<String> links = new ArrayList<>();
 			for (WebElement link : shootLinks) {
-				ripShoot(driver, link.getAttribute("href"), task);
+				links.add(link.getAttribute("href"));
 			}
-		}
+
+			for (String link : links) {
+				ripShoot(driver, link, task);
+				driver.navigate().back();
+			}
+		 }
 	}
-	
+
 	private static void ripShoot(WebDriver driver, String url, QueuedTask task) {
 		Downloader.downloadShoot(driver, url, task);
 	}

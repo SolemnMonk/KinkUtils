@@ -1,0 +1,21 @@
+-buildpath: \
+	osgi.annotation;version=6.0.1,\
+	osgi.core;version=6.0,\
+	osgi.cmpn;version=6.0,\
+	org.apache.commons.collections4,\
+	kUtils.data.api;version=latest,\
+	kUtils.objects;version=latest,\
+	kUtils.utils.low;version=latest,\
+	com.google.gson,\
+	command-response;version=latest
+
+-testpath: \
+	${junit}
+
+javac.source: 1.8
+javac.target: 1.8
+
+Bundle-Version: 0.0.0.${tstamp}
+
+Export-Package: monk.solemn.kutils.utilities.high
+Bundle-Activator: monk.solemn.kutils.utilities.high.Activator

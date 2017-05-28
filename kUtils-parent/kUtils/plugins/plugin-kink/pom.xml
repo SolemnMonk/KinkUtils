@@ -16,8 +16,9 @@
 		<plugin.class>monk.solemn.kutils.kink_plugin.KinkPlugin</plugin.class>
 		<plugin.version>0.0.1</plugin.version>
 		<plugin.provider>Solemn Monk</plugin.provider>
-		<plugins.dir>../../kUtils/plugins</plugins.dir>
+		<plugin.packaging>jar</plugin.packaging>
 		<plugin.dependencies />
+		<plugins.dir>../../kUtils/plugins</plugins.dir>
 	</properties>
 
 	<build>
@@ -42,7 +43,7 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<unzip src="target/${artifactId}-${version}.${packaging}"
+								<unzip src="target/${plugin.id}-${plugin.version}.${plugin.packaging}"
 									dest="target/plugin-classes" />
 							</target>
 						</configuration>
@@ -56,6 +57,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
 				<configuration>
 					<outputDirectory>${plugins.dir}</outputDirectory>
 					<finalName>${plugin.id}</finalName>
@@ -70,22 +72,23 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<outputDirectory>${plugins.dir}</outputDirectory>
-					<finalName>${plugin.id}</finalName>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-javadoc-plugin</artifactId> -->
+<!-- 				<version>2.10.4</version> -->
+<!-- 				<configuration> -->
+<!-- 					<outputDirectory>${plugins.dir}</outputDirectory> -->
+<!-- 					<finalName>${plugin.id}</finalName> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>attach-javadocs</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>jar</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -125,6 +128,7 @@
 
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>

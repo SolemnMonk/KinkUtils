@@ -4,8 +4,8 @@
 
 	<groupId>monk.solemn.kutils</groupId>
 	<artifactId>utilities-low</artifactId>
-	<version>0.0.1</version>
-	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<packaging>bundle</packaging>
 
 	<name>utilities-low</name>
 	<url>http://maven.apache.org</url>
@@ -16,6 +16,20 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>2.2.0</version>
+				<configuration>
+					<instructions>
+						<Import-Package>*</Import-Package>
+						<Export-Package>monk.solemn.kutils.utilities.low.*</Export-Package>
+						<Bundle-Activator>monk.solemn.kutils.utilities.low.Activator</Bundle-Activator>
+						<Bundle-SymbolicName>kuils.utils-low</Bundle-SymbolicName>
+					</instructions>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -30,6 +44,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
@@ -39,6 +58,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
 		</dependency>
 	</dependencies>
 	<description>A collection of utility methods that do not rely on anything else in kUtils.</description>

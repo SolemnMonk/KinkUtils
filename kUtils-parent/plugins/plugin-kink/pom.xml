@@ -4,8 +4,8 @@
 
 	<groupId>monk.solemn.kutils</groupId>
 	<artifactId>plugin-kink</artifactId>
-	<version>0.0.1</version>
-	<packaging>jar</packaging>
+	<version>0.9.0</version>
+	<packaging>bundle</packaging>
 
 	<name>plugin-kink</name>
 	<url>http://maven.apache.org</url>
@@ -16,12 +16,26 @@
 		<plugin.class>monk.solemn.kutils.kink_plugin.KinkPlugin</plugin.class>
 		<plugin.version>0.0.1</plugin.version>
 		<plugin.provider>Solemn Monk</plugin.provider>
-		<plugins.dir>../../kUtils/plugins</plugins.dir>
+		<plugin.packaging>jar</plugin.packaging>
 		<plugin.dependencies />
+		<plugins.dir>../../kUtils/plugins</plugins.dir>
 	</properties>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Export-Package>monk.solemn.kutils.plugin.kink.*</Export-Package>
+						<Bundle-Activator>monk.solemn.kutils.plugin.kink.Activator</Bundle-Activator>
+						<Bundle-SymbolicName>kutils.plugin.kink</Bundle-SymbolicName>
+					</instructions>
+				</configuration>
+			</plugin>
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -32,30 +46,31 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<execution>
-						<id>unzip jar file</id>
-						<phase>package</phase>
-						<configuration>
-							<target>
-								<unzip src="target/${artifactId}-${version}.${packaging}"
-									dest="target/plugin-classes" />
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-antrun-plugin</artifactId> -->
+<!-- 				<version>1.6</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>unzip jar file</id> -->
+<!-- 						<phase>package</phase> -->
+<!-- 						<configuration> -->
+<!-- 							<target> -->
+<!-- 								<unzip src="target/${plugin.id}-${plugin.version}.${plugin.packaging}" -->
+<!-- 									dest="target/plugin-classes" /> -->
+<!-- 							</target> -->
+<!-- 						</configuration> -->
+<!-- 						<goals> -->
+<!-- 							<goal>run</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
 				<configuration>
 					<outputDirectory>${plugins.dir}</outputDirectory>
 					<finalName>${plugin.id}</finalName>
@@ -70,41 +85,42 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<outputDirectory>${plugins.dir}</outputDirectory>
-					<finalName>${plugin.id}</finalName>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-javadoc-plugin</artifactId> -->
+<!-- 				<version>2.10.4</version> -->
+<!-- 				<configuration> -->
+<!-- 					<outputDirectory>${plugins.dir}</outputDirectory> -->
+<!-- 					<finalName>${plugin.id}</finalName> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>attach-javadocs</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>jar</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptor>src/assembly/bin.xml</descriptor>
-					<finalName>${plugin.id}</finalName>
-					<appendAssemblyId>false</appendAssemblyId>
-					<outputDirectory>${plugins.dir}</outputDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-assembly-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<descriptor>src/assembly/bin.xml</descriptor> -->
+<!-- 					<finalName>${plugin.id}</finalName> -->
+<!-- 					<appendAssemblyId>false</appendAssemblyId> -->
+<!-- 					<outputDirectory>${plugins.dir}</outputDirectory> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>package</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>single</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -123,12 +139,13 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<artifactId>maven-deploy-plugin</artifactId> -->
+<!-- 				<version>2.8.2</version> -->
+<!-- 				<configuration> -->
+<!-- 					<skip>true</skip> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 
@@ -164,19 +181,19 @@
 		<dependency>
 			<groupId>monk.solemn.kutils</groupId>
 			<artifactId>utilities-low</artifactId>
-			<version>0.0.1</version>
+			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>monk.solemn.kutils</groupId>
 			<artifactId>data-access</artifactId>
-			<version>0.0.1</version>
+			<version>0.9.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>monk.solemn.kutils</groupId>
 			<artifactId>utilities-high</artifactId>
-			<version>0.0.1</version>
+			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -184,6 +201,11 @@
 			<artifactId>spring-context</artifactId>
 			<version>4.3.6.RELEASE</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>6.0.0</version>
 		</dependency>
 	</dependencies>
 </project>

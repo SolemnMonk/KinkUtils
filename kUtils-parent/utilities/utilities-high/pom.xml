@@ -4,8 +4,8 @@
 
 	<groupId>monk.solemn.kutils</groupId>
 	<artifactId>utilities-high</artifactId>
-	<version>0.0.1</version>
-	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<packaging>bundle</packaging>
 
 	<name>utilities-high</name>
 	<url>http://maven.apache.org</url>
@@ -16,6 +16,42 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>2.2.0</version>
+				<configuration>
+					<instructions>
+						<Import-Package>!org.springframework.*,*</Import-Package>
+						<Export-Package>monk.solemn.kutils.utilities.high.*</Export-Package>
+						<Bundle-Activator>monk.solemn.kutils.utilities.high.Activator</Bundle-Activator>
+						<Bundle-SymbolicName>kutils.utils-high</Bundle-SymbolicName>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<minimizeJar>true</minimizeJar>
+							<artifactSet>
+								<includes>
+									<include>org.springframework:*</include>
+									<include>org.seleniumhq.selenium:selenium-java</include>
+								</includes>
+							</artifactSet>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -30,6 +66,35 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>monk.solemn.kutils</groupId>
+			<artifactId>objects</artifactId>
+			<version>0.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>monk.solemn.kutils</groupId>
+			<artifactId>data-access</artifactId>
+			<version>0.9.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>monk.solemn.kutils</groupId>
+			<artifactId>utilities-low</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.3.6.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
@@ -39,30 +104,6 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
-		</dependency>
-		<dependency>
-			<groupId>monk.solemn.kutils</groupId>
-			<artifactId>objects</artifactId>
-			<version>0.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>4.3.6.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>monk.solemn.kutils</groupId>
-			<artifactId>data-access</artifactId>
-			<version>0.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>monk.solemn.kutils</groupId>
-			<artifactId>utilities-low</artifactId>
-			<version>0.0.1</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

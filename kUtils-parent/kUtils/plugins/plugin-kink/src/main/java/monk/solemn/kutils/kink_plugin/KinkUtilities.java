@@ -51,6 +51,11 @@ public class KinkUtilities {
 		return date;
 	}
 	
+	public static String formatDate(Date date) {
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+		return dateFormatter.format(date);
+	}
+	
 	public static List<String> parseTags(String rawTags) {
 		List<String> tags = new LinkedList<>();
 		String[] tagArray = null;

@@ -5,7 +5,7 @@
 	<groupId>monk.solemn.kutils</groupId>
 	<artifactId>objects</artifactId>
 	<version>0.0.1</version>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 
 	<name>objects</name>
 	<url>http://maven.apache.org</url>
@@ -16,6 +16,20 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>2.2.0</version>
+				<configuration>
+					<instructions>
+						<Import-Package>*</Import-Package>
+						<Export-Package>monk.solemn.kutils.objects.*</Export-Package>
+						<Bundle-Activator>monk.solemn.kutils.objects.Activator</Bundle-Activator>
+						<Bundle-SymbolicName>kutils.objects</Bundle-SymbolicName>
+					</instructions>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -30,6 +44,17 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>monk.solemn.kutils</groupId>
+			<artifactId>utilities-low</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
@@ -39,11 +64,6 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
-		</dependency>
-		<dependency>
-			<groupId>monk.solemn.kutils</groupId>
-			<artifactId>utilities-low</artifactId>
-			<version>0.0.1</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -12,7 +12,9 @@ import monk.solemn.kutils.api.base.NetworkBase;
 import monk.solemn.kutils.api.base.PluginBase;
 import monk.solemn.kutils.api.base.SeleniumPlugin;
 import monk.solemn.kutils.dao.ActorDao;
+import monk.solemn.kutils.dao.ConfigDao;
 import monk.solemn.kutils.dao.CredentialDao;
+import monk.solemn.kutils.dao.FileStorageDao;
 import monk.solemn.kutils.dao.ShootDao;
 import monk.solemn.kutils.enums.Action;
 import monk.solemn.kutils.enums.ContentType;
@@ -43,7 +45,9 @@ public class KinkPlugin extends Plugin implements PluginBase, NetworkBase, Selen
 	private static ActorDao actorDao;
 	private static CredentialDao credentialDao;
 	private static ShootDao shootDao;
-	
+	private static FileStorageDao fileStorageDao;
+	private static ConfigDao configDao; 
+
 	public KinkPlugin(PluginWrapper wrapper) {
 		super(wrapper);
 		
@@ -60,6 +64,8 @@ public class KinkPlugin extends Plugin implements PluginBase, NetworkBase, Selen
 		actorDao = DaoUtilities.getActorDao();
 		credentialDao = DaoUtilities.getCredentialDao();
 		shootDao = DaoUtilities.getShootDao();
+		fileStorageDao = DaoUtilities.getFileStorageDao();
+		configDao = DaoUtilities.getConfigDao();
 		
 		System.out.println(pluginId + " started");
 	}
@@ -225,7 +231,15 @@ public class KinkPlugin extends Plugin implements PluginBase, NetworkBase, Selen
 	public static ShootDao getShootDao() {
 		return shootDao;
 	}
+	
+	public static FileStorageDao getFileStorageDao() {
+		return fileStorageDao;
+	}
 
+	public static ConfigDao getConfigDao() {
+		return configDao;
+	}
+	
 	@Override
 	public void run() {
 		if (queuedTask.getTask().getAction() == Action.Rip) {
@@ -237,6 +251,7 @@ public class KinkPlugin extends Plugin implements PluginBase, NetworkBase, Selen
 		}
 	}
 
+	//TODO
 	private void performDownload() {
 
 	}
