@@ -148,3 +148,63 @@
 2017-05-30 17:37:15,547 [Downloading C:\Users\Mr. Nakaan\.bnd\shacache\shas\FFCF6B27FB3320E17EBA9DF41132FFA1E92EDA2D\org.apache.felix.http.jetty-3.1.6.jar] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="8ba5bfbce3cf7b3df74cd22a727691f8", code=200, modified=Wed Jan 06 04:32:15 CST 2016, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.http.jetty/3.1.6/org.apache.felix.http.jetty-3.1.6.jar, state=UPDATED]
 2017-05-30 17:37:15,573 [Downloading C:\Users\Mr. Nakaan\.bnd\shacache\shas\B770CB77BD16C820153498BB3B2D0AD23A4B112B\org.apache.felix.webconsole-4.2.16.all.jar] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="a6ab6e82c42749e3dec5cd2137af5abc", code=200, modified=Tue May 31 02:26:14 CDT 2016, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.webconsole/4.2.16/org.apache.felix.webconsole-4.2.16-all.jar, state=UPDATED]
 2017-05-30 17:37:15,573 [Downloading C:\Users\Mr. Nakaan\.bnd\shacache\shas\B770CB77BD16C820153498BB3B2D0AD23A4B112B\org.apache.felix.webconsole-4.2.16.all.jar] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="a6ab6e82c42749e3dec5cd2137af5abc", code=200, modified=Tue May 31 02:26:14 CDT 2016, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.webconsole/4.2.16/org.apache.felix.webconsole-4.2.16-all.jar, state=UPDATED]
+2017-06-05 23:17:02,773 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:02,837 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:02,844 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download http://search.maven.org/remotecontent?filepath=org/apache/felix/org.apache.felix.coordinator/1.0.2/org.apache.felix.coordinator-1.0.2.jar
+2017-06-05 23:17:02,845 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET http://search.maven.org/remotecontent?filepath=org/apache/felix/org.apache.felix.coordinator/1.0.2/org.apache.felix.coordinator-1.0.2.jar
+2017-06-05 23:17:03,053 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:03,055 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:03,062 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.coordinator/1.0.2/org.apache.felix.coordinator-1.0.2.jar
+2017-06-05 23:17:03,062 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.coordinator/1.0.2/org.apache.felix.coordinator-1.0.2.jar
+2017-06-05 23:17:03,276 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="89cf7f3e3ec7ebefe930ae0a3b0d18e9", code=200, modified=Mon Nov 09 03:19:06 CST 2015, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.coordinator/1.0.2/org.apache.felix.coordinator-1.0.2.jar, state=UPDATED]
+2017-06-05 23:17:03,276 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="89cf7f3e3ec7ebefe930ae0a3b0d18e9", code=200, modified=Mon Nov 09 03:19:06 CST 2015, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.coordinator/1.0.2/org.apache.felix.coordinator-1.0.2.jar, state=UPDATED]
+2017-06-05 23:17:03,530 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:03,530 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:03,536 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download http://search.maven.org/remotecontent?filepath=org/apache/felix/org.apache.felix.fileinstall/3.5.4/org.apache.felix.fileinstall-3.5.4.jar
+2017-06-05 23:17:03,536 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET http://search.maven.org/remotecontent?filepath=org/apache/felix/org.apache.felix.fileinstall/3.5.4/org.apache.felix.fileinstall-3.5.4.jar
+2017-06-05 23:17:03,665 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:03,665 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:03,684 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.fileinstall/3.5.4/org.apache.felix.fileinstall-3.5.4.jar
+2017-06-05 23:17:03,685 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.fileinstall/3.5.4/org.apache.felix.fileinstall-3.5.4.jar
+2017-06-05 23:17:03,722 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="13f1728bab3a986c7a0df465ea174a44", code=200, modified=Fri Apr 01 09:57:28 CDT 2016, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.fileinstall/3.5.4/org.apache.felix.fileinstall-3.5.4.jar, state=UPDATED]
+2017-06-05 23:17:03,722 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="13f1728bab3a986c7a0df465ea174a44", code=200, modified=Fri Apr 01 09:57:28 CDT 2016, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.fileinstall/3.5.4/org.apache.felix.fileinstall-3.5.4.jar, state=UPDATED]
+2017-06-05 23:17:03,944 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:03,944 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:03,950 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download http://search.maven.org/remotecontent?filepath=org/apache/felix/org.apache.felix.log/1.0.1/org.apache.felix.log-1.0.1.jar
+2017-06-05 23:17:03,950 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET http://search.maven.org/remotecontent?filepath=org/apache/felix/org.apache.felix.log/1.0.1/org.apache.felix.log-1.0.1.jar
+2017-06-05 23:17:04,088 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:04,089 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:04,098 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.log/1.0.1/org.apache.felix.log-1.0.1.jar
+2017-06-05 23:17:04,099 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.log/1.0.1/org.apache.felix.log-1.0.1.jar
+2017-06-05 23:17:04,141 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="cab96700b91fe85adc07f08b6fd7cdb9", code=200, modified=Mon Mar 28 10:48:48 CDT 2011, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.log/1.0.1/org.apache.felix.log-1.0.1.jar, state=UPDATED]
+2017-06-05 23:17:04,141 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="cab96700b91fe85adc07f08b6fd7cdb9", code=200, modified=Mon Mar 28 10:48:48 CDT 2011, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.log/1.0.1/org.apache.felix.log-1.0.1.jar, state=UPDATED]
+2017-06-05 23:17:04,322 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:04,322 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:04,332 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download http://search.maven.org/remotecontent?filepath=org/apache/felix/org.apache.felix.scr/2.0.6/org.apache.felix.scr-2.0.6.jar
+2017-06-05 23:17:04,332 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET http://search.maven.org/remotecontent?filepath=org/apache/felix/org.apache.felix.scr/2.0.6/org.apache.felix.scr-2.0.6.jar
+2017-06-05 23:17:04,452 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:04,453 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:04,458 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.scr/2.0.6/org.apache.felix.scr-2.0.6.jar
+2017-06-05 23:17:04,458 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.scr/2.0.6/org.apache.felix.scr-2.0.6.jar
+2017-06-05 23:17:04,534 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="948e2a695e00377341eae905136c9b6f", code=200, modified=Wed Aug 03 01:16:31 CDT 2016, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.scr/2.0.6/org.apache.felix.scr-2.0.6.jar, state=UPDATED]
+2017-06-05 23:17:04,534 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="948e2a695e00377341eae905136c9b6f", code=200, modified=Wed Aug 03 01:16:31 CDT 2016, url=https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.scr/2.0.6/org.apache.felix.scr-2.0.6.jar, state=UPDATED]
+2017-06-05 23:17:04,836 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:04,836 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:04,841 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download http://search.maven.org/remotecontent?filepath=org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar
+2017-06-05 23:17:04,841 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET http://search.maven.org/remotecontent?filepath=org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar
+2017-06-05 23:17:04,976 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:04,976 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:04,986 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar
+2017-06-05 23:17:04,987 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar
+2017-06-05 23:17:05,025 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="c1967f0a515c4b8155f62478ec823464", code=200, modified=Wed Dec 31 10:43:33 CST 2014, url=https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar, state=UPDATED]
+2017-06-05 23:17:05,025 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="c1967f0a515c4b8155f62478ec823464", code=200, modified=Wed Dec 31 10:43:33 CST 2014, url=https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar, state=UPDATED]
+2017-06-05 23:17:05,279 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:05,279 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:05,284 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download http://search.maven.org/remotecontent?filepath=org/objenesis/objenesis/2.2/objenesis-2.2.jar
+2017-06-05 23:17:05,284 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET http://search.maven.org/remotecontent?filepath=org/objenesis/objenesis/2.2/objenesis-2.2.jar
+2017-06-05 23:17:05,415 [Worker-28] INFO  aQute.bnd.http.HttpClient - Proxy handlers []
+2017-06-05 23:17:05,415 [Worker-28] INFO  aQute.bnd.http.HttpClient - URL Connection handlers []
+2017-06-05 23:17:05,426 [Worker-28] INFO  a.bnd.build.LoggingProgressPlugin - Download https://repo1.maven.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar
+2017-06-05 23:17:05,426 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET https://repo1.maven.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar
+2017-06-05 23:17:05,456 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="799f73a51c85025c132ef8caa8ad0b77", code=200, modified=Wed Aug 12 09:35:23 CDT 2015, url=https://repo1.maven.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar, state=UPDATED]
+2017-06-05 23:17:05,456 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="799f73a51c85025c132ef8caa8ad0b77", code=200, modified=Wed Aug 12 09:35:23 CDT 2015, url=https://repo1.maven.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar, state=UPDATED]

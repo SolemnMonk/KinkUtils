@@ -18,6 +18,7 @@ import hall.caleb.selenium.objects.command.GoToCommand;
 import hall.caleb.selenium.objects.command.MultiResultSelectorCommand;
 import hall.caleb.selenium.objects.command.ReadAttributeCommand;
 import hall.caleb.selenium.objects.command.SelectorCommand;
+import hall.caleb.selenium.objects.command.WaitCommand;
 import hall.caleb.selenium.objects.response.ChainResponse;
 import hall.caleb.selenium.objects.response.MultiResultResponse;
 import hall.caleb.selenium.objects.response.Response;
@@ -63,6 +64,12 @@ public class SeleniumServerUtilities {
 	
 	public static Response sendSeleniumCommand(ReadAttributeCommand command) {
 		String jsonOut = new Gson().toJson(command, ReadAttributeCommand.class);
+		String jsonIn = sendAndReceive(jsonOut);
+		return parseResponse(jsonIn);
+	}
+	
+	public static Response sendSeleniumCommand(WaitCommand command) {
+		String jsonOut = new Gson().toJson(command, WaitCommand.class);
 		String jsonIn = sendAndReceive(jsonOut);
 		return parseResponse(jsonIn);
 	}

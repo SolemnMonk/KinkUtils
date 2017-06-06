@@ -11,7 +11,16 @@
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.aries.blueprint)',\
-	osgi.identity;filter:='(osgi.identity=kutils.utils.low)'
+	osgi.identity;filter:='(osgi.identity=kUtils.data.api)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.data.impl)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.objects)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.plugin.api)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.utils.high)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.utils.low)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.plugin.hookup-hotshot)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.plugin.lexi-belle-raw)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.plugin.suicide-girls)',\
+	osgi.identity;filter:='(osgi.identity=kUtils.plugin.wicked-pictures)'
 -runfw: org.apache.felix.framework;version='[5.4.0,5.4.0]'
 -runee: JavaSE-1.8
 
@@ -24,8 +33,22 @@
 	org.apache.aries.blueprint;version='[1.1.0,1.1.1)',\
 	org.apache.aries.proxy;version='[1.0.0,1.0.1)',\
 	org.apache.aries.util;version='[1.0.0,1.0.1)',\
-	org.apache.felix.configadmin;version='[1.8.10,1.8.11)',\
 	slf4j.api;version='[1.7.25,1.7.26)',\
-	kutils.utils.low;version=snapshot,\
 	org.apache.commons.io;version='[2.5.0,2.5.1)',\
-	org.apache.commons.lang3;version='[3.5.0,3.5.1)'
+	org.apache.commons.lang3;version='[3.5.0,3.5.1)',\
+	com.google.gson;version='[2.3.1,2.3.2)',\
+	com.mysql.cj;version='[6.0.5,6.0.6)',\
+	command-response;version='[0.11.0,0.11.1)',\
+	kUtils.data.api;version=snapshot,\
+	kUtils.data.impl;version=snapshot,\
+	kUtils.objects;version=snapshot,\
+	kUtils.plugin.api;version=snapshot,\
+	kUtils.plugin.hookup-hotshot;version='[0.0.0,0.0.1)',\
+	kUtils.plugin.lexi-belle-raw;version='[0.0.0,0.0.1)',\
+	kUtils.plugin.suicide-girls;version='[0.0.0,0.0.1)',\
+	kUtils.plugin.wicked-pictures;version='[0.0.0,0.0.1)',\
+	kUtils.utils.high;version=snapshot,\
+	kUtils.utils.low;version=snapshot,\
+	org.apache.commons.collections4;version='[4.1.0,4.1.1)',\
+	org.apache.felix.configadmin;version='[1.8.14,1.8.15)',\
+	org.apache.felix.scr;version='[2.0.6,2.0.7)'
