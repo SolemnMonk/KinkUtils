@@ -1,0 +1,53 @@
+package monk.solemn.kutils.plugin.lexi_belle_raw;
+
+import java.text.MessageFormat;
+import java.util.UUID;
+
+import hall.caleb.selenium.enums.SelectorType;
+import hall.caleb.selenium.objects.command.Command;
+import hall.caleb.selenium.objects.command.CommandFactory;
+import hall.caleb.selenium.objects.command.GoToCommand;
+import hall.caleb.selenium.objects.command.SelectorCommand;
+import hall.caleb.selenium.objects.response.SingleResultResponse;
+import monk.solemn.kutils.objects.QueuedTask;
+import monk.solemn.kutils.utilities.high.SeleniumServerUtilities;
+
+public class Ripper {
+	public static void performRip(UUID seleniumId, QueuedTask task) {
+		String videoBaseUrl = LexiBelleRawPlugin.getUrl("VideosPage");
+		String imageBaseUrl = LexiBelleRawPlugin.getUrl("VideosPage");
+		Command command;
+		Integer page = 1;
+		Integer results;
+		
+		do {
+			command = CommandFactory.newGoToCommand(seleniumId, MessageFormat.format(videoBaseUrl, page));
+			SeleniumServerUtilities.sendSeleniumCommand((GoToCommand) command);
+			command = CommandFactory.newCountCommand(seleniumId, SelectorType.Xpath, LexiBelleRawPlugin.getXpath("CardTitle"));
+			results = Integer.parseInt(((SingleResultResponse) SeleniumServerUtilities.sendSeleniumCommand((SelectorCommand) command)).getResult());
+			
+			ripVideos(seleniumId, task);
+			
+			page++;
+		} while (results == 10);
+		
+		do {
+			command = CommandFactory.newGoToCommand(seleniumId, MessageFormat.format(imageBaseUrl, page));
+			SeleniumServerUtilities.sendSeleniumCommand((GoToCommand) command);
+			command = CommandFactory.newCountCommand(seleniumId, SelectorType.Xpath, LexiBelleRawPlugin.getXpath("CardTitle"));
+			results = Integer.parseInt(((SingleResultResponse) SeleniumServerUtilities.sendSeleniumCommand((SelectorCommand) command)).getResult());
+			
+			ripPictures(seleniumId, task);
+			
+			page++;
+		} while (results == 10);
+	}
+
+	private static void ripVideos(UUID seleniumId, QueuedTask task) {
+
+	}
+
+	private static void ripPictures(UUID seleniumId, QueuedTask task) {
+
+	}
+}

@@ -1,0 +1,30 @@
+package monk.solemn.kutils.plugin.lexi_belle_raw;
+
+import java.sql.SQLException;
+import java.util.UUID;
+
+import hall.caleb.selenium.enums.SelectorType;
+import hall.caleb.selenium.objects.command.Command;
+import hall.caleb.selenium.objects.command.CommandFactory;
+import monk.solemn.kutils.objects.QueuedTask;
+import monk.solemn.kutils.objects.Shoot;
+import monk.solemn.kutils.utilities.high.SeleniumServerUtilities;
+import monk.solemn.kutils.utilities.high.ShootUtilities;
+
+public class Downloader {
+	public static void downloadVideo(UUID seleniumId, QueuedTask task, String url) {
+		SeleniumServerUtilities.sendSeleniumCommand(CommandFactory.newGoToCommand(seleniumId, url));
+		
+		Command command = CommandFactory.newReadTextCommand(seleniumId, SelectorType.Xpath, "", 1);
+		command.setSelector(KinkPlugin.getXpath("ShootTitle"), SeleniumSelectorType.Xpath);
+		String title = SeleniumServerUtilities.sendSeleniumCommand(command).getText();
+		
+		Shoot shoot;
+		try {
+			shoot = ShootUtilities.getShootByTitle(title);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+}

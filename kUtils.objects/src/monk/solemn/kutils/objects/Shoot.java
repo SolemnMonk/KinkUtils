@@ -21,6 +21,7 @@ public class Shoot {
 	private List<KUtilsImage> previewImages;
 	private String externalUrl;
 	private List<Shoot> companionShoots;
+	private Long pluginId;
 
 	public Shoot(String title) {
 		this.site = "";
@@ -113,8 +114,18 @@ public class Shoot {
 		builder.append(tags);
 		builder.append(", rating=");
 		builder.append(rating);
+		builder.append(", actors=");
+		builder.append(actors);
+		builder.append(", coverImage=");
+		builder.append(coverImage);
+		builder.append(", previewImages=");
+		builder.append(previewImages);
 		builder.append(", externalUrl=");
 		builder.append(externalUrl);
+		builder.append(", companionShoots=");
+		builder.append(companionShoots);
+		builder.append(", pluginId=");
+		builder.append(pluginId);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -123,10 +134,15 @@ public class Shoot {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((actors == null) ? 0 : actors.hashCode());
+		result = prime * result + ((companionShoots == null) ? 0 : companionShoots.hashCode());
+		result = prime * result + ((coverImage == null) ? 0 : coverImage.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((externalUrl == null) ? 0 : externalUrl.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((pluginId == null) ? 0 : pluginId.hashCode());
+		result = prime * result + ((previewImages == null) ? 0 : previewImages.hashCode());
 		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
 		result = prime * result + ((shootType == null) ? 0 : shootType.hashCode());
 		result = prime * result + ((site == null) ? 0 : site.hashCode());
@@ -144,6 +160,21 @@ public class Shoot {
 		if (getClass() != obj.getClass())
 			return false;
 		Shoot other = (Shoot) obj;
+		if (actors == null) {
+			if (other.actors != null)
+				return false;
+		} else if (!actors.equals(other.actors))
+			return false;
+		if (companionShoots == null) {
+			if (other.companionShoots != null)
+				return false;
+		} else if (!companionShoots.equals(other.companionShoots))
+			return false;
+		if (coverImage == null) {
+			if (other.coverImage != null)
+				return false;
+		} else if (!coverImage.equals(other.coverImage))
+			return false;
 		if (date == null) {
 			if (other.date != null)
 				return false;
@@ -163,6 +194,16 @@ public class Shoot {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (pluginId == null) {
+			if (other.pluginId != null)
+				return false;
+		} else if (!pluginId.equals(other.pluginId))
+			return false;
+		if (previewImages == null) {
+			if (other.previewImages != null)
+				return false;
+		} else if (!previewImages.equals(other.previewImages))
 			return false;
 		if (rating == null) {
 			if (other.rating != null)
@@ -291,5 +332,13 @@ public class Shoot {
 
 	public void setCompanionShoots(List<Shoot> companionShoots) {
 		this.companionShoots = companionShoots;
+	}
+
+	public Long getPluginId() {
+		return pluginId;
+	}
+
+	public void setPluginId(Long pluginId) {
+		this.pluginId = pluginId;
 	}
 }

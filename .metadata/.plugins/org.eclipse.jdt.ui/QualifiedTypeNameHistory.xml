@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.text.MessageFormat"/>
+<fullyQualifiedTypeName name="hall.caleb.selenium.objects.command.GoToCommand"/>
+<fullyQualifiedTypeName name="hall.caleb.selenium.objects.command.SelectorCommand"/>
+<fullyQualifiedTypeName name="hall.caleb.selenium.objects.response.SingleResultResponse"/>
+<fullyQualifiedTypeName name="hall.caleb.selenium.objects.command.ReadAttributeCommand"/>
+<fullyQualifiedTypeName name="hall.caleb.selenium.objects.command.Command"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.plugin.lexi_belle_raw.DataGatherer"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.utilities.high.ShootUtilities"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.enums.ShootType"/>
+<fullyQualifiedTypeName name="hall.caleb.selenium.objects.command.CommandFactory"/>
+<fullyQualifiedTypeName name="hall.caleb.selenium.enums.SelectorType"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.plugin.lexi_belle_raw.LexiBelleRawPlugin"/>
+<fullyQualifiedTypeName name="hall.caleb.selenium.objects.response.MultiResultResponse"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.utilities.high.SeleniumServerUtilities"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="java.lang.InterruptedException"/>
+</qualifiedTypeNameHistroy>

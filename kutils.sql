@@ -20,6 +20,10 @@ SET time_zone = "+00:00";
 -- Database: `kutils`
 --
 
+CREATE DATABASE `kutils`;
+
+USE `kutils`;
+
 -- --------------------------------------------------------
 
 --

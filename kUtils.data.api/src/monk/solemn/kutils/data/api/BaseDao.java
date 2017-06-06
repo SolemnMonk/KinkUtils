@@ -16,7 +16,7 @@ public abstract class BaseDao {
 	protected Connection connect() {
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://192.168.1.66:3306/kutils", "kutils", "kutils");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/kutils", "kutils", "kutils");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

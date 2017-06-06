@@ -125,7 +125,7 @@ public class Downloader {
 		metadataMap.put("album_artist", "Kink.com");
 		metadataMap.put("artist", actors.toString().substring(0, actors.toString().length() - 1));
 		metadataMap.put("composer", "Kink.com");
-		metadataMap.put("POPM", ((Integer) ((Double) (shoot.getRating().getAvgRating() * 51)).intValue()).toString());
+		metadataMap.put("POPM", ((Integer) ((Double) (shoot.getRating().getAvgRating() * 255)).intValue()).toString());
 		metadataMap.put("TDAT", new SimpleDateFormat("ddMM").format(shoot.getDate().getTime()));
 		metadataMap.put("TIT2", shoot.getDescription());		
 		metadataMap.put("title", shoot.getTitle());

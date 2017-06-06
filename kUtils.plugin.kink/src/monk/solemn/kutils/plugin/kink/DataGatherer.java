@@ -141,6 +141,7 @@ public class DataGatherer {
 		} else {
 			rating = (new Gson()).fromJson(json, Rating.class);
 		}
+		rating.setAvgRating(rating.getAvgRating() / 5);
 		shoot.setRating(rating);
 		
 		command = new SeleniumCommand(seleniumId, SeleniumCommandType.Back);

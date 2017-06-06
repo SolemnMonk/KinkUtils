@@ -4,6 +4,8 @@ import monk.solemn.kutils.objects.PluginInfo;
 import monk.solemn.kutils.objects.QueuedTask;
 
 public interface PluginBase {
+	void install();
+	
 	/**
 	 * Gets the information for the plugin.
 	 * 
