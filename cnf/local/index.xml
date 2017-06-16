@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1496724102547" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1497589890581" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="ch.qos.logback.access"/>
@@ -1325,34 +1325,34 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.data.api"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201706011913"/>
+      <attribute name="version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="ce7e051fba6c0e2a03d2a02011e7d68a6220e9ff5760a2e755e06547591525fb"/>
+      <attribute name="osgi.content" value="3463e7729dead34f43bb740cebb923f7c00043a99afda7c981f4d8fd35d6a931"/>
       <attribute name="url" value="kUtils.data.api/kUtils.data.api-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="10122"/>
+      <attribute name="size" type="Long" value="10224"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.data.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.data.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.data.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.data.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
       <directive name="uses" value="monk.solemn.kutils.objects"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.data"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.data.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=monk.solemn.kutils.objects)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
@@ -1368,41 +1368,41 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.data.impl"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="56651b57adb2bc65d70dffd7a537e1290b6f422ddea62c0cd64fae4a5d331bed"/>
+      <attribute name="osgi.content" value="b9007dd2a01cbba023c2c3fee9803cd10468459069ae7bfe94370da947ef79f1"/>
       <attribute name="url" value="kUtils.data.impl/kUtils.data.impl-0.0.0.jar"/>
       <attribute name="size" type="Long" value="40357"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.data.impl"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.data.impl"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.data.impl"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.data.impl"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
       <directive name="uses" value="org.osgi.framework"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.data.impl.database"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.data.impl"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
       <directive name="uses" value="monk.solemn.kutils.data.api,monk.solemn.kutils.objects"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.data.impl.filesystem"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.data.impl"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
       <directive name="uses" value="monk.solemn.kutils.data.api"/>
     </capability>
     <capability namespace="osgi.service">
@@ -1482,34 +1482,34 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.kutils"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="6e59a3c512044d8f8aa55b3e1776cb471288bb5e06cbbd6acd4d78761e5f7b6b"/>
+      <attribute name="osgi.content" value="0ba6dedad9bb10b1ba3e0d1be58679628e28e2085d047c93896fcff00386b8a6"/>
       <attribute name="url" value="kUtils.kutils/kUtils.kutils-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="3464"/>
+      <attribute name="size" type="Long" value="3465"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.kutils"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.kutils"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.core"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.kutils"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
       <directive name="uses" value="org.osgi.framework"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.core.commands"/>
       <attribute name="version" type="Version" value="0.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.kutils"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.8.0)(!(version&gt;=2.0.0)))"/>
@@ -1522,33 +1522,33 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.objects"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201706010011"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="b9037c21b9703a33fa90c07ea906ec86bf4dc6cf1f95737dd2d7573226f1a4c7"/>
+      <attribute name="osgi.content" value="f5561d276c815ee520245488eec74639f2f28a7c6f9aaa64f6707c621b1ab58c"/>
       <attribute name="url" value="kUtils.objects/kUtils.objects-0.0.0.jar"/>
       <attribute name="size" type="Long" value="39619"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.objects"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706010011"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.objects"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706010011"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.enums"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.objects"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706010011"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.objects"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.objects"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706010011"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
       <directive name="uses" value="monk.solemn.kutils.enums"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -1571,45 +1571,45 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.plugin.api"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201706011912"/>
+      <attribute name="version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="640d9bf402d5d8f87512940ac260bb14b7aac59a9a21def0ba002f85c538b426"/>
+      <attribute name="osgi.content" value="1de23274852308a3e373b708281d2ff09084f6937e2527dbad708ac03d2753e8"/>
       <attribute name="url" value="kUtils.plugin.api/kUtils.plugin.api-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="12568"/>
+      <attribute name="size" type="Long" value="12570"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011912"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011912"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011912"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.api.action"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011912"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.api.authentication"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011912"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.api.base"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201706011912"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201706160111"/>
       <directive name="uses" value="monk.solemn.kutils.objects"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -1623,21 +1623,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.plugin.hookup-hotshot"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="9c673375da5c60ec85dffdca589e224503fd502817310d13abbbcfa253bafab0"/>
+      <attribute name="osgi.content" value="c44d96836fa621dac11525b240ba0c2fc02402cfc10aca9a19dd1f65f25bcabf"/>
       <attribute name="url" value="kUtils.plugin.hookup-hotshot/kUtils.plugin.hookup-hotshot-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="2762"/>
+      <attribute name="size" type="Long" value="2764"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.plugin.hookup-hotshot"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.plugin.hookup-hotshot"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
@@ -1651,34 +1651,34 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.plugin.lexi-belle-raw"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201706060428"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160511"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="4097bf34c3b8efa382300a817ebe8028e04d89f1c51233e5fd856dda0bbb435a"/>
+      <attribute name="osgi.content" value="45b6a5a5e9dcabe9da29ca1a4bbeac128e432cae1c4c95e75ce8d6ed337d16d9"/>
       <attribute name="url" value="kUtils.plugin.lexi-belle-raw/kUtils.plugin.lexi-belle-raw-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="25813"/>
+      <attribute name="size" type="Long" value="26747"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.plugin.lexi-belle-raw"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060428"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160511"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.plugin.lexi-belle-raw"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060428"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160511"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.plugin.lexi_belle_raw"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.lexi-belle-raw"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060428"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160511"/>
       <directive name="uses" value="monk.solemn.kutils.api.authentication,monk.solemn.kutils.api.base,monk.solemn.kutils.data.api,monk.solemn.kutils.objects,org.osgi.framework"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.plugin.lexi_belle_raw.commands"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.lexi-belle-raw"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060428"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160511"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="monk.solemn.kutils.api.authentication.SeleniumAuthentication"/>
@@ -1704,13 +1704,16 @@
       <directive name="uses" value="monk.solemn.kutils.plugin.lexi_belle_raw.commands"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=hall.caleb.selenium.enums)"/>
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.enums)"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=hall.caleb.selenium.objects.command)"/>
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.objects.command)"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=hall.caleb.selenium.objects.response)"/>
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.objects.response)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.util)"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=monk.solemn.kutils.api.authentication)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
@@ -1759,21 +1762,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.plugin.suicide-girls"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="60f933b761c52c6a4e81487fc83405988c7522c2785d64ac748f4e0d138efd8a"/>
+      <attribute name="osgi.content" value="1e8123b4fbdd11088fd679ef6ae17ed8628f3d91a1a54351573747e5637a24af"/>
       <attribute name="url" value="kUtils.plugin.suicide-girls/kUtils.plugin.suicide-girls-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="2746"/>
+      <attribute name="size" type="Long" value="2748"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.plugin.suicide-girls"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.plugin.suicide-girls"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
@@ -1787,21 +1790,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.plugin.wicked-pictures"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="3b83d8f11cf1af8e23d8c9b8fcf371a150b19d987eccd1fe35f3530b99036c6c"/>
+      <attribute name="osgi.content" value="a41afde9b107e205df099f53e30f416b95b2dabb53d708ddf1cc7b04b3934ffb"/>
       <attribute name="url" value="kUtils.plugin.wicked-pictures/kUtils.plugin.wicked-pictures-0.0.0.jar"/>
       <attribute name="size" type="Long" value="2758"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.plugin.wicked-pictures"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.plugin.wicked-pictures"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706060255"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160112"/>
     </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
@@ -1815,41 +1818,29 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.utils.high"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="e0b86c5752515e34b2f8f578ca66897f782f251f14b186869547aef5e4b4c100"/>
+      <attribute name="osgi.content" value="c5cf4e344a56b96e7ab7eaf28809f1e9f01afcd922ce6331fc0d9effe15ed8be"/>
       <attribute name="url" value="kUtils.utils.high/kUtils.utils.high-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="16855"/>
+      <attribute name="size" type="Long" value="12910"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.utils.high"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.utils.high"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.utilities.high"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.utils.high"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201706011913"/>
-      <directive name="uses" value="hall.caleb.selenium.objects.command,hall.caleb.selenium.objects.response,monk.solemn.kutils.data.api,monk.solemn.kutils.enums,monk.solemn.kutils.objects,org.osgi.framework"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
+      <directive name="uses" value="monk.solemn.kutils.data.api,monk.solemn.kutils.enums,monk.solemn.kutils.objects,org.osgi.framework"/>
     </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.gson)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=hall.caleb.selenium.enums)"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=hall.caleb.selenium.objects.command)"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=hall.caleb.selenium.objects.response)"/>
-    </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=monk.solemn.kutils.data.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
@@ -1920,27 +1911,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.utils.low"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.0.0.201705302237"/>
+      <attribute name="version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="739c05e339a9c2d6fafccc4221f70292d6b3c2551892dd5790e00e4446f28ca3"/>
+      <attribute name="osgi.content" value="c16fb6912c05a0f63fe4a6dff3e19e6e9476322cdc1e738ac64a196823358384"/>
       <attribute name="url" value="kUtils.utils.low/kUtils.utils.low-0.0.0.jar"/>
-      <attribute name="size" type="Long" value="7891"/>
+      <attribute name="size" type="Long" value="7890"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.utils.low"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201705302237"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.utils.low"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201705302237"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.utilities.low"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.utils.low"/>
-      <attribute name="bundle-version" type="Version" value="0.0.0.201705302237"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201706160111"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=javax.imageio)"/>
@@ -10062,6 +10053,90 @@
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="seltzer-cr"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.13.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="ce29970d8dc581cc94fc60707469775c06b13a6b002e4831c53f8ade9af45f70"/>
+      <attribute name="url" value="seltzer-cr/seltzer-cr-0.13.0.jar"/>
+      <attribute name="size" type="Long" value="27447"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.13.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.13.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="hall.caleb.seltzer.objects.command"/>
+      <attribute name="version" type="Version" value="0.0.0"/>
+      <attribute name="bundle-symbolic-name" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.13.0"/>
+      <directive name="uses" value="hall.caleb.seltzer.enums,com.google.gson"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="hall.caleb.seltzer.objects.response"/>
+      <attribute name="version" type="Version" value="0.0.0"/>
+      <attribute name="bundle-symbolic-name" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.13.0"/>
+      <directive name="uses" value="hall.caleb.seltzer.enums,com.google.gson"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="hall.caleb.seltzer.enums"/>
+      <attribute name="version" type="Version" value="0.0.0"/>
+      <attribute name="bundle-symbolic-name" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.13.0"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.google.gson)"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="seltzer-util"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.13.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="4d4431309d1c2efcbaaaa07df8cf0f683e4847694acd4089ce1eea110e7d675d"/>
+      <attribute name="url" value="seltzer-util/seltzer-util-0.13.0.jar"/>
+      <attribute name="size" type="Long" value="6005"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="seltzer-util"/>
+      <attribute name="bundle-version" type="Version" value="0.13.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="seltzer-util"/>
+      <attribute name="bundle-version" type="Version" value="0.13.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="hall.caleb.seltzer.util"/>
+      <attribute name="version" type="Version" value="0.0.0"/>
+      <attribute name="bundle-symbolic-name" value="seltzer-util"/>
+      <attribute name="bundle-version" type="Version" value="0.13.0"/>
+      <directive name="uses" value="hall.caleb.seltzer.enums,hall.caleb.seltzer.objects.command,hall.caleb.seltzer.objects.response,com.google.gson"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.google.gson)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.enums)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.objects.command)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.objects.response)"/>
     </requirement>
   </resource>
   <resource>
