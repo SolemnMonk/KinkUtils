@@ -3,7 +3,6 @@ package monk.solemn.kutils.data.api;
 import java.sql.SQLException;
 import java.util.List;
 
-import monk.solemn.kutils.objects.KUtilsImage;
 import monk.solemn.kutils.objects.Shoot;
 
 public interface ShootDao {
