@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1497589890581" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1497824299089" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="ch.qos.logback.access"/>
@@ -10062,9 +10062,9 @@
       <attribute name="version" type="Version" value="0.13.0"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="ce29970d8dc581cc94fc60707469775c06b13a6b002e4831c53f8ade9af45f70"/>
+      <attribute name="osgi.content" value="8757e730ced2ee96c10c78d459f48a0a94eb89a2adb4caf1a3742f3743adac5f"/>
       <attribute name="url" value="seltzer-cr/seltzer-cr-0.13.0.jar"/>
-      <attribute name="size" type="Long" value="27447"/>
+      <attribute name="size" type="Long" value="24168"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -10094,6 +10094,52 @@
       <attribute name="version" type="Version" value="0.0.0"/>
       <attribute name="bundle-symbolic-name" value="seltzer-cr"/>
       <attribute name="bundle-version" type="Version" value="0.13.0"/>
+      <directive name="uses" value="hall.caleb.seltzer.objects.command,hall.caleb.seltzer.objects.response"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.google.gson)"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="seltzer-cr"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.21.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="f08c3b0dffa769163e95c7599e800b0dd00bc6a7b1407865577cb0da00cb52a3"/>
+      <attribute name="url" value="seltzer-cr/seltzer-cr-0.21.0.jar"/>
+      <attribute name="size" type="Long" value="26747"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.21.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.21.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="hall.caleb.seltzer.objects.command"/>
+      <attribute name="version" type="Version" value="0.0.0"/>
+      <attribute name="bundle-symbolic-name" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.21.0"/>
+      <directive name="uses" value="hall.caleb.seltzer.enums,com.google.gson"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="hall.caleb.seltzer.objects.response"/>
+      <attribute name="version" type="Version" value="0.0.0"/>
+      <attribute name="bundle-symbolic-name" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.21.0"/>
+      <directive name="uses" value="hall.caleb.seltzer.enums,com.google.gson"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="hall.caleb.seltzer.enums"/>
+      <attribute name="version" type="Version" value="0.0.0"/>
+      <attribute name="bundle-symbolic-name" value="seltzer-cr"/>
+      <attribute name="bundle-version" type="Version" value="0.21.0"/>
+      <directive name="uses" value="hall.caleb.seltzer.objects.command,hall.caleb.seltzer.objects.response"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=com.google.gson)"/>
@@ -10106,9 +10152,9 @@
       <attribute name="version" type="Version" value="0.13.0"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="4d4431309d1c2efcbaaaa07df8cf0f683e4847694acd4089ce1eea110e7d675d"/>
+      <attribute name="osgi.content" value="aee671fa4e192a664c6d73c3bd5f04eeef5c4b3ca05ccaf7a1595595cb719540"/>
       <attribute name="url" value="seltzer-util/seltzer-util-0.13.0.jar"/>
-      <attribute name="size" type="Long" value="6005"/>
+      <attribute name="size" type="Long" value="6686"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -10124,6 +10170,46 @@
       <attribute name="version" type="Version" value="0.0.0"/>
       <attribute name="bundle-symbolic-name" value="seltzer-util"/>
       <attribute name="bundle-version" type="Version" value="0.13.0"/>
+      <directive name="uses" value="hall.caleb.seltzer.enums,hall.caleb.seltzer.objects.command,hall.caleb.seltzer.objects.response,com.google.gson"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.google.gson)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.enums)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.objects.command)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=hall.caleb.seltzer.objects.response)"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="seltzer-util"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.21.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="f5f8a2f8ec2e2c737b02ca014bdd8dc184c2ebffb256403bfa44e2f61b85308b"/>
+      <attribute name="url" value="seltzer-util/seltzer-util-0.21.0.jar"/>
+      <attribute name="size" type="Long" value="6902"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="seltzer-util"/>
+      <attribute name="bundle-version" type="Version" value="0.21.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="seltzer-util"/>
+      <attribute name="bundle-version" type="Version" value="0.21.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="hall.caleb.seltzer.util"/>
+      <attribute name="version" type="Version" value="0.0.0"/>
+      <attribute name="bundle-symbolic-name" value="seltzer-util"/>
+      <attribute name="bundle-version" type="Version" value="0.21.0"/>
       <directive name="uses" value="hall.caleb.seltzer.enums,hall.caleb.seltzer.objects.command,hall.caleb.seltzer.objects.response,com.google.gson"/>
     </capability>
     <requirement namespace="osgi.wiring.package">

@@ -13,6 +13,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +24,7 @@ import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import monk.solemn.kutils.data.api.ConfigDao;
 import monk.solemn.kutils.data.api.FileStorageDao;
@@ -32,10 +34,13 @@ import monk.solemn.kutils.utilities.low.FileUtilitiesLow;
 public class FileStorageDaoImpl implements FileStorageDao {
 	private ConfigDao configDao = null;
 
+	@Reference
+	void bindConfigDao(ConfigDao dao) {
+		configDao = dao;
+	}
+	
 	@Override
 	public boolean checkFileExistence(String path) {
-		setConfigDao();
-
 		try {
 			String basePath = configDao.loadConfig("basePath");
 
@@ -53,8 +58,6 @@ public class FileStorageDaoImpl implements FileStorageDao {
 
 	@Override
 	public boolean checkFileExistence(String path, String hash, boolean deleteIfMismatch) {
-		setConfigDao();
-
 		hash = StringUtils.lowerCase(hash);
 		if (checkFileExistence(path)) {
 			try {
@@ -78,23 +81,19 @@ public class FileStorageDaoImpl implements FileStorageDao {
 
 	@Override
 	public void deleteFile(String path) throws SQLException {
-		setConfigDao();
-
 		String basePath = configDao.loadConfig("basePath");
 
 		FileUtils.deleteQuietly(Paths.get(basePath, path).toFile());
 	}
 
 	@Override
-	public File downloadFile(String url, String path) throws SQLException, IOException, InterruptedException {
-		return downloadFile(url, path, false);
+	public File downloadFile(String url, String path, UUID seltzerId, Map<String, String> cookieMap) throws SQLException, IOException, InterruptedException {
+		return downloadFile(url, path, false, seltzerId, cookieMap);
 	}
 
 	@Override
-	public File downloadFile(String url, String path, boolean moveToParent)
+	public File downloadFile(String url, String path, boolean moveToParent, UUID seltzerId, Map<String, String> cookieMap)
 			throws SQLException, IOException, InterruptedException {
-		setConfigDao();
-
 		String basePath = configDao.loadConfig("basePath");
 		String cookiePath = configDao.loadConfig("cookieLocation");
 		String ariaPath = configDao.loadConfig("ariaLocation");
@@ -105,12 +104,25 @@ public class FileStorageDaoImpl implements FileStorageDao {
 
 		StringBuilder builder = new StringBuilder();
 		builder.append("\"{0}\" ");
+		builder.append("--header=\"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36\" ");
 		builder.append("--file-allocation=none ");
 		builder.append("\"--load-cookies={1}\" ");
+		if (cookieMap != null && !cookieMap.keySet().isEmpty()) {
+			builder.append("--header=\"Cookie: ");
+			for (String key : cookieMap.keySet()) {
+				builder.append(key);
+				builder.append('=');
+				builder.append(cookieMap.get(key));
+				builder.append(';');
+			}
+			builder.append("\" ");
+		}
 		builder.append("-d ");
 		builder.append("\"{2}\" ");
 		builder.append(url);
 
+		cookiePath = MessageFormat.format(cookiePath, seltzerId.toString());
+		
 		String command = MessageFormat.format(builder.toString(), ariaPath, cookiePath, downloadPath);
 
 		Process process = Runtime.getRuntime().exec(command);
@@ -162,20 +174,18 @@ public class FileStorageDaoImpl implements FileStorageDao {
 	}
 
 	@Override
-	public List<File> downloadArchives(List<String> urls, String path)
+	public List<File> downloadArchives(List<String> urls, String path, UUID seltzerId, Map<String, String> cookieMap)
 			throws SQLException, IOException, InterruptedException {
-		return downloadArchives(urls, path, true);
+		return downloadArchives(urls, path, true, seltzerId, cookieMap);
 	}
 
 	@Override
-	public List<File> downloadArchives(List<String> urls, String path, boolean moveToParent)
+	public List<File> downloadArchives(List<String> urls, String path, boolean moveToParent, UUID seltzerId, Map<String, String> cookieMap)
 			throws SQLException, IOException, InterruptedException {
-		setConfigDao();
-
 		List<File> archives = new ArrayList<>();
 
 		for (String url : urls) {
-			archives.add(downloadFile(url, path, false));
+			archives.add(downloadFile(url, path, false, seltzerId, cookieMap));
 		}
 
 		if (moveToParent) {
@@ -188,9 +198,9 @@ public class FileStorageDaoImpl implements FileStorageDao {
 	}
 
 	@Override
-	public List<File> downloadArchives(List<String> urls, String path, String name, boolean moveToParent)
+	public List<File> downloadArchives(List<String> urls, String path, String name, boolean moveToParent, UUID seltzerId, Map<String, String> cookieMap)
 			throws SQLException, IOException, InterruptedException {
-		List<File> archives = downloadArchives(urls, path, false);
+		List<File> archives = downloadArchives(urls, path, false, seltzerId, cookieMap);
 
 		File archive = null;
 
@@ -211,20 +221,18 @@ public class FileStorageDaoImpl implements FileStorageDao {
 	}
 
 	@Override
-	public List<File> downloadClips(List<String> urls, String path)
+	public List<File> downloadClips(List<String> urls, String path, UUID seltzerId, Map<String, String> cookieMap)
 			throws SQLException, IOException, InterruptedException {
-		return downloadClips(urls, path, true);
+		return downloadClips(urls, path, true, seltzerId, cookieMap);
 	}
 
 	@Override
-	public List<File> downloadClips(List<String> urls, String path, boolean moveToParent)
+	public List<File> downloadClips(List<String> urls, String path, boolean moveToParent, UUID seltzerId, Map<String, String> cookieMap)
 			throws SQLException, IOException, InterruptedException {
-		setConfigDao();
-
 		List<File> clips = new ArrayList<>();
 
 		for (String url : urls) {
-			clips.add(downloadFile(url, path, false));
+			clips.add(downloadFile(url, path, false, seltzerId, cookieMap));
 		}
 
 		if (moveToParent) {
@@ -238,11 +246,11 @@ public class FileStorageDaoImpl implements FileStorageDao {
 
 	@Override
 	public List<File> downloadClips(List<String> urls, String path, String type, String name, boolean moveToParent,
-			boolean archiveClips, Map<String, String> metadataMap) throws SQLException, IOException, InterruptedException {
+			boolean archiveClips, Map<String, String> metadataMap, UUID seltzerId, Map<String, String> cookieMap) throws SQLException, IOException, InterruptedException {
 		String uniqueMarker = " [" + System.currentTimeMillis() + "]";
 		name = name + uniqueMarker;
 		
-		List<File> clips = downloadClips(urls, path, false);
+		List<File> clips = downloadClips(urls, path, false, seltzerId, cookieMap);
 
 		File movie = null;
 
@@ -273,8 +281,6 @@ public class FileStorageDaoImpl implements FileStorageDao {
 		if (archives.isEmpty()) {
 			return null;
 		}
-
-		setConfigDao();
 
 		String zipPath = configDao.loadConfig("7zipLocation");
 		File parent = archives.get(0).getParentFile();
@@ -323,8 +329,6 @@ public class FileStorageDaoImpl implements FileStorageDao {
 		if (clips.isEmpty()) {
 			return null;
 		}
-
-		setConfigDao();
 
 		String ffmpegPath = configDao.loadConfig("ffmpegLocation");
 		String ffprobePath = configDao.loadConfig("ffprobeLocation");
@@ -421,8 +425,6 @@ public class FileStorageDaoImpl implements FileStorageDao {
 
 	@Override
 	public File applyMetadata(File movie, Map<String, String> metadataMap, List<Integer> chapterTimes) throws IOException, SQLException, InterruptedException {
-		setConfigDao();
-		
 		String ffmpegPath = configDao.loadConfig("ffmpegLocation");
 		File metadata = Paths.get(movie.getParent(), "metadata.txt").toFile();
 		metadata.createNewFile();
@@ -497,11 +499,4 @@ public class FileStorageDaoImpl implements FileStorageDao {
 				Paths.get(file.getParentFile().getParentFile().getAbsolutePath(), file.getName()).toFile());
 		return Paths.get(file.getParentFile().getParentFile().getAbsolutePath(), file.getName()).toFile();
 	}
-
-	private void setConfigDao() {
-		if (configDao == null) {
-//			configDao = SpringConfiguration.getSpringContext().getBean(ConfigDaoService.class).getConfigDao();
-		}
-	}
-
 }

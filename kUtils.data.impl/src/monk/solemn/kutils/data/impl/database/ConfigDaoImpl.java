@@ -9,9 +9,18 @@ import org.osgi.service.component.annotations.Component;
 
 import monk.solemn.kutils.data.api.BaseDao;
 import monk.solemn.kutils.data.api.ConfigDao;
+import monk.solemn.kutils.objects.KUtilsImage;
 
 @Component
 public class ConfigDaoImpl extends BaseDao implements ConfigDao {
+	public ConfigDaoImpl() {
+		try {
+			KUtilsImage.setBasePath(loadConfig("basePath"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public String loadConfig(String key) throws SQLException {
 		Connection connection = connect();

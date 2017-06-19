@@ -12,8 +12,9 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
-			<item value="C:\Users\Mr. Nakaan\GitRepos\kUtils-Plugins"/>
 			<item value="C:\Users\Mr. Nakaan\GitRepos\kUtils"/>
+			<item value="C:\Users\Mr. Nakaan\GitRepos\kUtils-Plugins\kUtils.plugin.lexi-belle-raw"/>
+			<item value="C:\Users\Mr. Nakaan\GitRepos\kUtils-Plugins"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
