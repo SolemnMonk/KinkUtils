@@ -215,7 +215,7 @@ public class ActorDaoImpl extends BaseDao implements ActorDao {
 		dataStatement = connection.prepareStatement(dataQuery);
 		if (actorExists) {
 			dataStatement.setString(1, actor.getName());
-			dataStatement.setString(2, actor.getGender().toString());
+			dataStatement.setString(2, actor.getGender().name());
 			dataStatement.setString(3, actor.getPriority().toString());
 			dataStatement.setString(4, StringUtils.join(actor.getExternalUrls(), "|"));
 			dataStatement.setLong(5, actor.getId());
