@@ -6,7 +6,7 @@ public enum Gender {
 	Transsexual("Transsexual"),
 	MtF("Male-to-Female Transsexual"),
 	FtM("Female-to-Male Transsexual"),
-	Unknown("Unknown Gender");
+	Unknown("Unknown");
 	
 	private String genderString;
 	

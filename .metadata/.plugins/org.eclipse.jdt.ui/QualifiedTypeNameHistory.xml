@@ -15,10 +15,21 @@
 <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
 <fullyQualifiedTypeName name="java.util.regex.Matcher"/>
 <fullyQualifiedTypeName name="java.text.MessageFormat"/>
-<fullyQualifiedTypeName name="monk.solemn.kutils.plugin.lexi_belle_raw.DataGatherer"/>
 <fullyQualifiedTypeName name="monk.solemn.kutils.objects.KUtilsImage"/>
-<fullyQualifiedTypeName name="monk.solemn.kutils.utilities.high.DaoUtilities"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.utilities.high.ActorUtilities"/>
+<fullyQualifiedTypeName name="javax.xml.crypto.Data"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.plugin.lexi_belle_raw.DataGatherer"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.plugin.lexi_belle_raw.LexiBelleRawPlugin"/>
+<fullyQualifiedTypeName name="hall.caleb.seltzer.objects.response.Response"/>
+<fullyQualifiedTypeName name="hall.caleb.seltzer.util.SeltzerUtils"/>
+<fullyQualifiedTypeName name="hall.caleb.seltzer.objects.command.Command"/>
 <fullyQualifiedTypeName name="hall.caleb.seltzer.util.CommandFactory"/>
 <fullyQualifiedTypeName name="hall.caleb.seltzer.enums.SelectorType"/>
-<fullyQualifiedTypeName name="monk.solemn.kutils.plugin.lexi_belle_raw.LexiBelleRawPlugin"/>
+<fullyQualifiedTypeName name="hall.caleb.seltzer.objects.response.MultiResultResponse"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.enums.Gender"/>
+<fullyQualifiedTypeName name="monk.solemn.kutils.utilities.high.DaoUtilities"/>
+<fullyQualifiedTypeName name="org.apache.commons.lang3.StringUtils"/>
+<fullyQualifiedTypeName name="java.lang.RuntimeException"/>
+<fullyQualifiedTypeName name="org.apache.commons.io.FileUtils"/>
+<fullyQualifiedTypeName name="java.nio.file.Paths"/>
 </qualifiedTypeNameHistroy>
