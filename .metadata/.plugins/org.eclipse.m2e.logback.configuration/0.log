@@ -208,3 +208,4 @@
 2017-06-05 23:17:05,426 [Worker-28] INFO  aQute.bnd.http.HttpClient - GET https://repo1.maven.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar
 2017-06-05 23:17:05,456 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="799f73a51c85025c132ef8caa8ad0b77", code=200, modified=Wed Aug 12 09:35:23 CDT 2015, url=https://repo1.maven.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar, state=UPDATED]
 2017-06-05 23:17:05,456 [Worker-28] INFO  aQute.bnd.http.HttpClient - result TaggedData [tag="799f73a51c85025c132ef8caa8ad0b77", code=200, modified=Wed Aug 12 09:35:23 CDT 2015, url=https://repo1.maven.org/maven2/org/objenesis/objenesis/2.2/objenesis-2.2.jar, state=UPDATED]
+2017-07-04 23:18:06,821 [Worker-0] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is not available. Remote download required.
