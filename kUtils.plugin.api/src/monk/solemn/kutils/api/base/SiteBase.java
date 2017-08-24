@@ -7,6 +7,4 @@ public interface SiteBase extends Runnable {
 	 * @return the friendly name for the site this plugin targets
 	 */
 	String getSite();
-	
-	boolean taskRequiresAuthentication();
 }

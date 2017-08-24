@@ -10,6 +10,4 @@ public interface NetworkBase extends Runnable {
 	 * @return the list of friendly site names this network plugin supports
 	 */
 	List<String> getSites();
-	
-	boolean taskRequiresAuthentication();
 }

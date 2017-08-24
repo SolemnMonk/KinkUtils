@@ -20,4 +20,6 @@ public interface PluginBase {
 	 * @return true to indicate successful loading, false otherwise
 	 */
 	boolean loadQueuedTask(QueuedTask queuedTask);
+	
+	boolean taskRequiresAuthentication();
 }
