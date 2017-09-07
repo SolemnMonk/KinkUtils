@@ -1,5 +1,4 @@
 package monk.solemn.kutils.api.action;
 
-public interface DownloadAction {
-	boolean requiresAuthentication();
+public interface DownloadAction extends ActionBase {
 }

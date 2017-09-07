@@ -1,5 +1,4 @@
 package monk.solemn.kutils.api.action;
 
-public interface RipAction {
-	boolean requiresAuthentication();
+public interface RipAction extends ActionBase {
 }
