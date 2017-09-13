@@ -2,7 +2,8 @@
 	osgi.annotation;version=6.0.1,\
 	osgi.core,\
 	kUtils.objects;version=latest,\
-	kUtils.utils.low;version=latest
+	kUtils.utils.low;version=latest,\
+	org.apache.commons.lang3
 
 -baseline: *
 javac.source: 1.8
