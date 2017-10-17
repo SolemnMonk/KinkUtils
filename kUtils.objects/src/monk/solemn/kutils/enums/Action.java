@@ -1,10 +1,10 @@
 package monk.solemn.kutils.enums;
 
 public enum Action {
-	Rip("Rip"),
-	Download("Download"),
-	GatherData("Gather Metadata"),
-	Monitor("Monitor");
+	RIP("Rip"),
+	DOWNLOAD("Download"),
+	GATHER_DATA("Gather Metadata"),
+	MONITOR("Monitor");
 
 	String actionString;
 	

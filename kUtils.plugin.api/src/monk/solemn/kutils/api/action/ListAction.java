@@ -4,12 +4,18 @@ import java.util.List;
 
 /**
  * Terminology:
+ * 	Site: a collection that houses any number of sites, searches, channels, items, and bundles
  * 	Search: a collection of channels/items/bundles based on a custom query
  * 	Channel: a collection of items that share a similar trait (videos, photos, same author, etc) 
  * 	Item: an item that contains a collection of bundles along with metadata (title, description, rating, etc)
  * 	Bundle: a single unit that can be downloaded and stored (image, video, document, archive, etc)
  * 
  * Cardinality
+ * 	Site 1..* Site
+ * 	Site 1..* Search
+ * 	Site 1..* Channel
+ * 	Site 1..* Item
+ * 	Site 1..* Bundle
  * 	Search 1..* Channel
  * 	Search 1..* Item
  * 	Search 1..* Bundle

@@ -13,7 +13,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.osgi.service.component.annotations.Component;
 
-import monk.solemn.kutils.data.api.BaseDao;
 import monk.solemn.kutils.data.api.ShootDao;
 import monk.solemn.kutils.enums.ImageType;
 import monk.solemn.kutils.enums.ShootType;

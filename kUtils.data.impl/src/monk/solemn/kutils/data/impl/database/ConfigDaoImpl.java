@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import org.osgi.service.component.annotations.Component;
 
-import monk.solemn.kutils.data.api.BaseDao;
 import monk.solemn.kutils.data.api.ConfigDao;
 import monk.solemn.kutils.objects.KUtilsImage;
 

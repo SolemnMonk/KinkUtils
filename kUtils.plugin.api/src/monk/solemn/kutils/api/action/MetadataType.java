@@ -4,7 +4,7 @@ public enum MetadataType {
 	TITLE,
 	DESCRIPTION,
 	DATE,
-	ACTOR,
+	ACTORS,
 	TAG,
 	RATING_COUNT,
 	RATING,

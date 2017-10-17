@@ -1,13 +1,11 @@
 package monk.solemn.kutils.enums;
 
 public enum Target {
-	Network("Network"),
-	Site("Site"),
-	Series("Series"),
-	Shoot("Shoot"),
-	Actor("Actor"),
-	Movie("Movie"),
-	Scene("Scene");
+	SITE("Site"),
+	SEARCH("Search"),
+	CHANNEL("Channel"),
+	ITEM("Item"),
+	BUNDLE("Bundle");
 	
 	String targetString;
 	

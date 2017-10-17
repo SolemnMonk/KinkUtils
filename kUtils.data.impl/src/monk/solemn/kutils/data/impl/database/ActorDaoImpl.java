@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.osgi.service.component.annotations.Component;
 
 import monk.solemn.kutils.data.api.ActorDao;
-import monk.solemn.kutils.data.api.BaseDao;
 import monk.solemn.kutils.enums.Gender;
 import monk.solemn.kutils.enums.Priority;
 import monk.solemn.kutils.objects.Actor;

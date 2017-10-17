@@ -18,6 +18,7 @@ javac.target: 1.8
 
 Bundle-Version: 0.0.0.${tstamp}
 
+Include-Resource: resources
 Export-Package: \
 	monk.solemn.kutils.data.impl,\
 	monk.solemn.kutils.data.impl.database,\
