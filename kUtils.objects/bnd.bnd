@@ -1,18 +1,7 @@
--buildpath: \
-	osgi.annotation;version=6.0.1,\
-	osgi.core;version=6.0,\
-	osgi.cmpn;version=6.0,\
-	org.apache.commons.lang3,\
-	kUtils.utils.low;version=latest
-
--testpath: \
-	${junit}
-
-javac.source: 1.8
-javac.target: 1.8
-
-Bundle-Version: 0.0.0.${tstamp}
-
 Export-Package: \
 	monk.solemn.kutils.enums,\
 	monk.solemn.kutils.objects
+-buildpath: \
+	kUtils.utils.low.api;version=latest,\
+	osgi.enroute.base.api,\
+	org.apache.commons.lang3

@@ -1,0 +1,30 @@
+#
+# kUtils.plugin.core.danbooru PROVIDER BUNDLE
+#
+
+Bundle-Version:					1.0.0.${tstamp}
+
+Export-Package: monk.solemn.kutils.plugin.api
+
+Private-Package:  \
+	monk.solemn.kutils.plugin.core.danbooru
+
+-includeresource: {readme.md}
+
+-buildpath: \
+	osgi.enroute.base.api;version=2.1,\
+	org.apache.commons.io,\
+	com.google.gson,\
+	org.apache.httpcomponents:httpcore,\
+	kUtils.application;version=latest,\
+	kUtils.plugin.api;version=latest,\
+	kUtils.utils.low.api;version=latest,\
+	kUtils.objects;version=latest,\
+	kUtils.data.api;version=latest,\
+	org.apache.commons.lang3
+
+-testpath: \
+	osgi.enroute.junit.wrapper;version=4.12, \
+	osgi.enroute.hamcrest.wrapper;version=1.3
+
+Bundle-Activator: monk.solemn.kutils.plugin.core.danbooru.Activator

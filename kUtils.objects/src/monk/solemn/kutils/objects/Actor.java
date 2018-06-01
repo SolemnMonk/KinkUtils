@@ -1,20 +1,16 @@
 package monk.solemn.kutils.objects;
 
-import java.awt.Image;
 import java.util.LinkedList;
 import java.util.List;
 
 import monk.solemn.kutils.enums.Gender;
-import monk.solemn.kutils.enums.Priority;
 
 public class Actor {
 	private Long id;
 	private String name;
-	private Gender gender = Gender.Unknown;
-	private Priority priority = Priority.Neutral;
+	private Gender gender = Gender.UNKNOWN;
 	private List<ActorAttribute> attributes;
-	private List<KUtilsImage> images;
-	private List<Shoot> shoots;
+	private List<Entity> entities;
 	private List<String> externalUrls;
 	
 	public Actor(String name) {
@@ -26,26 +22,12 @@ public class Actor {
 		this.gender = gender;
 	}
 
-	public Actor(String name, Priority priority) {
-		this.name = name;
-		this.priority = priority;
-	}
-
-	public Actor(String name, Gender gender, Priority priority) {
-		this.name = name;
-		this.gender = gender;
-		this.priority = priority;
-	}
-
-	public Actor(Long id, String name, Gender gender, Priority priority, List<ActorAttribute> attributes, List<KUtilsImage> images,
-			List<Shoot> shoots, List<String> externalUrls) {
+	public Actor(Long id, String name, Gender gender, List<ActorAttribute> attributes, List<Entity> entities, List<String> externalUrls) {
 		this.id = id;
 		this.name = name;
 		this.gender = gender;
-		this.priority = priority;
 		this.attributes = attributes;
-		this.images = images;
-		this.shoots = shoots;
+		this.entities = entities;
 		this.externalUrls = externalUrls;
 	}
 
@@ -63,35 +45,22 @@ public class Actor {
 		attributes.add(new ActorAttribute(key, value));
 	}
 	
-	public void removeAttribute(String key) {
+	public void removeAttribute(ActorAttribute attribute) {
 		if (attributes != null) {
-			attributes.remove(key);
+			attributes.remove(attribute);
 		}
 	}
 	
-	public void addImage(KUtilsImage image) {
-		if (images == null) {
-			images = new LinkedList<>();
+	public void addEntity(Entity entity) {
+		if (entities == null) {
+			entities = new LinkedList<>();
 		}
-		images.add(image);
+		entities.add(entity);
 	}
 	
-	public void removeImage(Image image) {
-		if (images != null) {
-			images.remove(image);
-		}
-	}
-	
-	public void addShoot(Shoot shoot) {
-		if (shoots == null) {
-			shoots = new LinkedList<>();
-		}
-		shoots.add(shoot);
-	}
-	
-	public void removeShoot(Shoot shoot) {
-		if (shoots != null) {
-			shoots.remove(shoot);
+	public void removeEntity(Entity entity) {
+		if (entities != null) {
+			entities.remove(entity);
 		}
 	}
 
@@ -108,12 +77,6 @@ public class Actor {
 		}
 	}
 
-	public void unloadImages() {
-		for (KUtilsImage image : images) {
-			image.unloadImage();
-		}
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -123,8 +86,6 @@ public class Actor {
 		builder.append(name);
 		builder.append(", gender=");
 		builder.append(gender);
-		builder.append(", priority=");
-		builder.append(priority);
 		builder.append(", attributes=");
 		builder.append(attributes);
 		builder.append(", externalUrls=");
@@ -142,7 +103,6 @@ public class Actor {
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((priority == null) ? 0 : priority.hashCode());
 		return result;
 	}
 
@@ -177,8 +137,6 @@ public class Actor {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (priority != other.priority)
-			return false;
 		return true;
 	}
 
@@ -206,14 +164,6 @@ public class Actor {
 		this.gender = gender;
 	}
 
-	public Priority getPriority() {
-		return priority;
-	}
-
-	public void setPriority(Priority priority) {
-		this.priority = priority;
-	}
-
 	public List<ActorAttribute> getAttributes() {
 		if (attributes == null) {
 			attributes = new LinkedList<>();
@@ -226,28 +176,16 @@ public class Actor {
 		this.attributes = attributes;
 	}
 
-	public List<KUtilsImage> getImages() {
-		if (images == null) {
-			images = new LinkedList<>();
+	public List<Entity> getEntities() {
+		if (entities == null) {
+			entities = new LinkedList<>();
 		}
 		
-		return images;
+		return entities;
 	}
 
-	public void setImages(List<KUtilsImage> images) {
-		this.images = images;
-	}
-
-	public List<Shoot> getShoots() {
-		if (shoots == null) {
-			shoots = new LinkedList<>();
-		}
-		
-		return shoots;
-	}
-
-	public void setShoots(List<Shoot> shoots) {
-		this.shoots = shoots;
+	public void setEntities(List<Entity> entities) {
+		this.entities = entities;
 	}
 
 	public List<String> getExternalUrls() {

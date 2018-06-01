@@ -1,16 +1,21 @@
+#
+# kUtils.data.api DEFAULTS
+#
+
+Bundle-Version:					1.0.0.${tstamp}
+
+Export-Package: monk.solemn.kutils.data.api
+
+Require-Capability: \
+	compile-only
+
+-includeresource: {readme.md}
+
 -buildpath: \
-	osgi.annotation;version=6.0.1,\
+	osgi.enroute.base.api;version=2.1,\
 	kUtils.objects;version=latest
--baseline: *
-javac.source: 1.8
-javac.target: 1.8
 
-Bundle-Version: 1.0.0.${tstamp}
+-testpath: \
+	osgi.enroute.junit.wrapper;version=4.12, \
+	osgi.enroute.hamcrest.wrapper;version=1.3
 
-Export-Package: \
-	monk.solemn.kutils.data.api,\
-	monk.solemn.kutils.data
-
-Import-Package: \
-	com.mysql.cj.jdbc,\
-	*

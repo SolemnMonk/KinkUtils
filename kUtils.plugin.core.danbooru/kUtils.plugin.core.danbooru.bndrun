@@ -1,0 +1,14 @@
+#
+# kUtils.plugin.core.danbooru LAUNCH SPECIFICATION
+#
+
+
+Bundle-Version:				1.0.0.${tstamp}
+Bundle-SymbolicName:		kUtils.plugin.core.danbooru.launch
+JPM-Command:				provider
+
+
+-runrequires:  \
+	osgi.identity;filter:='(osgi.identity=kUtils.plugin.core.danbooru.provider)'
+
+-runbundles: ${error;You must first resolve this bndrun file before you can run it}

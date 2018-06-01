@@ -1,10 +1,8 @@
 package monk.solemn.kutils.enums;
 
 public enum PluginType {
-	Network("Network"),
-	Site("Site"),
-	Ui("UI"),
-	DataProvider("Data Provider");
+	CONTENT_GATHERER("Content Gatherer"),
+	DATA_PROVIDER("Data Provider");
 	
 	String typeString;
 	

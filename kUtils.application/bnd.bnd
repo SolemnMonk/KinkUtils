@@ -1,0 +1,32 @@
+#
+#  kUtils.application APPLICATION
+#
+
+Bundle-Version: 1.0.0.${tstamp}
+
+
+EnRoute-Application: 	kUtils.application
+
+-includeresource: \
+	{readme.md}, \
+	{configuration=configuration}, \
+	{static=static}, \
+	web=web
+
+-buildpath: \
+	osgi.enroute.base.api;version=2.1,\
+	org.apache.felix.gogo.runtime,\
+	org.apache.felix.gogo.shell,\
+	kUtils.data.api;version=latest,\
+	kUtils.utils.low.api;version=latest,\
+	kUtils.objects;version=latest,\
+	kUtils.plugin.api;version=latest,\
+	org.apache.commons.lang3
+
+-testpath: \
+	osgi.enroute.junit.wrapper;version=4.12
+Export-Package: \
+	monk.solemn.kutils.application,\
+	monk.solemn.kutils.application.command,\
+	monk.solemn.kutils.application.command.abbreviated
+Bundle-Activator: monk.solemn.kutils.application.Activator

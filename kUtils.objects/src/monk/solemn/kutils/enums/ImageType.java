@@ -1,9 +1,9 @@
 package monk.solemn.kutils.enums;
 
 public enum ImageType {
-	Cover("cover"),
-	Preview("preview"),
-	Actor("actor");
+	COVER("cover"),
+	PREVIEW("preview"),
+	ACTOR("actor");
 	
 	private final String imageTypeName;
 	

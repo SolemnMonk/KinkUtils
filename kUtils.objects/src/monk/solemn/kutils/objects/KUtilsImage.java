@@ -10,19 +10,26 @@ import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.lang3.StringUtils;
+import org.osgi.service.component.annotations.Reference;
 
-import monk.solemn.kutils.utilities.low.ImageUtilitiesLow;
+import monk.solemn.kutils.utils.low.ImageUtilitiesLow;
 
 //TODO Add something to check if an image is still on disk
 public class KUtilsImage {
 	private static String basePath = ".";
-
+	private static ImageUtilitiesLow imageUtilsLow;
+	
 	private Long id;
 	private String filePath;
 	private Image image;
 	private String hash;
 	private boolean imageIsSaved;
-
+	
+	@Reference
+	public void bindImageUtilsLow(ImageUtilitiesLow imageUtilsLow) {
+		KUtilsImage.imageUtilsLow = imageUtilsLow;
+	}
+	
 	public KUtilsImage(String filePath) {
 		this.filePath = filePath;
 	}
@@ -36,7 +43,7 @@ public class KUtilsImage {
 
 		try {
 			image = ImageIO.read(imageFile);
-			hash = ImageUtilitiesLow.HashImage((RenderedImage) this.image);
+			hash = imageUtilsLow.HashImage((RenderedImage) this.image);
 		} catch (IOException e) {
 			return false;
 		} catch (IllegalArgumentException e) {
@@ -148,7 +155,7 @@ public class KUtilsImage {
 			boolean saved = false;
 			saved = saveImage(false);
 			if (saved) {
-				hash = ImageUtilitiesLow.HashImage((RenderedImage) this.image);
+				hash = imageUtilsLow.HashImage((RenderedImage) this.image);
 			}
 		}
 	}

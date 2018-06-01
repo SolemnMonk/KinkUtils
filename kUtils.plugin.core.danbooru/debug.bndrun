@@ -1,0 +1,13 @@
+#
+# kUtils.plugin.core.danbooru DEBUG LAUNCH SPECFICATION 
+#
+
+-include: ~kUtils.plugin.core.danbooru.bndrun
+
+-runrequires.debug:  \
+	${debug-bundles}
+
+-runtrace: true
+
+-runbundles: \
+	${error;Resolve first}

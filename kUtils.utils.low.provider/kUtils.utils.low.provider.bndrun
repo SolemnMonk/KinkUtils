@@ -1,0 +1,14 @@
+#
+# kUtils.utils.low.provider LAUNCH SPECIFICATION
+#
+
+
+Bundle-Version:				1.0.0.${tstamp}
+Bundle-SymbolicName:		kUtils.utils.low.provider.launch
+JPM-Command:				provider
+
+
+-runrequires:  \
+	osgi.identity;filter:='(osgi.identity=kUtils.utils.low.provider.provider)'
+
+-runbundles: ${error;You must first resolve this bndrun file before you can run it}

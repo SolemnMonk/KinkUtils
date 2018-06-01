@@ -1,12 +1,12 @@
 package monk.solemn.kutils.enums;
 
 public enum Gender {
-	Male("Male"),
-	Female("Female"),
-	Transsexual("Transsexual"),
-	MtF("Male-to-Female Transsexual"),
-	FtM("Female-to-Male Transsexual"),
-	Unknown("Unknown");
+	MALE("Male"),
+	FEMALE("Female"),
+	TRANSSEXUAL("Transsexual"),
+	MALE_TO_FEMALE("Male-to-Female Transsexual"),
+	FEMALE_TO_MALE("Female-to-Male Transsexual"),
+	UNKNOWN("Unknown");
 	
 	private String genderString;
 	

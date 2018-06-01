@@ -1,9 +1,10 @@
 package monk.solemn.kutils.enums;
 
 public enum ContentType {
-	Videos("Video"),
-	Images("Images"),
-	Text("Text");
+	VIDEOS("Video"),
+	IMAGES("Images"),
+	TEXT("Text"),
+	UNKNOWN("Unknown");
 	
 	private String typeString;
 	

@@ -1,0 +1,13 @@
+#
+# kUtils.utils.low.provider DEBUG LAUNCH SPECFICATION 
+#
+
+-include: ~kUtils.utils.low.provider.bndrun
+
+-runrequires.debug:  \
+	${debug-bundles}
+
+-runtrace: true
+
+-runbundles: \
+	${error;Resolve first}

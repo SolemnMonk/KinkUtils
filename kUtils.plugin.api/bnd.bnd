@@ -1,18 +1,21 @@
+#
+# kUtils.plugin.api DEFAULTS
+#
+
+Bundle-Version:					1.0.0.${tstamp}
+
+Export-Package: monk.solemn.kutils.plugin.api
+
+Require-Capability: \
+	compile-only
+
+-includeresource: {readme.md}
+
 -buildpath: \
-	osgi.annotation;version=6.0.1,\
-	osgi.core,\
-	kUtils.objects;version=latest,\
-	kUtils.utils.low;version=latest,\
-	org.apache.commons.lang3
+	osgi.enroute.base.api;version=2.1,\
+	kUtils.objects;version=latest
 
--baseline: *
-javac.source: 1.8
-javac.target: 1.8
-
-Bundle-Version: 1.0.0.${tstamp}
-Export-Package: \
-	monk.solemn.kutils.api,\
-	monk.solemn.kutils.api.action,\
-	monk.solemn.kutils.api.authentication,\
-	monk.solemn.kutils.api.base
+-testpath: \
+	osgi.enroute.junit.wrapper;version=4.12, \
+	osgi.enroute.hamcrest.wrapper;version=1.3
 

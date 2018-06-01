@@ -13,10 +13,6 @@ public class PluginInfo {
 	List<ContentType> contentTypes;
 	List<Task> tasks;
 	
-	public PluginInfo() {
-		
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
