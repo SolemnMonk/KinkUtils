@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1523775399282" name="kUtils.objects" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1530499126408" name="kUtils.objects" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.objects"/>
@@ -7,9 +7,9 @@
       <attribute name="version" type="Version" value="0.0.0"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="0156f78b0fa4916ed82c7eaf77e7984ae8e6f9e79d67d2e43492e7678bf8e940"/>
+      <attribute name="osgi.content" value="77ecb475bd1a625f182e6fa9036f3d0a1bb2d9e5b464516a79a8ec7f2ec89f7a"/>
       <attribute name="url" value="generated/kUtils.objects.jar"/>
-      <attribute name="size" type="Long" value="46295"/>
+      <attribute name="size" type="Long" value="46293"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -34,7 +34,7 @@
       <directive name="uses" value="monk.solemn.kutils.enums,monk.solemn.kutils.utils.low"/>
     </capability>
     <capability namespace="bndtools.workspace">
-      <attribute name="bndtools.workspace" value="file:/C:/Users/Mr.%20Nakaan/GitRepos/kUtils3"/>
+      <attribute name="bndtools.workspace" value="file:/C:/Users/Mr.%20Nakaan/GitRepos/kUtils"/>
       <attribute name="project.path" value="/kUtils.objects"/>
     </capability>
     <requirement namespace="osgi.wiring.package">

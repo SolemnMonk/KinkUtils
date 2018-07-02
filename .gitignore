@@ -3,3 +3,5 @@
 /generated/
 enroute.zip
 .metadata
+/.recommenders/
+/testStoragePool/

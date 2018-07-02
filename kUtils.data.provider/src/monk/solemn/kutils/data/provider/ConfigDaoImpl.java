@@ -1,10 +1,10 @@
 package monk.solemn.kutils.data.provider;
 
-import java.io.BufferedReader;
+import static monk.solemn.kutils.data.provider.Activator.closeDb;
+import static monk.solemn.kutils.data.provider.Activator.openDb;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +30,6 @@ public class ConfigDaoImpl implements ConfigDao {
 			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 				pstmt.setString(1, key);
 				ResultSet results = pstmt.executeQuery();
-				results.next();
 				if (results.next()) {
 					value = results.getString(1);
 				}
@@ -134,31 +133,5 @@ public class ConfigDaoImpl implements ConfigDao {
 		} catch (SQLException e) {
 			throw new IOException(e);
 		}
-	}
-
-	private Connection openDb() throws SQLException {
-		return openDb(false);
-	}
-	
-	private Connection openDb(boolean startTransaction) throws SQLException {
-		Connection conn = DriverManager.getConnection(Activator.JDBC_STRING);
-		
-		if (startTransaction) {
-			conn.setAutoCommit(false);
-		}
-		
-		return conn;
-	}
-	
-	private void closeDb(Connection conn) throws SQLException {
-		closeDb(conn, false);
-	}
-	
-	private void closeDb(Connection conn, boolean shouldCommitTransaction) throws SQLException {
-		if (shouldCommitTransaction) {
-			conn.commit();
-		}
-		
-		conn.close();
 	}
 }

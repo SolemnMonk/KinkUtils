@@ -1,9 +1,16 @@
 package monk.solemn.kutils.data.provider;
 
+import static monk.solemn.kutils.data.provider.Activator.openDb;
+import static monk.solemn.kutils.data.provider.Activator.closeDb;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,12 +85,22 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 
 	@Override
 	public void removeVirtualEntity(Long entityId) throws IOException {
-		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("DELETE FROM `virtualEntityData` WHERE `entityId` = {0};");
-		queryBuilder.append("DELETE FROM `entities` WHERE `entityId` = {1};");
-
-		String query = MessageFormat.format(queryBuilder.toString(), entityId, entityId);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "DELETE FROM `virtualEntityData` WHERE `entityId` = ?; DELETE FROM `entities` WHERE `entityId` = ?;";
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, entityId);
+				pstmt.setLong(2, entityId);
+				pstmt.execute();
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -162,18 +179,50 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 
 	@Override
 	public void convertItemToBundle(Long itemId, Map<String, String> metadata) throws IOException {
-		String query = "UPDATE `entities` SET classId = (SELECT classId FROM classes WHERE name = ''bundle'') WHERE entityId = {0}";
-		query = MessageFormat.format(query, itemId.toString());
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
-
+		String query = "UPDATE `entities` SET classId = (SELECT classId FROM classes WHERE name = 'bundle') WHERE entityId = ?";
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, itemId);
+				pstmt.execute();
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		addMetadataToBundle(itemId, metadata);
 	}
 
 	@Override
 	public void addMetadataToBundle(Long bundleId, String key, String value) throws IOException {
-		String query = "INSERT INTO `metadata` (`entityId`, `key`, `value`) VALUES ({0}, ''{1}'', ''{2}'')";
+		String query = "INSERT INTO `metadata` (`entityId`, `key`, `value`) VALUES (?, ?, ?)";
+		
+		if (value == null) {
+			value = "";
+		}
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, bundleId);
+				pstmt.setString(2, key);
+				pstmt.setString(3, value);
+				pstmt.execute();
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		query = MessageFormat.format(query, bundleId, key, value);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
 	}
 
 	@Override
@@ -185,9 +234,24 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 
 	@Override
 	public void updateMetadataOnBundle(Long bundleId, String key, String value) throws IOException {
-		String query = "UPDATE `metadata` SET `value` = ''{0}'' WHERE `entityId` = {1} AND `key` = ''{2}'')";
-		query = MessageFormat.format(query, value, bundleId, key);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "UPDATE `metadata` SET `value` = ? WHERE `entityId` = ? AND `key` = ?)";
+
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setString(1, value);
+				pstmt.setLong(2, bundleId);
+				pstmt.setString(3, key);
+
+				pstmt.execute();
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -199,9 +263,23 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 
 	@Override
 	public void removeMetadataFromBundle(Long bundleId, String key) throws IOException {
-		String query = "DELETE FROM `metadata` WHERE `entityId` = {1} AND `key` = ''{2}'')";
-		query = MessageFormat.format(query, bundleId, key);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "DELETE FROM `metadata` WHERE `entityId` = ? AND `key` = ?)";
+
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, bundleId);
+				pstmt.setString(2, key);
+
+				pstmt.execute();
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -213,15 +291,29 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 
 	@Override
 	public String getMetadataForBundle(Long bundleId, String key) throws IOException {
-		String query = "SELECT `value` FROM `metadata` WHERE `entityId` = {0} AND `key` = ''{1}''";
-		query = MessageFormat.format(query, bundleId, key);
-		Process process = runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
-		BufferedReader processOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		String value = processOutput.readLine();
-		if (!StringUtils.isBlank(value) && value.length() > 2) {
-			value = value.substring(1, value.length() - 1);
-		}
+		String query = "SELECT `value` FROM `metadata` WHERE `entityId` = ? AND `key` = ?";
+		String value = null;
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, bundleId);
+				pstmt.setString(2, key);
 
+				ResultSet results = pstmt.executeQuery();
+				if (results.next()) {
+					value = results.getString(1);
+				}
+				results.close();
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return value;
 	}
 
@@ -236,9 +328,24 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 
 	@Override
 	public void addDataToVirtualEntity(Long virtualEntityId, String key, String value) throws IOException {
-		String query = "INSERT INTO `virtualEntityData` (`entityId`, `key`, `value`) VALUES ({0}, ''{1}'', ''{2}''))";
-		query = MessageFormat.format(query, virtualEntityId, key, value);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "INSERT INTO `virtualEntityData` (`entityId`, `key`, `value`) VALUES (?, ?, ?))";
+
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, virtualEntityId);
+				pstmt.setString(2, key);
+				pstmt.setString(3, value);
+				
+				pstmt.execute();
+			}
+
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -250,9 +357,24 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 
 	@Override
 	public void updateDataOnVirtualEntity(Long virtualEntityId, String key, String value) throws IOException {
-		String query = "UPDATE `virtualEntityData` SET `value` = ''{0}'' WHERE `entityId` = {1} AND `key` = ''{2}''";
-		query = MessageFormat.format(query, value, virtualEntityId, key);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "UPDATE `virtualEntityData` SET `value` = ? WHERE `entityId` = ? AND `key` = ?";
+
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setString(1, value);
+				pstmt.setLong(2, virtualEntityId);
+				pstmt.setString(3, key);
+
+				pstmt.execute();
+			}
+
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -264,9 +386,23 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 
 	@Override
 	public void removeDataFromVirtualEntity(Long virtualEntityId, String key) throws IOException {
-		String query = "DELETE FROM `virtualEntityData` WHERE `entityId` = {0} AND `key` = ''{1}''";
-		query = MessageFormat.format(query, virtualEntityId, key);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "DELETE FROM `virtualEntityData` WHERE `entityId` = ? AND `key` = ?";
+
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, virtualEntityId);
+				pstmt.setString(2, key);
+
+				pstmt.execute();
+			}
+
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -281,82 +417,164 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 	}
 
 	private synchronized Long addNewEntity(String entityPath, EntityClass entityType) throws IOException {
-		String query = "INSERT INTO `entities` (`entityPath`, `classId`) VALUES (''{0}'', (SELECT classId FROM classes WHERE name = ''{1}''))";
-		query = MessageFormat.format(query, entityPath, entityType.toString().toLowerCase());
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "INSERT INTO `entities` (`entityPath`, `classId`) VALUES (?, (SELECT classId FROM classes WHERE name = ?))";
+		Long id = null;
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setString(1, entityPath);
+				pstmt.setString(2, entityType.toString().toLowerCase());
 
-		query = "SELECT `entityId` FROM `entities` ORDER BY `entityId` DESC LIMIT 1;";
-		Process process = runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
-		BufferedReader processOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		String value = processOutput.readLine();
-		if (!StringUtils.isBlank(value) && value.length() > 2) {
-			value = value.substring(1, value.length() - 1);
+				pstmt.execute();
+			}
+
+			query = "SELECT DISTINCT last_insert_rowid() FROM `entities`;";
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				ResultSet results = pstmt.executeQuery();
+				if (results.next()) {
+					id = results.getLong(1);
+				}
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-		return Long.valueOf(value);
+		
+		return id;
 	}
 
 	private synchronized void removeEntity(Long entityId) throws IOException {
-		String query = "DELETE FROM `entities` WHERE `entityId` = {0}";
-		query = MessageFormat.format(query, entityId);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "DELETE FROM `entities` WHERE `entityId` = ?";
+
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, entityId);
+
+				pstmt.execute();
+			}
+
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private synchronized Long recordNewMetadata(Long entityId, String key, String value) throws IOException {
-		String query = "INSERT INTO `metadata` (`entityId`, `key`, `value`) VALUES ({0}, ''{1}'', ''{2}''))";
-		query = MessageFormat.format(query, entityId, key, value);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "INSERT INTO `metadata` (`entityId`, `key`, `value`) VALUES (?, ?, ?))";
+		Long id = null;
 
-		query = "SELECT `entityId` FROM `entities` ORDER BY `entityId` DESC LIMIT 1;";
-		Process process = runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
-		BufferedReader processOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		String metadataId = processOutput.readLine();
-		if (!StringUtils.isBlank(metadataId) && metadataId.length() > 2) {
-			metadataId = metadataId.substring(1, value.length() - 1);
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, entityId);
+				pstmt.setString(2, key);
+				pstmt.setString(3, value);
+
+				pstmt.execute();
+			}
+			
+			query = "SELECT DISTINCT last_insert_rowid() FROM `metadata`;";
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				ResultSet results = pstmt.executeQuery();
+				if (results.next()) {
+					id = results.getLong(1);
+				}
+			}
+
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-		return Long.valueOf(metadataId);
+		
+		return id;
 	}
 
 	private synchronized void removeMetadata(Long metadataId) throws IOException {
-		String query = "DELETE FROM `metadata` WHERE `metadataId` = {0}";
-		query = MessageFormat.format(query, metadataId);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "DELETE FROM `metadata` WHERE `metadataId` = ?";
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, metadataId);
+
+				pstmt.execute();
+			}
+
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Map<Long, Pair<String, String>> retrieveMetadata(Long bundleId) throws IOException {
-		String query = "SELECT `key`, `value` FROM `metadata` WHERE `entityId` = {0}";
-		query = MessageFormat.format(query, bundleId);
-		Process process = runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
-		BufferedReader processOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		String rawMetadata = processOutput.readLine();
+		String query = "SELECT `metadataId` `key`, `value` FROM `metadata` WHERE `entityId` = ?";
 		Map<Long, Pair<String, String>> metadata = new HashMap<>();
-		if (!StringUtils.isBlank(rawMetadata) && rawMetadata.length() > 2) {
-			List<String> columns;
-			for (String record : rawMetadata.split("'|'")) {
-				columns = Arrays.asList(record.split("','"));
-				metadata.put(Long.valueOf(columns.get(0)), new ImmutablePair<>(
-						columns.get(1).substring(1, columns.get(1).length() - 1), columns.get(2).substring(1)));
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, bundleId);
 
+				ResultSet results = pstmt.executeQuery();
+				while (results.next()) {
+					metadata.put(results.getLong(1), new ImmutablePair<>(results.getString(2), results.getString(3)));
+				}
+				results.close();
 			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		return metadata;
 	}
 
 	private synchronized Long addDataForVirtualEntity(Long entityId, String key, String value) throws IOException {
-		String query = "INSERT INTO `virtualEntityData` (`entityId`, `key`, `value`) VALUES ({0}, ''{1}'', ''{2}'')";
-		query = MessageFormat.format(query, entityId, key, value);
-		runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
+		String query = "INSERT INTO `virtualEntityData` (`entityId`, `key`, `value`) VALUES (?, ?, ?)";
+		Long id = null;
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, entityId);
+				pstmt.setString(2, key);
+				pstmt.setString(3, value);
 
-		query = "SELECT `virtualEntityDataId` FROM `virtualEntityData` ORDER BY `virtualEntityDataId` DESC LIMIT 1;";
-		Process process = runtime.exec("python.exe sqlite_interface.py -q \"" + query + "\"");
-		BufferedReader processOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		String metadataId = processOutput.readLine();
-		if (!StringUtils.isBlank(metadataId) && metadataId.length() > 2) {
-			metadataId = metadataId.substring(1, metadataId.length() - 1);
+				pstmt.execute();
+			}
+
+			query = "SELECT DISTINCT last_insert_rowid() FROM `virtualEntityData`;";
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				ResultSet results = pstmt.executeQuery();
+				if (results.next()) {
+					id = results.getLong(1);
+				}
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-		return Long.valueOf(metadataId);
+		
+		return id;
 	}
 }

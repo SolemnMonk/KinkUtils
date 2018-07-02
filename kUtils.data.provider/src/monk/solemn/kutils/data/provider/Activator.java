@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +99,32 @@ public class Activator implements BundleActivator {
 			requiredValues.add("storagePoolLocation_" + i.toString());
 		}
 		requiredValues.add("aria2Location");
+	}
+	
+	public static Connection openDb() throws SQLException {
+		return openDb(false);
+	}
+	
+	public static Connection openDb(boolean startTransaction) throws SQLException {
+		Connection conn = DriverManager.getConnection(Activator.JDBC_STRING);
+		
+		if (startTransaction) {
+			conn.setAutoCommit(false);
+		}
+		
+		return conn;
+	}
+	
+	public static void closeDb(Connection conn) throws SQLException {
+		closeDb(conn, false);
+	}
+	
+	public static void closeDb(Connection conn, boolean shouldCommitTransaction) throws SQLException {
+		if (shouldCommitTransaction) {
+			conn.commit();
+		}
+		
+		conn.close();
 	}
 }
 

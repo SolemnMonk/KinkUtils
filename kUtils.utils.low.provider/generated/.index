@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1523774401383" name="kUtils.utils.low.provider" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1530499129680" name="kUtils.utils.low.provider" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.utils.low.provider"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201804150640"/>
+      <attribute name="version" type="Version" value="1.0.0.201807020238"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="6020825e478c7970cdb496b1f2a2c8662d7e25da9addd28e27c481e36497fe66"/>
+      <attribute name="osgi.content" value="70e1313b35c9fc79919ce9f8ceadf19c81937c3cc51aad551f83f758c8ab7ae2"/>
       <attribute name="url" value="generated/kUtils.utils.low.provider.jar"/>
-      <attribute name="size" type="Long" value="7094"/>
+      <attribute name="size" type="Long" value="7095"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.utils.low.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201804150640"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807020238"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.utils.low.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201804150640"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807020238"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.utils.low"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.utils.low.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201804150640"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807020238"/>
     </capability>
     <capability namespace="bndtools.workspace">
-      <attribute name="bndtools.workspace" value="file:/C:/Users/Mr.%20Nakaan/GitRepos/kUtils3"/>
+      <attribute name="bndtools.workspace" value="file:/C:/Users/Mr.%20Nakaan/GitRepos/kUtils"/>
       <attribute name="project.path" value="/kUtils.utils.low.provider"/>
     </capability>
     <requirement namespace="osgi.extender">
