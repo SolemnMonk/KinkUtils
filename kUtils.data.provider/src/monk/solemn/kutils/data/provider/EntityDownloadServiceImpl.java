@@ -12,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,9 @@ import monk.solemn.kutils.data.api.ConfigDao;
 import monk.solemn.kutils.data.api.EntityDownloadService;
 import monk.solemn.kutils.data.api.EntityRecordDao;
 import monk.solemn.kutils.enums.ContentType;
+import monk.solemn.kutils.enums.EntityClass;
+import monk.solemn.kutils.objects.BundleDownloadTicket;
+import monk.solemn.kutils.objects.DownloadTicket;
 import monk.solemn.kutils.objects.ItemDownloadTicket;
 
 @Component(service=EntityDownloadService.class,
@@ -42,7 +46,7 @@ import monk.solemn.kutils.objects.ItemDownloadTicket;
 public class EntityDownloadServiceImpl implements EntityDownloadService {
 	private static ConfigDao configDao;
 	private static EntityRecordDao entityRecordDao;
-	private Map<Long, ItemDownloadTicket> downloadTickets = new HashMap<>();
+	private Map<Long, DownloadTicket> downloadTickets = new HashMap<>();
 	private Map<FileStore, Long> pendingByteCount = new HashMap<>();
 
 	@Reference(
@@ -74,45 +78,126 @@ public class EntityDownloadServiceImpl implements EntityDownloadService {
 	}
 	
 	@Override
-	public ItemDownloadTicket getDownloadTicket(String pluginKey, ContentType contentType, String url) {
-		String configuredParentTmpDir = null;
-		try {
-			configuredParentTmpDir = configDao.loadGlobalConfig("TempDir");
-		} catch (IOException e) {
-			e.printStackTrace();
+	public DownloadTicket getDownloadTicket(String pluginKey, ContentType contentType, String url, EntityClass entityClass) {
+		File tmpDirFile = getTmpDir();
+		
+		switch (entityClass) {
+		case ITEM:
+			return getItemDownloadTicket(pluginKey, contentType, url, tmpDirFile);
+		case BUNDLE:
+			return getBundleDownloadTicket(pluginKey, contentType, Arrays.asList(url), tmpDirFile);
+		default:
+			return null;
 		}
-
-		if (StringUtils.isBlank(configuredParentTmpDir)) {
-			configuredParentTmpDir = ".";
+	}
+	
+	@Override
+	public DownloadTicket getDownloadTicket(String pluginKey, ContentType contentType, List<String> urls, EntityClass entityClass) {
+		File tmpDirFile = getTmpDir();
+		
+		switch (entityClass) {
+		case BUNDLE:
+			return getBundleDownloadTicket(pluginKey, contentType, urls, tmpDirFile);
+		default:
+			return null;
 		}
-
-		CRC32 crc = new CRC32();
-		crc.update(LocalDateTime.now().toString().getBytes());
-		String tmpDir = "kUtils.tmp." + Long.toHexString(crc.getValue());
-
-		File tmpDirFile = Paths.get(configuredParentTmpDir, tmpDir).toFile();
+	}
+	
+	private ItemDownloadTicket getItemDownloadTicket(String pluginKey, ContentType contentType, String url, File tmpDirFile) {
 		ItemDownloadTicket ticket = new ItemDownloadTicket(contentType, pluginKey, url, tmpDirFile);
+		saveClone(pluginKey, ticket.clone());
+		return ticket;
+	}
+	
+	private BundleDownloadTicket getBundleDownloadTicket(String pluginKey, ContentType contentType, List<String> urls, File tmpDirFile) {
+		BundleDownloadTicket ticket = new BundleDownloadTicket(contentType, pluginKey, urls, tmpDirFile);
 		saveClone(pluginKey, ticket.clone());
 		return ticket;
 	}
 
 	@Override
-	public Long finalizeDownload(ItemDownloadTicket ticket, File item) throws IOException {
+	public Long finalizeDownload(DownloadTicket ticket, File item) throws IOException {
 		return finalizeDownload(ticket, item, null);
 	}
 	
 	@Override
-	public Long finalizeDownload(ItemDownloadTicket ticket, File item, String parentPath) throws IOException {
+	public Long finalizeDownload(DownloadTicket ticket, List<File> items) throws IOException {
+		return finalizeDownload(ticket, items, null);
+	}
+	
+	@Override
+	public Long finalizeDownload(DownloadTicket ticket, File item, String parentPath) throws IOException {
 		return finalizeDownload(ticket, item, parentPath, null);
 	}
 	
 	@Override
-	public Long finalizeDownload(ItemDownloadTicket ticket, File item, String parentPath, String renameMask) throws IOException {
+	public Long finalizeDownload(DownloadTicket ticket, List<File> items, String parentPath) throws IOException {
+		return finalizeDownload(ticket, items, parentPath, null);
+	}
+	
+	@Override
+	public Long finalizeDownload(DownloadTicket ticket, File item, String parentPath, String renameMask) throws IOException {
+		if (ticket instanceof ItemDownloadTicket) {
+			return finalizeDownload((ItemDownloadTicket) ticket, item, parentPath, renameMask);
+		} else if (ticket instanceof BundleDownloadTicket) {
+			return finalizeDownload((BundleDownloadTicket) ticket, item, parentPath, renameMask);
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public Long finalizeDownload(DownloadTicket ticket, List<File> items, String parentPath, String renameMask) throws IOException {
+		if (ticket instanceof ItemDownloadTicket) {
+			return finalizeDownload((ItemDownloadTicket) ticket, items, parentPath, renameMask);
+		} else if (ticket instanceof BundleDownloadTicket) {
+			return finalizeDownload((BundleDownloadTicket) ticket, items, parentPath, renameMask);
+		} else {
+			return null;
+		}
+	}
+	
+	private Long finalizeDownload(ItemDownloadTicket ticket, File item, String parentPath, String renameMask) throws IOException {
 		CRC32 crc = new CRC32();
 		crc.update(ticket.getPluginKey().getBytes());
 		crc.update(ticket.getItemUrl().getBytes());
 		
-		ItemDownloadTicket savedCopy = downloadTickets.get(crc.getValue());
+		DownloadTicket savedCopy = downloadTickets.get(crc.getValue());
+		Long id = null;
+		File finalFile = null;
+		
+		if (ticket.equals(savedCopy)) {
+			File destDir = findDestinationDir(item.length(), StringUtils.isNotBlank(parentPath));
+			FileStore destStore = Files.getFileStore(destDir.toPath());
+			
+			if (StringUtils.isNotBlank(parentPath)) {
+				FileUtils.moveFileToDirectory(item, Paths.get(destDir.getAbsolutePath(), parentPath).toFile(), true);
+				finalFile = Paths.get(destDir.getAbsolutePath(), parentPath, item.getName()).toFile();
+			} else {
+				FileUtils.moveFileToDirectory(item, destDir, true);
+				finalFile = Paths.get(destDir.getAbsolutePath(), item.getName()).toFile();
+			}
+			id = entityRecordDao.addNewItem(finalFile);
+			pendingByteCount.put(destStore, pendingByteCount.get(destStore) - item.length());
+		}
+		
+		if (!StringUtils.isBlank(renameMask)) {
+			finalFile = renameWithMask(id, finalFile, renameMask);
+		}
+		
+		FileUtils.deleteDirectory(ticket.getTempDirectory());
+		downloadTickets.remove(crc.getValue());
+		return id;
+	}
+	
+	private Long finalizeDownload(BundleDownloadTicket ticket, File item, String parentPath, String renameMask) throws IOException {
+		CRC32 crc = new CRC32();
+		crc.update(ticket.getPluginKey().getBytes());
+		for (String url : ticket.getItemUrls()) {
+			crc.update(url.getBytes());
+		}
+		
+		DownloadTicket savedCopy = downloadTickets.get(crc.getValue());
 		Long id = null;
 		File finalFile = null;
 		
@@ -141,12 +226,22 @@ public class EntityDownloadServiceImpl implements EntityDownloadService {
 	}
 
 	@Override
-	public File download(ItemDownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException {
+	public File download(DownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException {
 		return downloadWithAria(ticket, cookieMap, cookieFile);
 	}
 
 	@Override
-	public File downloadWithAria(ItemDownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException {
+	public File downloadWithAria(DownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException {
+		if (ticket instanceof ItemDownloadTicket) {
+			return downloadWithAria((ItemDownloadTicket) ticket, cookieMap, cookieFile);
+		} else if (ticket instanceof BundleDownloadTicket) {
+			return downloadWithAria((BundleDownloadTicket) ticket, cookieMap, cookieFile);
+		} else {
+			return null;
+		}
+	}
+	
+	private File downloadWithAria(ItemDownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException {
 		String ariaLocation = configDao.loadGlobalConfig("aria2Location");
 		
 		StringBuilder commandBuilder = new StringBuilder();
@@ -209,10 +304,20 @@ public class EntityDownloadServiceImpl implements EntityDownloadService {
 		return downloadedFile;
 	}
 	
-	private void saveClone(String key, ItemDownloadTicket clone) {
+	private File downloadWithAria(BundleDownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException {
+		return null;
+	}
+	
+	private void saveClone(String key, DownloadTicket clone) {
 		CRC32 crc = new CRC32();
 		crc.update(key.getBytes());
-		crc.update(clone.getItemUrl().getBytes());
+		if (clone instanceof ItemDownloadTicket) {
+			crc.update(((ItemDownloadTicket) clone).getItemUrl().getBytes());
+		} else if (clone instanceof BundleDownloadTicket) {
+			for (String itemUrl : ((BundleDownloadTicket) clone).getItemUrls()) {
+				crc.update(itemUrl.getBytes());
+			}
+		}
 		
 		downloadTickets.putIfAbsent(crc.getValue(), clone);
 	}
@@ -286,6 +391,27 @@ public class EntityDownloadServiceImpl implements EntityDownloadService {
 		Files.move(finalFile.toPath(), destination, StandardCopyOption.COPY_ATTRIBUTES);
 		
 		return destination.toFile();
+	}
+	
+	
+	private File getTmpDir() {
+		String configuredParentTmpDir = null;
+		try {
+			configuredParentTmpDir = configDao.loadGlobalConfig("TempDir");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		if (StringUtils.isBlank(configuredParentTmpDir)) {
+			configuredParentTmpDir = ".";
+		}
+		
+		CRC32 crc = new CRC32();
+		crc.update(LocalDateTime.now().toString().getBytes());
+		String tmpDir = "kUtils.tmp." + Long.toHexString(crc.getValue());
+		
+		File tmpDirFile = Paths.get(configuredParentTmpDir, tmpDir).toFile();
+		return tmpDirFile;
 	}
 	
 	private static String sanitizeForPathName(String string) {

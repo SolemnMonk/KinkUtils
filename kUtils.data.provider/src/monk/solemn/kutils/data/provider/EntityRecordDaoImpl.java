@@ -1,24 +1,20 @@
 package monk.solemn.kutils.data.provider;
 
-import static monk.solemn.kutils.data.provider.Activator.openDb;
 import static monk.solemn.kutils.data.provider.Activator.closeDb;
+import static monk.solemn.kutils.data.provider.Activator.openDb;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.osgi.service.component.annotations.Component;

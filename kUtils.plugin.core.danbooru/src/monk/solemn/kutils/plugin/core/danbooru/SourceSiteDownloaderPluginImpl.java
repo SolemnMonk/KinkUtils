@@ -16,7 +16,7 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import monk.solemn.kutils.data.api.EntityDownloadService;
 import monk.solemn.kutils.data.api.EntityRecordDao;
 import monk.solemn.kutils.enums.ContentType;
-import monk.solemn.kutils.objects.ItemDownloadTicket;
+import monk.solemn.kutils.objects.BundleDownloadTicket;
 import monk.solemn.kutils.plugin.api.SourceSiteDownloaderPlugin;
 
 @Component(service=SourceSiteDownloaderPlugin.class,
@@ -105,7 +105,7 @@ public class SourceSiteDownloaderPluginImpl extends SourceSiteCommonImpl impleme
 	private Long download(String urlString, String fileExt)
 			throws MalformedURLException, IOException, InterruptedException {
 		URL url = new URL(urlString);
-		ItemDownloadTicket ticket = entityDownloadService.getDownloadTicket("dbruCore", ContentType.IMAGES, url.toString());
+		BundleDownloadTicket ticket = entityDownloadService.getItemDownloadTicket("dbruCore", ContentType.IMAGES, url.toString());
 		
 		File item = entityDownloadService.download(ticket, null, null);
 		

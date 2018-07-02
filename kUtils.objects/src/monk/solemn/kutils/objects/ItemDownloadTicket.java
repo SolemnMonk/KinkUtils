@@ -4,10 +4,7 @@ import java.io.File;
 
 import monk.solemn.kutils.enums.ContentType;
 
-public class ItemDownloadTicket {
-	private File tempDirectory;
-	private ContentType contentType;
-	private String pluginKey;
+public class ItemDownloadTicket extends DownloadTicket {
 	private String itemUrl;
 	
 	public ItemDownloadTicket(ContentType contentType, String pluginKey, String itemUrl, File tempDirectory) {
@@ -30,18 +27,15 @@ public class ItemDownloadTicket {
 	
 	@Override
 	public String toString() {
-		return "ItemDownloadTicket [tempDirectory=" + tempDirectory + ", contentType=" + contentType + ", pluginKey="
-				+ pluginKey + ", itemUrl=" + itemUrl + "]";
+		return "ItemDownloadTicket [itemUrl=" + itemUrl + ", tempDirectory=" + tempDirectory + ", contentType="
+				+ contentType + ", pluginKey=" + pluginKey + "]";
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((contentType == null) ? 0 : contentType.hashCode());
+		int result = super.hashCode();
 		result = prime * result + ((itemUrl == null) ? 0 : itemUrl.hashCode());
-		result = prime * result + ((pluginKey == null) ? 0 : pluginKey.hashCode());
-		result = prime * result + ((tempDirectory == null) ? 0 : tempDirectory.hashCode());
 		return result;
 	}
 
@@ -49,41 +43,17 @@ public class ItemDownloadTicket {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		ItemDownloadTicket other = (ItemDownloadTicket) obj;
-		if (contentType != other.contentType)
-			return false;
 		if (itemUrl == null) {
 			if (other.itemUrl != null)
 				return false;
 		} else if (!itemUrl.equals(other.itemUrl))
 			return false;
-		if (pluginKey == null) {
-			if (other.pluginKey != null)
-				return false;
-		} else if (!pluginKey.equals(other.pluginKey))
-			return false;
-		if (tempDirectory == null) {
-			if (other.tempDirectory != null)
-				return false;
-		} else if (!tempDirectory.equals(other.tempDirectory))
-			return false;
 		return true;
-	}
-
-	public File getTempDirectory() {
-		return tempDirectory;
-	}
-
-	public ContentType getContentType() {
-		return contentType;
-	}
-
-	public String getPluginKey() {
-		return pluginKey;
 	}
 
 	public String getItemUrl() {
