@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import monk.solemn.kutils.utils.low.provider.ProviderImpl;
+import monk.solemn.kutils.utils.low.provider.StringUtilitiesLowImpl;
 
 /*
  * Example JUNit test case
@@ -19,7 +19,7 @@ public class ProviderImplTest {
 
 	@Test
 	public void simple() {
-		ProviderImpl impl = new ProviderImpl();
+		StringUtilitiesLowImpl impl = new StringUtilitiesLowImpl();
 		assertNotNull(impl);
 	}
 

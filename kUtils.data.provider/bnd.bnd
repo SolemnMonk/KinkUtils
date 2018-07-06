@@ -17,7 +17,8 @@ Private-Package:  \
 	org.apache.commons.io,\
 	org.apache.commons.lang3,\
 	kUtils.objects;version=latest,\
-	org.xerial.sqlite-jdbc
+	org.xerial.sqlite-jdbc,\
+	kUtils.utils.low.provider;version=latest
 
 -testpath: \
 	osgi.enroute.junit.wrapper;version=4.12, \

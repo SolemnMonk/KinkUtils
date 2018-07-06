@@ -10,8 +10,11 @@ Private-Package: monk.solemn.kutils.utils.low.provider
 
 -includeresource: {readme.md}
 
--buildpath:  \
-	osgi.enroute.base.api;version=2.1
+-buildpath: \
+	osgi.enroute.base.api;version=2.1,\
+	kUtils.utils.low.api;version=latest,\
+	org.apache.commons.lang,\
+	org.apache.commons.lang3
 
 -testpath: \
 	osgi.enroute.junit.wrapper;version=4.12, \

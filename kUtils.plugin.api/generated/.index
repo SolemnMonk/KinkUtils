@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1530506789284" name="kUtils.plugin.api" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1530765248039" name="kUtils.plugin.api" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.plugin.api"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201807020446"/>
+      <attribute name="version" type="Version" value="1.0.0.201807050434"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="23eae6acea7f2fc96d0c5d013d09a899827d153fa4edc3a4792a42910afb7b76"/>
+      <attribute name="osgi.content" value="6afcea00e998cc8ac1691a06a0260fa9bbebe61d28417569f5a273a3b45cbcd8"/>
       <attribute name="url" value="generated/kUtils.plugin.api.jar"/>
       <attribute name="size" type="Long" value="6970"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020446"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050434"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020446"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050434"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.plugin.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020446"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050434"/>
       <directive name="uses" value="monk.solemn.kutils.objects"/>
     </capability>
     <capability namespace="bndtools.workspace">

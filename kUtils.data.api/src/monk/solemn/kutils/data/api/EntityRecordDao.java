@@ -12,7 +12,7 @@ public interface EntityRecordDao {
 	
 	void removeItem(Long itemId) throws IOException;
 	
-	Long addNewBundle(File entity, Map<String, String> metadata) throws IOException;
+	Long addNewBundle(List<File> entities, Map<String, String> metadata) throws IOException;
 	
 	void removeBundle(Long bundleId) throws IOException;
 	

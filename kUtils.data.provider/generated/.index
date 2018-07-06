@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1530507138199" name="kUtils.data.provider" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1530767632594" name="kUtils.data.provider" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.data.provider"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201807020452"/>
+      <attribute name="version" type="Version" value="1.0.0.201807050513"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="4aa93d0919a5491d40e03307dde0db3bce65de156956ebad135f57a62f04b2d5"/>
+      <attribute name="osgi.content" value="e5fd98cfb141edd9115c4dec55348025faa1bf7d75587ac004fc84f6be7f7d70"/>
       <attribute name="url" value="generated/kUtils.data.provider.jar"/>
-      <attribute name="size" type="Long" value="40035"/>
+      <attribute name="size" type="Long" value="41165"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.data.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020452"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050513"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.data.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020452"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050513"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.data.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.data.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020452"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050513"/>
       <directive name="uses" value="monk.solemn.kutils.enums,monk.solemn.kutils.objects"/>
     </capability>
     <capability namespace="osgi.service">
@@ -62,13 +62,13 @@
       <directive name="filter" value="(&amp;(osgi.wiring.package=monk.solemn.kutils.objects)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=monk.solemn.kutils.utils.low)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.io)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.lang3)(version&gt;=3.4.0)(!(version&gt;=4.0.0)))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.lang3.text)(version&gt;=3.4.0)(!(version&gt;=4.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.lang3.tuple)(version&gt;=3.4.0)(!(version&gt;=4.0.0)))"/>
@@ -90,6 +90,10 @@
       <directive name="filter" value="(objectClass=monk.solemn.kutils.data.api.EntityRecordDao)"/>
       <directive name="effective" value="active"/>
     </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=monk.solemn.kutils.utils.low.StringUtilitiesLow)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
@@ -99,6 +103,10 @@
     </requirement>
     <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=monk.solemn.kutils.data.api.EntityRecordDao)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=monk.solemn.kutils.utils.low.StringUtilitiesLow)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">

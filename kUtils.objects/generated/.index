@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1530506788336" name="kUtils.objects" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1530765247638" name="kUtils.objects" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.objects"/>
@@ -7,9 +7,9 @@
       <attribute name="version" type="Version" value="0.0.0"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="df45a7e5600d13f4d91ecee6cb7570efe9ffdacd73bd97da430e5d7845c6f7c8"/>
+      <attribute name="osgi.content" value="bc6c9d642bdbc531a6ca0b9bbaa7b1f5407f8cebb89edc42296afd2039e4ec11"/>
       <attribute name="url" value="generated/kUtils.objects.jar"/>
-      <attribute name="size" type="Long" value="50379"/>
+      <attribute name="size" type="Long" value="54028"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">

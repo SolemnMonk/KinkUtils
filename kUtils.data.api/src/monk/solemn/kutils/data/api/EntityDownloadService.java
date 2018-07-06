@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import monk.solemn.kutils.enums.ContentType;
-import monk.solemn.kutils.enums.EntityClass;
+import monk.solemn.kutils.objects.BundleDownloadTicket;
 import monk.solemn.kutils.objects.DownloadTicket;
+import monk.solemn.kutils.objects.ItemDownloadTicket;
 
 public interface EntityDownloadService {
-	DownloadTicket getDownloadTicket(String pluginKey, ContentType contentType, String url, EntityClass entityClass);
+	ItemDownloadTicket getDownloadTicket(String pluginKey, ContentType contentType, String url);
 	
-	DownloadTicket getDownloadTicket(String pluginKey, ContentType contentType, List<String> url, EntityClass entityClass);
+	BundleDownloadTicket getDownloadTicket(String pluginKey, ContentType contentType, List<String> urls);
 	
 	/**
 	 * Finalizes the download by moving it into one of the file pools, inserts the Item into the database, and 
@@ -36,9 +37,13 @@ public interface EntityDownloadService {
 	
 	Long finalizeDownload(DownloadTicket ticket, File item, String parentPath, String renameMask) throws IOException;
 	
-	Long finalizeDownload(DownloadTicket ticket, List<File> items, String parentPath, String renameMask) throws IOException;
+	Long finalizeDownload(DownloadTicket ticket, List<File> items, Map<String, String> metadata, String parentPath, String renameMask) throws IOException;
 
-	File download(DownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException;
+	File download(ItemDownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException;
 	
-	File downloadWithAria(DownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException;
+	List<File> download(BundleDownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException;
+	
+	File downloadWithAria(ItemDownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException;
+	
+	List<File> downloadWithAria(BundleDownloadTicket ticket, Map<String, String> cookieMap, String cookieFile) throws IOException, InterruptedException;
 }

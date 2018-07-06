@@ -12,4 +12,8 @@ public class DlCommand {
 	public void dl(String pluginKey, String targetType, String url) {
 		new DownloadCommand().download(pluginKey, targetType, url);
 	}
+
+	public void dl(String pluginKey, String targetType, String url, String renameMask) {
+		new DownloadCommand().download(pluginKey, targetType, url, renameMask);
+	}
 }

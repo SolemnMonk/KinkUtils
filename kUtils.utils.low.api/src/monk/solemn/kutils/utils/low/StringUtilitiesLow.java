@@ -7,6 +7,4 @@ public interface StringUtilitiesLow {
 	public String sanitizeForPathName(String string);
 	
 	public String normalizeString(String string);
-	
-	public String makeUnique(String string);
 }

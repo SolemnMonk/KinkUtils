@@ -3,6 +3,7 @@ package monk.solemn.kutils.application.command;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.osgi.service.component.annotations.Component;
 
 import monk.solemn.kutils.application.TaskQueue;
@@ -16,6 +17,10 @@ import osgi.enroute.debug.api.Debug;
 		   service=DownloadCommand.class)
 public class DownloadCommand {
 	public void download(String pluginKey, String targetType, String url) {
+		download(pluginKey, targetType, url, null);
+	}
+	
+	public void download(String pluginKey, String targetType, String url, String renameMask) {
 		Task task = null;
 		try {
 			task = new Task(Action.DOWNLOAD, EntityClass.valueOf(targetType.toUpperCase()));
@@ -30,6 +35,9 @@ public class DownloadCommand {
 		Map<String, String> data = new HashMap<>();
 		data.put("pluginKey", pluginKey);
 		data.put("url", url);
+		if (StringUtils.isNotBlank(renameMask)) {
+			data.put("renameMask", renameMask);
+		}
 		
 		task.setData(data);
 		

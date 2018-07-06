@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1530499124103" name="kUtils.utils.low.api" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1530762319875" name="kUtils.utils.low.api" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.utils.low.api"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201807020238"/>
+      <attribute name="version" type="Version" value="1.0.0.201807050345"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="e66906f942f0b55ea7907741d8ae0b4f7039e3ba5416b29c78e6e70f138c86b7"/>
+      <attribute name="osgi.content" value="4956f34104e82b310659881c9b57991c13e30481eb53131374608cfbcd64cf5b"/>
       <attribute name="url" value="generated/kUtils.utils.low.api.jar"/>
-      <attribute name="size" type="Long" value="5466"/>
+      <attribute name="size" type="Long" value="5443"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.utils.low.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020238"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050345"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.utils.low.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020238"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050345"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.utils.low"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.utils.low.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807020238"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807050345"/>
     </capability>
     <capability namespace="bndtools.workspace">
       <attribute name="bndtools.workspace" value="file:/C:/Users/Mr.%20Nakaan/GitRepos/kUtils"/>

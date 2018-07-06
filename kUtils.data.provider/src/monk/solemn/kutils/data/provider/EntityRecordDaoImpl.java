@@ -37,9 +37,13 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 	}
 
 	@Override
-	public Long addNewBundle(File entity, Map<String, String> metadata) throws IOException {
-		Long id = addNewEntity(entity, EntityClass.BUNDLE);
+	public Long addNewBundle(List<File> entities, Map<String, String> metadata) throws IOException {
+		for (File entity : entities) {
+			addNewEntity(entity, EntityClass.BUNDLE);
+		}
 
+		long id = addNewEntity(EntityClass.BUNDLE);
+		
 		if (metadata != null && !metadata.isEmpty()) {
 			for (String key : metadata.keySet()) {
 				recordNewMetadata(id, key, metadata.get(key));
@@ -408,6 +412,10 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 		}
 	}
 
+	private synchronized Long addNewEntity(EntityClass entityType) throws IOException {
+		return addNewEntity("", entityType);
+	}
+	
 	private synchronized Long addNewEntity(File entity, EntityClass entityType) throws IOException {
 		return addNewEntity(entity.getAbsolutePath(), entityType);
 	}
@@ -464,7 +472,7 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 	}
 
 	private synchronized Long recordNewMetadata(Long entityId, String key, String value) throws IOException {
-		String query = "INSERT INTO `metadata` (`entityId`, `key`, `value`) VALUES (?, ?, ?))";
+		String query = "INSERT INTO `metadata` (`entityId`, `key`, `value`) VALUES (?, ?, ?)";
 		Long id = null;
 
 		Connection conn;
@@ -474,7 +482,7 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 				pstmt.setLong(1, entityId);
 				pstmt.setString(2, key);
-				pstmt.setString(3, value);
+				pstmt.setString(3, (value == null ? "" : value));
 
 				pstmt.execute();
 			}

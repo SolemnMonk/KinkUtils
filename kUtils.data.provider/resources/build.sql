@@ -1,6 +1,3 @@
-DROP TABLE IF EXISTS `relationships`;
-CREATE TABLE IF NOT EXISTS `relationships` (`relationshipId` INTEGER PRIMARY KEY AUTOINCREMENT, `parentId` INTEGER NOT NULL, `childId` INTEGER NOT NULL, FOREIGN KEY(`childId`) REFERENCES `entities`(`IdListId`), FOREIGN KEY(`parentId`) REFERENCES `entities`(`IdListId`));
-
 DROP TABLE IF EXISTS `plugins`;
 CREATE TABLE IF NOT EXISTS `plugins` (`pluginId` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `version` TEXT NOT NULL, `description` TEXT, `pluginReferenceId` TEXT NOT NULL UNIQUE);
 
@@ -45,3 +42,6 @@ CREATE TABLE IF NOT EXISTS `metadata` (`metadataId` INTEGER PRIMARY KEY AUTOINCR
 
 DROP INDEX IF EXISTS `idIndex`;
 CREATE UNIQUE INDEX IF NOT EXISTS `idIndex` ON `entities` (`entityid`, `classId`);
+
+DROP TABLE IF EXISTS `relationships`;
+CREATE TABLE IF NOT EXISTS `relationships` (`relationshipId` INTEGER PRIMARY KEY AUTOINCREMENT, `parentId` INTEGER NOT NULL, `childId` INTEGER NOT NULL, FOREIGN KEY(`childId`) REFERENCES `entities`(`IdListId`), FOREIGN KEY(`parentId`) REFERENCES `entities`(`IdListId`));
