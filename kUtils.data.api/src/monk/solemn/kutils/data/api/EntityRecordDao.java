@@ -2,6 +2,7 @@ package monk.solemn.kutils.data.api;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -11,16 +12,32 @@ public interface EntityRecordDao {
 	Long addNewItem(File entity) throws IOException;
 	
 	void removeItem(Long itemId) throws IOException;
+
+	Long addNewBundle(Path parent) throws IOException;
 	
-	Long addNewBundle(List<File> entities, Map<String, String> metadata) throws IOException;
+	Long addNewBundle(List<File> entities, Path parent) throws IOException;
 	
+	Long addNewBundle(List<File> entities, Path parent, Map<String, String> metadata) throws IOException;
+
 	void removeBundle(Long bundleId) throws IOException;
+	
+	Long addItemToBundle(Long bundleId, File entity) throws IOException;
+	
+	Long addItemToBundle(Long bundleId, Long itemId) throws IOException;
+	
+	Long addItemToBundle(Long bundleId, Path entityPath) throws IOException;
+	
+	Long addItemToBundle(Long bundleId, String entityPath) throws IOException;
 	
 	Long addNewVirtualEntity(String path, EntityClass entityClass) throws IOException, IllegalArgumentException;
 	
 	Long addNewVirtualEntity(String path, EntityClass entityClass, Map<String, String> data) throws IOException, IllegalArgumentException;
 	
 	void removeVirtualEntity(Long entityId) throws IOException;
+	
+	Long addRelationship(Long parentId, Long childId) throws IOException;
+	
+	void removeRelationship(Long relationshipId) throws IOException;
 	
 	Long addNewChannel(String path) throws IOException;
 	

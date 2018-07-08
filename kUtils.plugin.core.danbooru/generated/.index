@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1530767611577" name="kUtils.plugin.core.danbooru" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1531061116978" name="kUtils.plugin.core.danbooru" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.plugin.core.danbooru"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201807050513"/>
+      <attribute name="version" type="Version" value="1.0.0.201807081445"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="fb3e177fc82e8c8c5884116c1719177a6a5fe79fb392e80bb946f2ef474b84e4"/>
+      <attribute name="osgi.content" value="67c1a612e1e3f2e82cbdb2c78b82dd718bd67013b013cf5996363c5a54f0917a"/>
       <attribute name="url" value="generated/kUtils.plugin.core.danbooru.jar"/>
-      <attribute name="size" type="Long" value="23858"/>
+      <attribute name="size" type="Long" value="29531"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.plugin.core.danbooru"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807050513"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.plugin.core.danbooru"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807050513"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.plugin.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.core.danbooru"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807050513"/>
-      <directive name="uses" value="monk.solemn.kutils.objects"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
+      <directive name="uses" value="javax.naming,monk.solemn.kutils.objects"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="monk.solemn.kutils.plugin.api.SourceSiteDataGathererPlugin"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="monk.solemn.kutils.plugin.api.SourceSiteDownloaderPlugin"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="monk.solemn.kutils.plugin.api.SourceSiteRipperPlugin"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="monk.solemn.kutils.plugin.api.SourceSiteDataGathererPlugin"/>
@@ -39,6 +42,10 @@
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="monk.solemn.kutils.plugin.api.SourceSiteDownloaderPlugin"/>
+      <directive name="uses" value="monk.solemn.kutils.plugin.api"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="monk.solemn.kutils.plugin.api.SourceSiteRipperPlugin"/>
       <directive name="uses" value="monk.solemn.kutils.plugin.api"/>
     </capability>
     <capability namespace="bndtools.workspace">
@@ -50,6 +57,9 @@
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=com.google.gson.reflect)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.naming)"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=monk.solemn.kutils.application)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
@@ -88,6 +98,14 @@
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=monk.solemn.kutils.data.api.EntityDownloadService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=monk.solemn.kutils.data.api.EntityRecordDao)"/>
+      <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=monk.solemn.kutils.data.api.EntityDownloadService)"/>

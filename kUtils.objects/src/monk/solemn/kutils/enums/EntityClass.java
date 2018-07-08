@@ -5,7 +5,8 @@ public enum EntityClass {
 	SEARCH("Search", true),
 	CHANNEL("Channel", true),
 	BUNDLE("Bundle", false),
-	ITEM("Item", false);
+	ITEM("Item", false),
+	CUSTOM("Custom", true);
 	
 	private String targetString;
 	private boolean isAbstract;

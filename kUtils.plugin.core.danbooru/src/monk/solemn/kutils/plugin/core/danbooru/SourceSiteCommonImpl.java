@@ -17,8 +17,8 @@ import com.google.gson.reflect.TypeToken;
 
 import monk.solemn.kutils.enums.Action;
 import monk.solemn.kutils.enums.ContentType;
-import monk.solemn.kutils.enums.PluginType;
 import monk.solemn.kutils.enums.EntityClass;
+import monk.solemn.kutils.enums.PluginType;
 import monk.solemn.kutils.objects.PluginInfo;
 import monk.solemn.kutils.objects.Task;
 import monk.solemn.kutils.plugin.api.SourceSitePlugin;
@@ -110,14 +110,7 @@ public class SourceSiteCommonImpl implements SourceSitePlugin {
 				throw new IOException("Received response code of " + Integer.valueOf(responseCode).toString());
 			}
 			postDetails = new Gson().fromJson(IOUtils.toString(connection.getInputStream()), new TypeToken<Map<String, String>>(){}.getType());
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

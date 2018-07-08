@@ -23,7 +23,7 @@ INSERT INTO `globalConfig` (`key`, `value`) VALUES ('storagePoolLocationCount', 
 
 DROP TABLE IF EXISTS `classes`;
 CREATE TABLE IF NOT EXISTS `classes` (`classId` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL UNIQUE);
-INSERT INTO `classes` (`classId`,`name`) VALUES (1,'site'), (2,'search'), (3,'channel'), (4,'bundle'), (5,'item');
+INSERT INTO `classes` (`classId`,`name`) VALUES (1,'site'), (2,'search'), (3,'channel'), (4,'bundle'), (5,'item'), (6, 'custom');
 
 DROP TABLE IF EXISTS `actors`;
 CREATE TABLE IF NOT EXISTS `actors` (`actorId` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `genderId` INTEGER, `parentActorId` INTEGER, FOREIGN KEY(`parentActorId`) REFERENCES `actors`(`actorId`), FOREIGN KEY(`genderId`) REFERENCES `genders`(`genderId`));

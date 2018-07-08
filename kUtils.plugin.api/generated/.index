@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1530765248039" name="kUtils.plugin.api" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1531061114575" name="kUtils.plugin.api" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.plugin.api"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201807050434"/>
+      <attribute name="version" type="Version" value="1.0.0.201807081445"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="6afcea00e998cc8ac1691a06a0260fa9bbebe61d28417569f5a273a3b45cbcd8"/>
+      <attribute name="osgi.content" value="7ca8f44f4c416f15609a30373008345a7ec778bb3ce0ab84a0995faa41129da7"/>
       <attribute name="url" value="generated/kUtils.plugin.api.jar"/>
-      <attribute name="size" type="Long" value="6970"/>
+      <attribute name="size" type="Long" value="7950"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807050434"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807050434"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.plugin.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.plugin.api"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807050434"/>
-      <directive name="uses" value="monk.solemn.kutils.objects"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
+      <directive name="uses" value="javax.naming,monk.solemn.kutils.objects"/>
     </capability>
     <capability namespace="bndtools.workspace">
       <attribute name="bndtools.workspace" value="file:/C:/Users/Mr.%20Nakaan/GitRepos/kUtils"/>
       <attribute name="project.path" value="/kUtils.plugin.api"/>
     </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.naming)"/>
+    </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=monk.solemn.kutils.objects)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>

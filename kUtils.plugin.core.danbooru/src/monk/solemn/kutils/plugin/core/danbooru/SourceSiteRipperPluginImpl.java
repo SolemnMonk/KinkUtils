@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.naming.OperationNotSupportedException;
 
-import org.apache.commons.io.FilenameUtils;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -21,11 +20,11 @@ import monk.solemn.kutils.data.api.EntityRecordDao;
 import monk.solemn.kutils.enums.ContentType;
 import monk.solemn.kutils.objects.BundleDownloadTicket;
 import monk.solemn.kutils.objects.ItemDownloadTicket;
-import monk.solemn.kutils.plugin.api.SourceSiteDownloaderPlugin;
+import monk.solemn.kutils.plugin.api.SourceSiteRipperPlugin;
 
-@Component(service=SourceSiteDownloaderPlugin.class,
+@Component(service=SourceSiteRipperPlugin.class,
 		   immediate=true)
-public class SourceSiteDownloaderPluginImpl extends SourceSiteCommonImpl implements SourceSiteDownloaderPlugin {
+public class SourceSiteRipperPluginImpl extends SourceSiteCommonImpl implements SourceSiteRipperPlugin {
 	private static EntityDownloadService entityDownloadService;
 	private static EntityRecordDao entityRecordDao;
 	
@@ -36,11 +35,11 @@ public class SourceSiteDownloaderPluginImpl extends SourceSiteCommonImpl impleme
 			unbind="unsetEntityDownloadService"
 			)
 	public void setEntityDownloadService(EntityDownloadService itemDownloadService) {
-		SourceSiteDownloaderPluginImpl.entityDownloadService = itemDownloadService;
+		SourceSiteRipperPluginImpl.entityDownloadService = itemDownloadService;
 	}
 	
 	public void unsetEntityDownloadService(EntityDownloadService itemDownloadService) {
-		SourceSiteDownloaderPluginImpl.entityDownloadService = null;
+		SourceSiteRipperPluginImpl.entityDownloadService = null;
 	}
 	
 	@Reference(
@@ -50,47 +49,37 @@ public class SourceSiteDownloaderPluginImpl extends SourceSiteCommonImpl impleme
 			unbind="unsetEntityRecordDao"
 			)
 	public void setEntityRecordDao(EntityRecordDao entityRecordDao) {
-		SourceSiteDownloaderPluginImpl.entityRecordDao = entityRecordDao;
+		SourceSiteRipperPluginImpl.entityRecordDao = entityRecordDao;
 	}
 	
 	public void unsetEntityRecordDao(EntityRecordDao entityRecordDao) {
-		SourceSiteDownloaderPluginImpl.entityRecordDao = null;
+		SourceSiteRipperPluginImpl.entityRecordDao = null;
+	}
+	
+	@Override
+	public Long ripBundle() throws OperationNotSupportedException {
+		throw new OperationNotSupportedException("This plugin doesn't support ripping for Bundle entities.");
+	}
+	
+	@Override
+	public Long ripChannel() throws OperationNotSupportedException {
+		throw new OperationNotSupportedException("This plugin doesn't support ripping for Channel entities.");
+	}
+	
+	@Override
+	public Long ripSite() throws OperationNotSupportedException {
+		throw new OperationNotSupportedException("This plugin doesn't support ripping for Site entities.");
 	}
 	
 	/* Test command:
-	 		download dbruCore item http://danbooru.donmai.us/posts/439161
-	 		download dbruCore item http://danbooru.donmai.us/posts/737188
+	 		rip dbruCore search https://danbooru.donmai.us/posts?utf8=%E2%9C%93&tags=himura_kenshin+sagara_sanosuke 
 	 */
 	@Override
-	public Long downloadItem() throws OperationNotSupportedException {
-		try {
-			Map<String, String> postDetails = getPostDetails();
-
-			String urlString = getFileUrl(postDetails);
-
-			String fileExt = null;
-			if (postDetails.containsKey("file_ext")) {
-				fileExt = postDetails.get("file_ext");
-			}
-			
-			if (urlString != null) {
-				return downloadItem(urlString, fileExt);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return -1L;
+	public Long ripSearch() throws OperationNotSupportedException {
+		return null;
 	}
-	
-	/* Test commands: 
-			download dbruCore bundle http://danbooru.donmai.us/posts/737188 "`id` by `uploader_id``.ext`"
-			download dbruCore bundle http://danbooru.donmai.us/posts/737188 "Uploaded By `uploader_id`/`id``.ext`"
-			download dbruCore bundle http://danbooru.donmai.us/posts/737188 "By Uploader/`uploader_id`/`id``.ext`"
-	*/
-	@Override
-	public Long downloadBundle() throws OperationNotSupportedException {
+
+	public Long downloadBundle() {
 		try {
 			Map<String, String> postDetails = getPostDetails();
 
@@ -123,16 +112,6 @@ public class SourceSiteDownloaderPluginImpl extends SourceSiteCommonImpl impleme
 		return null;
 	}
 	
-	private Long downloadItem(String urlString, String fileExt)
-			throws MalformedURLException, IOException, InterruptedException {
-		URL url = new URL(urlString);
-		ItemDownloadTicket ticket = entityDownloadService.getDownloadTicket("dbruCore", ContentType.IMAGES, url.toString());
-		
-		File item = entityDownloadService.download(ticket, null, null);
-		
-		return entityDownloadService.finalizeDownload(ticket, item, "Danbooru");
-	}
-	
 	private Long downloadBundle(String urlString, String fileExt)
 			throws MalformedURLException, IOException, InterruptedException {
 		URL url = new URL(urlString);
@@ -145,5 +124,37 @@ public class SourceSiteDownloaderPluginImpl extends SourceSiteCommonImpl impleme
 		} else {
 			return entityDownloadService.finalizeDownload(ticket, items, getPostDetails(), "Danbooru", "");
 		}
+	}
+
+	public Long downloadItem() {
+		try {
+			Map<String, String> postDetails = getPostDetails();
+			
+			String urlString = getFileUrl(postDetails);
+			
+			String fileExt = null;
+			if (postDetails.containsKey("file_ext")) {
+				fileExt = postDetails.get("file_ext");
+			}
+			
+			if (urlString != null) {
+				return downloadItem(urlString, fileExt);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return -1L;
+	}
+
+	private Long downloadItem(String urlString, String fileExt)
+			throws MalformedURLException, IOException, InterruptedException {
+		URL url = new URL(urlString);
+		ItemDownloadTicket ticket = entityDownloadService.getDownloadTicket("dbruCore", ContentType.IMAGES, url.toString());
+		
+		File item = entityDownloadService.download(ticket, null, null);
+		
+		return entityDownloadService.finalizeDownload(ticket, item, "Danbooru");
 	}
 }

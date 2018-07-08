@@ -195,6 +195,8 @@ public class EntityDownloadServiceImpl implements EntityDownloadService {
 			
 			File destDir = findDestinationDir(combinedSize, StringUtils.isNotBlank(parentPath));
 			FileStore destStore = Files.getFileStore(destDir.toPath());
+			id = entityRecordDao.addNewBundle(Paths.get(destDir.getAbsolutePath(), parentPath));
+			entityRecordDao.addMetadataToBundle(id, metadata);
 			
 			for (File item : items) {
 				tmpFile = moveFile(parentPath, destDir, item);
@@ -203,8 +205,8 @@ public class EntityDownloadServiceImpl implements EntityDownloadService {
 				}
 				items.remove(item);
 				items.add(tmpFile);
+				entityRecordDao.addItemToBundle(id, tmpFile);
 			}
-			id = entityRecordDao.addNewBundle(items, metadata);
 			pendingByteCount.put(destStore, pendingByteCount.get(destStore) - combinedSize);
 		}
 		
@@ -387,37 +389,64 @@ public class EntityDownloadServiceImpl implements EntityDownloadService {
 			if (!token.getRight()) {
 				filename.append(token.getLeft());
 			} else {
-				if (BundleDownloadVariables.getTokenNames().contains(token.getLeft())) {
-					// If the token is a valid bundle variable token name:
-					if (bundleVariables != null) {
-						Class<?> variableType = BundleDownloadVariables.getVariableType(token.getLeft());
-						if (variableType == null) {
-							filename.append("");
-						} else if (variableType.equals(Number.class)) {
-							filename.append(bundleVariables.getNumberVariable(token.getLeft()));
-						} else {
-							filename.append("");
-						}
-					} else {
-						filename.append("");
-					}
-				} else if (specialTokens.contains(token.getLeft())) {
-					switch (token.getLeft()) {
-					case ".ext":
-						filename.append('.');
-					case "ext":
-						filename.append(FilenameUtils.getExtension(file.getName()));
-						break;
-					default:
-						filename.append("");
-						break;
-					}
+				if (isBundleDownloadVariableToken(token)) {
+					filename.append(getBundleDownloadVariableToken(bundleVariables, token));
+				} else if (isSpecialToken(token)) {
+					filename.append(extractSpecialToken(file, token));
 				} else {
-					filename.append(stringUtilitiesLow.sanitizeForPathName(entityRecordDao.getMetadataForBundle(id, token.getLeft())));
+					filename.append(sanitizeMetadataToken(id, token));
 				}
 			}
 		}
 		return filename;
+	}
+
+	private String sanitizeMetadataToken(Long id, Pair<String, Boolean> token) throws IOException {
+		return stringUtilitiesLow.sanitizeForPathName(entityRecordDao.getMetadataForBundle(id, token.getLeft()));
+	}
+
+	private String getBundleDownloadVariableToken(BundleDownloadVariables bundleVariables, Pair<String, Boolean> token) {
+		StringBuilder tokenValue = new StringBuilder();
+		
+		if (bundleVariables != null) {
+			Class<?> variableType = BundleDownloadVariables.getVariableType(token.getLeft());
+			if (variableType == null) {
+				tokenValue.append("");
+			} else if (variableType.equals(Number.class)) {
+				tokenValue.append(bundleVariables.getNumberVariable(token.getLeft()));
+			} else {
+				tokenValue.append("");
+			}
+		} else {
+			tokenValue.append("");
+		}
+		
+		return tokenValue.toString();
+	}
+	
+	private boolean isBundleDownloadVariableToken(Pair<String, Boolean> token) {
+		return BundleDownloadVariables.getTokenNames().contains(token.getLeft());
+	}
+
+	private String extractSpecialToken(File file, Pair<String, Boolean> token) {
+		StringBuilder tokenValue = new StringBuilder();
+		
+		switch (token.getLeft()) {
+		case ".ext":
+			tokenValue.append('.');
+		case "ext":
+			tokenValue.append(FilenameUtils.getExtension(file.getName()));
+			break;
+		default:
+			tokenValue.append("");
+			break;
+		}
+		
+		return tokenValue.toString();
+	}
+
+	private boolean isSpecialToken(Pair<String, Boolean> token) {
+		return specialTokens.contains(token.getLeft());
 	}
 
 	private List<Pair<String, Boolean>> extractTokens(String renameMask) {

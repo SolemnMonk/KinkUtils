@@ -5,6 +5,8 @@ import static monk.solemn.kutils.data.provider.Activator.openDb;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,17 +39,25 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 	}
 
 	@Override
-	public Long addNewBundle(List<File> entities, Map<String, String> metadata) throws IOException {
+	public Long addNewBundle(Path parent) throws IOException {
+		return addNewBundle(new ArrayList<>(), parent);
+	}
+	
+	@Override
+	public Long addNewBundle(List<File> entities, Path parent) throws IOException {
+		return addNewBundle(entities, parent, null);
+	}
+	
+	@Override
+	public Long addNewBundle(List<File> entities, Path parent, Map<String, String> metadata) throws IOException {
 		for (File entity : entities) {
-			addNewEntity(entity, EntityClass.BUNDLE);
+			addNewEntity(entity, EntityClass.ITEM);
 		}
 
-		long id = addNewEntity(EntityClass.BUNDLE);
+		long id = addNewEntity(parent.toString(), EntityClass.BUNDLE);
 		
 		if (metadata != null && !metadata.isEmpty()) {
-			for (String key : metadata.keySet()) {
-				recordNewMetadata(id, key, metadata.get(key));
-			}
+			addMetadataToBundle(id, metadata);
 		}
 
 		return id;
@@ -62,6 +72,27 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 		removeEntity(bundleId);
 	}
 
+	@Override
+	public Long addItemToBundle(Long bundleId, File entity) throws IOException {
+		Long itemId = addNewItem(entity);
+		return addRelationship(bundleId, itemId);
+	}
+	
+	@Override
+	public Long addItemToBundle(Long bundleId, Long itemId) throws IOException {
+		return addRelationship(bundleId, itemId);
+	}
+	
+	@Override
+	public Long addItemToBundle(Long bundleId, Path entityPath) throws IOException {
+		return addItemToBundle(bundleId, entityPath.toFile());
+	}
+	
+	@Override
+	public Long addItemToBundle(Long bundleId, String entityPath) throws IOException {
+		return addItemToBundle(bundleId, Paths.get(entityPath));
+	}
+	
 	@Override
 	public Long addNewVirtualEntity(String path, EntityClass entityClass) throws IOException, IllegalArgumentException {
 		return addNewVirtualEntity(path, entityClass, null);
@@ -103,6 +134,57 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 		}
 	}
 
+	@Override
+	public Long addRelationship(Long parentId, Long childId) throws IOException {
+		String query = "INSERT INTO `relationships` (`parentId`, `childId`) VALUES (?, ?);";
+		Long relationshipId = -1L;
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, parentId);
+				pstmt.setLong(2, childId);
+				pstmt.execute();
+			}
+			
+			query = "SELECT DISTINCT last_insert_rowid() FROM `relationships`;";
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				ResultSet results = pstmt.executeQuery();
+				if (results.next()) {
+					relationshipId = results.getLong(1);
+				}
+			}
+			
+			closeDb(conn);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return relationshipId;
+	}
+	
+	@Override
+	public void removeRelationship(Long relationshipId) throws IOException {
+		String query = "DELETE FROM `relationships` WHERE `relationshipId` = ?";
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, relationshipId);
+				pstmt.execute();
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public Long addNewChannel(String path) throws IOException {
 		return addNewChannel(path, null);
@@ -412,10 +494,6 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 		}
 	}
 
-	private synchronized Long addNewEntity(EntityClass entityType) throws IOException {
-		return addNewEntity("", entityType);
-	}
-	
 	private synchronized Long addNewEntity(File entity, EntityClass entityType) throws IOException {
 		return addNewEntity(entity.getAbsolutePath(), entityType);
 	}

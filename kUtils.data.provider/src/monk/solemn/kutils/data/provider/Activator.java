@@ -26,6 +26,11 @@ public class Activator implements BundleActivator {
 	private static BundleContext context;
 	
 	public static final String JDBC_STRING = "jdbc:sqlite:./kUtils.sqlite";
+	
+	private static Connection connectionWithoutTransaction;
+	
+	private static int connectionWithoutTransactionReferenceCount;
+	
 	@Override
 	public void start(BundleContext context) throws Exception {
 		Activator.context = context;
@@ -106,13 +111,18 @@ public class Activator implements BundleActivator {
 	}
 	
 	public static Connection openDb(boolean startTransaction) throws SQLException {
-		Connection conn = DriverManager.getConnection(Activator.JDBC_STRING);
-		
 		if (startTransaction) {
+			Connection conn = DriverManager.getConnection(Activator.JDBC_STRING);
 			conn.setAutoCommit(false);
+			return conn;
+		} else {
+			if (connectionWithoutTransaction == null) {
+				connectionWithoutTransaction = DriverManager.getConnection(Activator.JDBC_STRING);
+				connectionWithoutTransaction.setAutoCommit(true);
+			}
+			connectionWithoutTransactionReferenceCount++;
+			return connectionWithoutTransaction;
 		}
-		
-		return conn;
 	}
 	
 	public static void closeDb(Connection conn) throws SQLException {
@@ -122,9 +132,15 @@ public class Activator implements BundleActivator {
 	public static void closeDb(Connection conn, boolean shouldCommitTransaction) throws SQLException {
 		if (shouldCommitTransaction) {
 			conn.commit();
+			conn.close();
+		} else {
+			if (conn.equals(connectionWithoutTransaction)) {
+				connectionWithoutTransactionReferenceCount--;
+				if (connectionWithoutTransactionReferenceCount <= 0) {
+					connectionWithoutTransaction.close();
+				}
+			}
 		}
-		
-		conn.close();
 	}
 }
 

@@ -16,7 +16,7 @@ import monk.solemn.kutils.plugin.api.SourceSiteDataGathererPlugin;
 
 @Component(service=SourceSiteDataGathererPlugin.class,
 		   immediate=true)
-public class SourceSiteDataGathererImpl extends SourceSiteCommonImpl implements SourceSiteDataGathererPlugin {
+public class SourceSiteDataGathererPluginImpl extends SourceSiteCommonImpl implements SourceSiteDataGathererPlugin {
 
 	@Override
 	public String getTitle() {
