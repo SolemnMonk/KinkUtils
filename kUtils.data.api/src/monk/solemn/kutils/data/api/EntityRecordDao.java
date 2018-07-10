@@ -11,6 +11,12 @@ import monk.solemn.kutils.enums.EntityClass;
 public interface EntityRecordDao {
 	Long addNewItem(File entity) throws IOException;
 	
+	Long addNewItem(Path entity) throws IOException;
+	
+	Long getItemIdByPath(Path entity) throws IOException;
+	
+	Long getItemIdByFile(File entity) throws IOException;
+	
 	void removeItem(Long itemId) throws IOException;
 
 	Long addNewBundle(Path parent) throws IOException;
@@ -19,6 +25,12 @@ public interface EntityRecordDao {
 	
 	Long addNewBundle(List<File> entities, Path parent, Map<String, String> metadata) throws IOException;
 
+	Long getBundleIdByPath(Path parent) throws IOException;
+	
+	Long getBundleContainingEntity(File entity) throws IOException;
+	
+	Long getBundleContainingEntities(List<File> entities) throws IOException;
+	
 	void removeBundle(Long bundleId) throws IOException;
 	
 	Long addItemToBundle(Long bundleId, File entity) throws IOException;
@@ -36,6 +48,10 @@ public interface EntityRecordDao {
 	void removeVirtualEntity(Long entityId) throws IOException;
 	
 	Long addRelationship(Long parentId, Long childId) throws IOException;
+	
+	List<Long> getRelationships(Long parentId) throws IOException;
+	
+	Long getRelationship(Long parentId, Long childId) throws IOException;
 	
 	void removeRelationship(Long relationshipId) throws IOException;
 	

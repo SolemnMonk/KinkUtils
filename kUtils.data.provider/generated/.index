@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1531061118634" name="kUtils.data.provider" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1531193471316" name="kUtils.data.provider" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="kUtils.data.provider"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201807081445"/>
+      <attribute name="version" type="Version" value="1.0.0.201807100331"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="aa1615a74f4fdb69dc8fd3d8cf2753527d921c1ab88c04db240e5b8464461b0e"/>
+      <attribute name="osgi.content" value="61466238994ed0e5846a6ac13337f8e1612a7481423801a297d2f8a2d3f2c902"/>
       <attribute name="url" value="generated/kUtils.data.provider.jar"/>
-      <attribute name="size" type="Long" value="43084"/>
+      <attribute name="size" type="Long" value="45114"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="kUtils.data.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807100331"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="kUtils.data.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807100331"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="monk.solemn.kutils.data.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="kUtils.data.provider"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201807081445"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201807100331"/>
       <directive name="uses" value="monk.solemn.kutils.enums,monk.solemn.kutils.objects"/>
     </capability>
     <capability namespace="osgi.service">

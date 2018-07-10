@@ -27,9 +27,9 @@ public class Activator implements BundleActivator {
 	
 	public static final String JDBC_STRING = "jdbc:sqlite:./kUtils.sqlite";
 	
-	private static Connection connectionWithoutTransaction;
+	private static Connection noTransactionConnection;
 	
-	private static int connectionWithoutTransactionReferenceCount;
+	private static int noTransactionConnectionReferenceCount;
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -116,12 +116,12 @@ public class Activator implements BundleActivator {
 			conn.setAutoCommit(false);
 			return conn;
 		} else {
-			if (connectionWithoutTransaction == null) {
-				connectionWithoutTransaction = DriverManager.getConnection(Activator.JDBC_STRING);
-				connectionWithoutTransaction.setAutoCommit(true);
+			if (noTransactionConnection == null) {
+				noTransactionConnection = DriverManager.getConnection(Activator.JDBC_STRING);
+				noTransactionConnection.setAutoCommit(true);
 			}
-			connectionWithoutTransactionReferenceCount++;
-			return connectionWithoutTransaction;
+			noTransactionConnectionReferenceCount++;
+			return noTransactionConnection;
 		}
 	}
 	
@@ -134,10 +134,10 @@ public class Activator implements BundleActivator {
 			conn.commit();
 			conn.close();
 		} else {
-			if (conn.equals(connectionWithoutTransaction)) {
-				connectionWithoutTransactionReferenceCount--;
-				if (connectionWithoutTransactionReferenceCount <= 0) {
-					connectionWithoutTransaction.close();
+			if (conn.equals(noTransactionConnection)) {
+				noTransactionConnectionReferenceCount--;
+				if (noTransactionConnectionReferenceCount <= 0) {
+					noTransactionConnection.close();
 				}
 			}
 		}

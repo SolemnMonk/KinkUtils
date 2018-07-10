@@ -1,5 +1,7 @@
 package monk.solemn.kutils.application;
 
+import javax.naming.OperationNotSupportedException;
+
 import monk.solemn.kutils.objects.Task;
 import monk.solemn.kutils.plugin.api.SourceSiteDownloaderPlugin;
 import monk.solemn.kutils.plugin.api.SourceSitePlugin;
@@ -21,18 +23,22 @@ public class TaskRunner implements Runnable {
 					plugin.authenticate();
 				}
 				
-				switch (task.getAction()) {
-				case DOWNLOAD:
-					Downloader.download((SourceSiteDownloaderPlugin) plugin, task);
-					break;
-				case GATHER_DATA:
-					break;
-				case RIP:
-					break;
-				case MONITOR:
-					break;
-				default:
-					break;
+				try {
+					switch (task.getAction()) {
+					case DOWNLOAD:
+						Downloader.download((SourceSiteDownloaderPlugin) plugin, task);
+						break;
+					case GATHER_DATA:
+						break;
+					case RIP:
+						break;
+					case MONITOR:
+						break;
+					default:
+						break;
+					}
+				} catch (OperationNotSupportedException e) {
+					e.printStackTrace();
 				}
 			}
 			try {

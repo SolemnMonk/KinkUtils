@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,22 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 	public Long addNewItem(File entity) throws IOException {
 		return addNewEntity(entity, EntityClass.ITEM);
 	}
+	
+	@Override
+	public Long addNewItem(Path entity) throws IOException {
+		return addNewItem(entity.toFile());
+	}
 
+	@Override
+	public Long getItemIdByPath(Path entity) throws IOException {
+		return getItemIdByFile(entity.toFile());
+	}
+
+	@Override
+	public Long getItemIdByFile(File entity) throws IOException {
+		return getEntityIdByPath(EntityClass.ITEM, entity);
+	}
+	
 	@Override
 	public void removeItem(Long itemId) throws IOException {
 		removeEntity(itemId);
@@ -63,6 +79,21 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 		return id;
 	}
 
+	@Override
+	public Long getBundleIdByPath(Path parent) throws IOException {
+		return getEntityIdByPath(EntityClass.BUNDLE, parent.toFile());
+	}
+	
+	@Override
+	public Long getBundleContainingEntity(File entity) throws IOException {
+		return getBundleContainingEntities(Arrays.asList(entity));
+	}
+
+	@Override
+	public Long getBundleContainingEntities(List<File> entities) throws IOException {
+		return getBundleByEntities(entities);
+	}
+	
 	@Override
 	public void removeBundle(Long bundleId) throws IOException {
 		Map<Long, Pair<String, String>> metadata = retrieveMetadata(bundleId);
@@ -159,7 +190,55 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 			}
 			
 			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return relationshipId;
+	}
+	
+	public List<Long> getRelationships(Long parentId) throws IOException {
+		String query = "SELECT `relationshipId` FROM `relationships` WHERE `parentId` = ?";
+		
+		List<Long> relationshipIds = new ArrayList<>();
+		Connection conn;
+		try {
+			conn = openDb();
 			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, parentId);
+				
+				ResultSet results = pstmt.executeQuery();
+				while (results.next()) {
+					relationshipIds.add(results.getLong(1));
+				}
+			}
+			
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return relationshipIds;
+	}
+	
+	public Long getRelationship(Long parentId, Long childId) throws IOException {
+		String query = "SELECT `relationshipId` FROM `relationships` WHERE `parentId` = ? AND `childId` = ?";
+		
+		Long relationshipId = -1L;
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setLong(1, parentId);
+				pstmt.setLong(2, childId);
+				
+				ResultSet results = pstmt.executeQuery();
+				if (results.next()) {
+					relationshipId = results.getLong(1);
+				}
+			}
+			
+			closeDb(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -498,6 +577,81 @@ public class EntityRecordDaoImpl implements EntityRecordDao {
 		return addNewEntity(entity.getAbsolutePath(), entityType);
 	}
 
+	private Long getEntityIdByPath(EntityClass entityType, File entity) {
+		String query = "SELECT `entityId` FROM `entities` WHERE `entityPath` = ? AND `classId` = (SELECT classId FROM classes WHERE name = ?)";
+		Long id = -1L;
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				pstmt.setString(1, entity.getAbsolutePath());
+				pstmt.setString(2, entityType.toString().toLowerCase());
+				
+				ResultSet results = pstmt.executeQuery();
+				if (results.next()) {
+					id = results.getLong(1);
+				}
+			}
+
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
+
+	private synchronized Long getBundleByEntities(List<File> entities) {
+		/* Generalized final query:
+		 * 
+		 * SELECT e2.`entityId` 
+		 * FROM `entities` e1 
+		 * JOIN `relationships` r ON e1.`entityId` = r.`childId` 
+		 * JOIN `entities` e2 ON r.`parentId` = e2.`entityId` 
+		 * WHERE e1.`entityPath` IN ((?, )*?) 
+		 * AND e2.`classId` = (SELECT classId FROM classes WHERE name = "bundle") 
+		 * GROUP BY e2.`entityId`;
+		 */
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("SELECT e2.`entityId` FROM `entities` e1 ");
+		queryBuilder.append("JOIN `relationships` r ON e1.`entityId` = r.`childId` ");
+		queryBuilder.append("JOIN `entities` e2 ON r.`parentId` = e2.`entityId` ");
+		queryBuilder.append("WHERE e1.`entityPath` IN (");
+		for (int i = 0; i < entities.size() - 1; i++) {
+			queryBuilder.append("?, ");
+		}
+		queryBuilder.append(" ?");
+		queryBuilder.append(") AND e2.`classId` = (SELECT classId FROM classes WHERE name = bundle) ");
+		queryBuilder.append("GROUP BY e2.`entityId`;");
+		
+		String query = queryBuilder.toString();
+		Long id = -1L;
+		
+		Connection conn;
+		try {
+			conn = openDb();
+			
+			try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+				for (int i = 0; i < entities.size(); i++) {
+					pstmt.setString(i + 1, entities.get(i).getAbsolutePath());
+				}
+				
+				ResultSet results = pstmt.executeQuery();
+				if (results.next()) {
+					id = results.getLong(1);
+				}
+			}
+
+			closeDb(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
+	
 	private synchronized Long addNewEntity(String entityPath, EntityClass entityType) throws IOException {
 		String query = "INSERT INTO `entities` (`entityPath`, `classId`) VALUES (?, (SELECT classId FROM classes WHERE name = ?))";
 		Long id = null;

@@ -2,13 +2,14 @@ package monk.solemn.kutils.plugin.core.danbooru;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
 
@@ -32,9 +33,10 @@ public class SourceSiteCommonImpl implements SourceSitePlugin {
 	private static SourceSiteCommonImpl instance;
 	private static Task currentTask;
 	private static PluginInfo pluginInfo;
+	private static Pattern tagPattern = Pattern.compile(".*\\?.*tags=(.*?)&.*");
 	
 	protected SourceSiteCommonImpl() {
-		// Empty on purpose
+		super();
 	}
 	
 	public static SourceSitePlugin getInstance() {
@@ -115,6 +117,32 @@ public class SourceSiteCommonImpl implements SourceSitePlugin {
 		}
 		
 		return postDetails;
+	}
+	
+	protected List<Map<String, String>> getSearchDetails() {
+		return getSearchDetails(1);
+	}
+	
+	protected List<Map<String, String>> getSearchDetails(Integer page) {
+		List<Map<String, String>> searchDetails = new ArrayList<>();
+		
+		try {
+			String urlString = SourceSiteCommonImpl.getInstance().getTask().getData().get("url");
+			Matcher tagMatcher = tagPattern.matcher(urlString);
+			urlString = BASE_URL + POSTS_FRAGMENT + tagMatcher.group(1) + FORMAT_FRAGMENT;
+			URL url = new URL(urlString);
+			HttpURLConnection connection = buildConnection(url);
+			
+			int responseCode = connection.getResponseCode();
+			if (responseCode != 200) {
+				throw new IOException("Received response code of " + Integer.valueOf(responseCode).toString());
+			}
+			postDetails = new Gson().fromJson(IOUtils.toString(connection.getInputStream()), new TypeToken<Map<String, String>>(){}.getType());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return searchDetails;
 	}
 	
 	protected HttpURLConnection buildConnection(URL url) throws IOException, ProtocolException {
